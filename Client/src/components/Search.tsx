@@ -2,16 +2,16 @@
 import { SetStateAction, useState } from "react";
 
 export default function Search() {
-  const [message, setMessage] = useState("");
+  const [searchValue, setSearch] = useState("");
 
   const handleChange = (event: {
     target: { value: SetStateAction<string> };
   }) => {
-    setMessage(event.target.value);
+    setSearch(event.target.value);
   };
 
   const handleClick = () => {
-    console.log(message);
+    console.log(searchValue);
   };
 
   const handleKeyDown = (event: { key: string }) => {
@@ -28,7 +28,7 @@ export default function Search() {
         id="message"
         name="message"
         onChange={handleChange}
-        value={message}
+        value={searchValue}
         onKeyDown={handleKeyDown}
       />
 
