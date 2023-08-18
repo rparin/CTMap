@@ -23,10 +23,9 @@ export default function Search() {
   return (
     <>
       <input
-        className="text-gray-950"
+        className="text-gray-950 w-72 px-3"
         type="text"
-        id="message"
-        name="message"
+        placeholder="Search for a condition or disease"
         onChange={handleChange}
         value={searchValue}
         onKeyDown={handleKeyDown}
