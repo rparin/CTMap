@@ -1,5 +1,5 @@
 const express = require("express");
-const CTHelper = require("../helper/ctHelper");
+const CTHelper = require("../helpers/ctHelper");
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
