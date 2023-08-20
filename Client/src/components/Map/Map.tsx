@@ -16,6 +16,34 @@ export default function Map() {
   const [lat, setLat] = useState(42.35);
   const [zoom, setZoom] = useState(3);
 
+  const geojson = {
+    type: "FeatureCollection",
+    features: [
+      {
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: [-77.032, 38.913],
+        },
+        properties: {
+          title: "Mapbox",
+          description: "Washington, D.C.",
+        },
+      },
+      {
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: [-122.414, 37.776],
+        },
+        properties: {
+          title: "Mapbox",
+          description: "San Francisco, California",
+        },
+      },
+    ],
+  };
+
   useEffect(() => {
     if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
@@ -30,6 +58,17 @@ export default function Map() {
       showCompass: false, // do not show compass controls so rotation of the map is not allowed (not neeeded anyway)
     });
     map.current.addControl(nav, "top-right");
+
+    //Sample Popup
+    const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
+      `<h3>hello</h3><p>world</p>`
+    );
+
+    //Sample Pin
+    const marker = new mapboxgl.Marker()
+      .setLngLat([-122.414, 37.776])
+      .setPopup(popup)
+      .addTo(map.current);
   });
 
   return <div ref={mapContainer} className="map_container" />;
