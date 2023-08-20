@@ -10,6 +10,7 @@ class ctHelper {
 
       for (
         let j = 0;
+        res.studies[i].protocolSection.contactsLocationsModule &&
         res.studies[i].protocolSection.contactsLocationsModule.locations &&
         j <
           res.studies[i].protocolSection.contactsLocationsModule.locations
