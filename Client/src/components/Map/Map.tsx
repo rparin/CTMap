@@ -17,7 +17,6 @@ export default function Map() {
   const [zoom, setZoom] = useState(3);
 
   useEffect(() => {
-    if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
       container: mapContainer.current!,
       style: "MAP_STYLE", // map styling here; streets and other miscellaneous stuff were removed here
@@ -41,7 +40,10 @@ export default function Map() {
       .setLngLat([-122.414, 37.776])
       .setPopup(popup)
       .addTo(map.current);
-  });
+
+    // cleanup function to remove map on unmount
+    return () => map.remove();
+  }, []); // adding the empty dependency array ensures that the map is only rendered once
 
   return <div ref={mapContainer} className="map_container" />;
 }
