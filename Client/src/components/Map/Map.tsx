@@ -16,9 +16,9 @@ type PopDetails = {
   details: string;
 };
 const Popup = ({ title, details }: PopDetails) => (
-  <div className="popup">
-    <h3 className="p-title">{title}</h3>
-    <p className="p-dets">{details}</p>
+  <div>
+    <h3>{title}</h3>
+    <p>{details}</p>
   </div>
 );
 
