@@ -5,9 +5,22 @@ import "./Map.css";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import React, { useRef, useEffect, useState } from "react";
+import ReactDOM from "react-dom";
 
 mapboxgl.accessToken =
   "MAP_TOKEN";
+
+// Popup component
+type PopDetails = {
+  title: string;
+  details: string;
+};
+const Popup = ({ title, details }: PopDetails) => (
+  <div className="popup">
+    <h3 className="p-title">{title}</h3>
+    <p className="p-dets">{details}</p>
+  </div>
+);
 
 export default function Map() {
   const mapContainer = useRef(null);
@@ -15,6 +28,7 @@ export default function Map() {
   const [lng, setLng] = useState(-70.9);
   const [lat, setLat] = useState(42.35);
   const [zoom, setZoom] = useState(3);
+  const popUpRef = useRef(new mapboxgl.Popup({ offset: 15 }));
 
   useEffect(() => {
     map.current = new mapboxgl.Map({
@@ -31,9 +45,13 @@ export default function Map() {
     map.current.addControl(nav, "top-right");
 
     //Sample Popup
-    const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
-      `<h3>hello</h3><p>world</p>`
-    );
+    const popup = new mapboxgl.Popup({ offset: 25 });
+
+    //Switch to createRoot
+    //Use popup component
+    const popupNode = document.createElement("div");
+    ReactDOM.render(<Popup title={"pTitle"} details={"pDetails"} />, popupNode);
+    popup.setDOMContent(popupNode);
 
     //Sample Pin
     const marker = new mapboxgl.Marker()
