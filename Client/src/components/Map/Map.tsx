@@ -1,26 +1,16 @@
 "use client";
 
 import "./Map.css";
+import MPopup from "../MPopup";
 
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+
 import React, { useRef, useEffect, useState } from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 
 mapboxgl.accessToken =
   "MAP_TOKEN";
-
-// Popup component
-type PopDetails = {
-  title: string;
-  details: string;
-};
-const Popup = ({ title, details }: PopDetails) => (
-  <div>
-    <h3>{title}</h3>
-    <p>{details}</p>
-  </div>
-);
 
 export default function Map() {
   const mapContainer = useRef(null);
@@ -46,12 +36,11 @@ export default function Map() {
 
     //Sample Popup
     const popup = new mapboxgl.Popup({ offset: 25 });
-
-    //Switch to createRoot
-    //Use popup component
-    const popupNode = document.createElement("div");
-    ReactDOM.render(<Popup title={"pTitle"} details={"pDetails"} />, popupNode);
-    popup.setDOMContent(popupNode);
+    const pContainer = document.createElement("div");
+    createRoot(pContainer).render(
+      <MPopup title={"pTitle"} details={"pDetails"} />
+    );
+    popup.setDOMContent(pContainer);
 
     //Sample Pin
     const marker = new mapboxgl.Marker()
