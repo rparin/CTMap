@@ -1,6 +1,6 @@
 import React from "react";
 
-type pInfo = {
+export type pInfo = {
   title: string;
   details: string;
 };
