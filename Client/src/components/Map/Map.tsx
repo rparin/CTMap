@@ -19,7 +19,6 @@ export default function Map() {
   const [lng, setLng] = useState(-70.9);
   const [lat, setLat] = useState(42.35);
   const [zoom, setZoom] = useState(3);
-  const popUpRef = useRef(new mapboxgl.Popup({ offset: 15 }));
 
   //Get and store data from search result
   const [searchResult, setResult] = useState("");
