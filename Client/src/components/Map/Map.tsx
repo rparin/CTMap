@@ -21,7 +21,7 @@ export default function Map() {
   const [zoom, setZoom] = useState(3);
 
   //Get and store data from search result
-  const [searchResult, setResult] = useState("");
+  const [searchResult, setResult] = useState({});
   const mEventHandlers: { marker: HTMLElement; func: () => void }[] = [];
 
   const removeMarkerEvents = async () => {
@@ -45,23 +45,33 @@ export default function Map() {
     map.addControl(nav, "top-right");
 
     //Fill map with result pins
-    if (searchResult != "") {
-      //Create Pin on map
-      const marker = new mapboxgl.Marker({ color: "#9A00FF" })
-        .setLngLat([-122.414, 37.776])
-        .addTo(map);
-      const mElement = marker.getElement();
+    if (!isEmpty(searchResult)) {
+      let colors = new Set();
+      for (var key in searchResult) {
+        let nctId = key;
+        let curColor = getRandomColor();
+        while (colors.has(curColor)) {
+          curColor = getRandomColor();
+        }
+        const arr: any[] = searchResult[key as keyof {}];
+        for (let i = 0; i < arr.length; i++) {
+          const marker = new mapboxgl.Marker({ color: curColor })
+            .setLngLat(arr[i])
+            .addTo(map);
+          const mElement = marker.getElement();
 
-      //Create Popup on marker click
-      const mHandler = () => {
-        const popup = createPopup(
-          { title: "pTitle", details: "pDetails" },
-          { offset: 25 }
-        );
-        marker.setPopup(popup).togglePopup();
-      };
-      mElement.addEventListener("click", mHandler);
-      mEventHandlers.push({ marker: mElement, func: mHandler });
+          //Create Popup on marker click
+          const mHandler = () => {
+            const popup = createPopup(
+              { title: nctId, details: "pDetails" },
+              { offset: 25 }
+            );
+            marker.setPopup(popup).togglePopup();
+          };
+          mElement.addEventListener("click", mHandler);
+          mEventHandlers.push({ marker: mElement, func: mHandler });
+        }
+      }
     }
 
     // cleanup function to remove map on unmount
@@ -75,6 +85,8 @@ export default function Map() {
     <>
       <div className="flex justify-between">
         <Search setResult={setResult} />
+
+        {/* Todo add location search bar here */}
       </div>
       <div ref={mapContainer} className="map_container" />
     </>
@@ -92,4 +104,21 @@ function createPopup(
   );
   popup.setDOMContent(pContainer);
   return popup;
+}
+
+function isEmpty(obj: any) {
+  for (var prop in obj) {
+    if (obj.hasOwnProperty(prop)) return false;
+  }
+
+  return true;
+}
+
+function getRandomColor() {
+  var letters = "0123456789ABCDEF";
+  var color = "#";
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
 }
