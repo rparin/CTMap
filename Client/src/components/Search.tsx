@@ -1,7 +1,10 @@
-"use client";
 import { SetStateAction, useState } from "react";
 
-export default function Search() {
+export default function Search({
+  setResult,
+}: {
+  setResult: React.Dispatch<React.SetStateAction<string>>;
+}) {
   //API Endpoints
   const ct_search_ep = "http://localhost:8080/api/ct/studies";
 
@@ -16,11 +19,15 @@ export default function Search() {
 
   // call ct-api to get search results on button click or enter key
   const handleClick = async () => {
-    fetch(ct_search_ep + "/" + searchValue).then((res) =>
-      res.json().then((data) => {
-        console.log(data.searchResult);
-      })
-    );
+    if (searchValue == "") return;
+    setResult(searchValue);
+
+    // fetch(ct_search_ep + "/" + searchValue).then((res) =>
+    //   res.json().then((data) => {
+    //     console.log(data.searchResult);
+    //     setResult(data.searchResult);
+    //   })
+    // );
   };
 
   const handleKeyDown = (event: { key: string }) => {
