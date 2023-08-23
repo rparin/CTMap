@@ -1,10 +1,19 @@
 class ctHelper {
   constructor() {}
 
+  async getLatLong(place, accessToken) {
+    const response = await fetch(
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${place}.json?access_token=${accessToken}`
+    );
+    const res = await response.json();
+    return res.features[0].center;
+  }
+
   //parse data from clinical trial api
   //https://clinicaltrials.gov/api/v2/studies
-  parseSearchResults(res) {
+  async parseSearchResults(res) {
     const data = {};
+    const cords = new Map();
     for (let i = 0; i < res.studies.length; i++) {
       const location = new Set();
 
@@ -17,24 +26,30 @@ class ctHelper {
             .length;
         j++
       ) {
+        let loc =
+          res.studies[i].protocolSection.contactsLocationsModule.locations[j]
+            .country;
         if (
           res.studies[i].protocolSection.contactsLocationsModule.locations[j]
             .state
         ) {
-          location.add(
+          loc =
             res.studies[i].protocolSection.contactsLocationsModule.locations[j]
               .state +
-              ", " +
-              res.studies[i].protocolSection.contactsLocationsModule.locations[
-                j
-              ].country
-          );
-        } else {
-          location.add(
+            ", " +
             res.studies[i].protocolSection.contactsLocationsModule.locations[j]
-              .country
-          );
+              .country;
         }
+
+        if (!cords.has(loc)) {
+          const latLong = await this.getLatLong(
+            loc,
+            "MAP_TOKEN"
+          );
+          cords.set(loc, latLong);
+        }
+
+        location.add(cords.get(loc));
       }
 
       data[res.studies[i].protocolSection.identificationModule.nctId] =
