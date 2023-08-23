@@ -11,7 +11,8 @@ router.get("/studies/:search", async (req, res) => {
   try {
     let response = await fetch(apiUrl);
     response = await response.json();
-    res.json({ searchResult: ctHelper.parseSearchResults(response) });
+    result = await ctHelper.parseSearchResults(response);
+    res.json({ searchResult: result });
     res.status(200);
   } catch (err) {
     console.log(err);
