@@ -20,14 +20,14 @@ export default function Search({
   // call ct-api to get search results on button click or enter key
   const handleClick = () => {
     if (searchValue == "") return;
-    setResult(searchValue);
+    // setResult(searchValue);
 
-    // fetch(ct_search_ep + "/" + searchValue).then((res) =>
-    //   res.json().then((data) => {
-    //     console.log(data.searchResult);
-    //     setResult(data.searchResult);
-    //   })
-    // );
+    fetch(ct_search_ep + "/" + searchValue).then((res) =>
+      res.json().then((data) => {
+        console.log(data.searchResult);
+        setResult(data.searchResult);
+      })
+    );
   };
 
   const handleKeyDown = (event: { key: string }) => {
