@@ -18,7 +18,7 @@ export default function Search({
   };
 
   // call ct-api to get search results on button click or enter key
-  const handleClick = async () => {
+  const handleClick = () => {
     if (searchValue == "") return;
     setResult(searchValue);
 

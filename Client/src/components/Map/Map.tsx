@@ -47,22 +47,19 @@ export default function Map() {
 
     //Fill map with result pins
     if (searchResult != "") {
-      //Sample Popup
-      const popup = createPopup(
-        { title: "pTitle", details: "pDetails" },
-        { offset: 25 }
-      );
-
-      //Sample Pin
+      //Create Pin on map
       const marker = new mapboxgl.Marker({ color: "#9A00FF" })
         .setLngLat([-122.414, 37.776])
-        .setPopup(popup)
         .addTo(map);
-
-      // Get data for ct
       const mElement = marker.getElement();
+
+      //Create Popup on marker click
       const mHandler = () => {
-        mEvent("nctId");
+        const popup = createPopup(
+          { title: "pTitle", details: "pDetails" },
+          { offset: 25 }
+        );
+        marker.setPopup(popup).togglePopup();
       };
       mElement.addEventListener("click", mHandler);
       mEventHandlers.push({ marker: mElement, func: mHandler });
@@ -83,10 +80,6 @@ export default function Map() {
       <div ref={mapContainer} className="map_container" />
     </>
   );
-}
-
-function mEvent(nctId: string) {
-  console.log("hello from marker");
 }
 
 function createPopup(
