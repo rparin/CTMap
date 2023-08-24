@@ -3,13 +3,13 @@
 import "./Map.css";
 import MPopup, { pInfo } from "../MPopup";
 import Search from "@/components/Search";
+import Results from "@/components/Results";
 
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 import React, { useRef, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { getEventListeners } from "events";
 
 mapboxgl.accessToken =
   "MAP_TOKEN";
@@ -87,6 +87,11 @@ export default function Map() {
       <div className="flex justify-between absolute m-5 gap-3">
         <Search setResult={setResult} />
 
+        {/* Todo add location search bar here */}
+      </div>
+
+      <div className="absolute m-5 bottom-10">
+        <Results />
         {/* Todo add location search bar here */}
       </div>
     </>
