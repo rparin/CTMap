@@ -83,12 +83,12 @@ export default function Map() {
 
   return (
     <>
-      <div className="flex justify-between">
+      <div ref={mapContainer} className="map_container" />
+      <div className="flex justify-between absolute m-5 gap-3">
         <Search setResult={setResult} />
 
         {/* Todo add location search bar here */}
       </div>
-      <div ref={mapContainer} className="map_container" />
     </>
   );
 }

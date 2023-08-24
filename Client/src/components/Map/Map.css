@@ -1,6 +1,6 @@
 .map_container {
-  background-color: cadetblue;
-  height: 80vh;
+  height: 100vh;
   width: auto;
   color: black;
+  position: relative;
 }
