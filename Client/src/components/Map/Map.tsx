@@ -7,6 +7,9 @@ import Search from "@/components/Search";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+
 import React, { useRef, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { getEventListeners } from "events";
@@ -43,6 +46,14 @@ export default function Map() {
       showCompass: false, // do not show compass controls so rotation of the map is not allowed (not neeeded anyway)
     });
     map.addControl(nav, "top-right");
+
+    // add geocoder control
+    map.addControl(
+      new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl,
+      })
+    );
 
     //Fill map with result pins
     if (!isEmpty(searchResult)) {
