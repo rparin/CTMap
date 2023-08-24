@@ -10,6 +10,7 @@ export default function Search({
 
   //Search Entry
   const [searchValue, setSearch] = useState("");
+  const [prevValue, setPrev] = useState("");
 
   const handleChange = (event: {
     target: { value: SetStateAction<string> };
@@ -20,14 +21,16 @@ export default function Search({
   // call ct-api to get search results on button click or enter key
   const handleClick = () => {
     if (searchValue == "") return;
-    // setResult(searchValue);
 
-    fetch(ct_search_ep + "/" + searchValue).then((res) =>
-      res.json().then((data) => {
-        console.log(data.searchResult);
-        setResult(data.searchResult);
-      })
-    );
+    if (prevValue != searchValue) {
+      fetch(ct_search_ep + "/" + searchValue).then((res) =>
+        res.json().then((data) => {
+          console.log(data.searchResult);
+          setResult(data.searchResult);
+        })
+      );
+    }
+    setPrev(searchValue);
   };
 
   const handleKeyDown = (event: { key: string }) => {
