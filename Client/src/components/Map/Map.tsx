@@ -43,24 +43,25 @@ export default function Map() {
       maxZoom: 10
     });
 
-    // add zoom control
-    const nav = new mapboxgl.NavigationControl({
-      showCompass: false, // do not show compass controls so rotation of the map is not allowed (not neeeded anyway)
-    });
-    map.addControl(nav, "top-right");
-
     // add geocoder control
     map.addControl(
       new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl,
         marker: false,    // do not display a marker on location so that results markers can be seen
-        types: 'country, region, postcode, district, place, locality, neighborhood'  // limits searches and prevents specific addresses from being searched for
+        types: 'country, region, postcode, district, place, locality, neighborhood',  // limits searches and prevents specific addresses from being searched for
+        placeholder: "Search location"
       })
     );
 
+    // add zoom control
+    const nav = new mapboxgl.NavigationControl({
+      showCompass: false, // do not show compass controls so rotation of the map is not allowed (not neeeded anyway)
+    });
+    map.addControl(nav, "bottom-right");
+
     // add user locator control
-    map.addControl(
+    const userLocator = map.addControl(
       new mapboxgl.GeolocateControl({
         fitBoundsOptions: {maxZoom: 5}
       })
