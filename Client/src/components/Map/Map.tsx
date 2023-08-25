@@ -33,6 +33,7 @@ export default function Map() {
     });
   };
 
+  // set initial settings and location
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapContainer.current!,
@@ -53,13 +54,15 @@ export default function Map() {
       new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl,
+        marker: false,    // do not display a marker on location so that results markers can be seen
         types: 'country, region, postcode, district, place, locality, neighborhood'  // limits searches and prevents specific addresses from being searched for
       })
     );
 
+    // add user locator control
     map.addControl(
       new mapboxgl.GeolocateControl({
-        fitBoundsOptions: {maxZoom: 5}
+        fitBoundsOptions: {maxZoom: 3}
       })
     );
 
