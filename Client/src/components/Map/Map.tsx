@@ -21,7 +21,7 @@ export default function Map() {
   const mapContainer = useRef(null);
   const [lng, setLng] = useState(-70.9);
   const [lat, setLat] = useState(42.35);
-  const [zoom, setZoom] = useState(3);
+  const [zoom, setZoom] = useState(5);
 
   //Get and store data from search result
   const [searchResult, setResult] = useState({});
@@ -39,6 +39,7 @@ export default function Map() {
       style: "MAP_STYLE", // map styling here; streets and other miscellaneous stuff were removed here
       center: [lng, lat],
       zoom: zoom,
+      maxZoom: 10
     });
 
     // add zoom control
@@ -52,6 +53,13 @@ export default function Map() {
       new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl,
+        types: 'country, region, postcode, district, place, locality, neighborhood'  // limits searches and prevents specific addresses from being searched for
+      })
+    );
+
+    map.addControl(
+      new mapboxgl.GeolocateControl({
+        fitBoundsOptions: {maxZoom: 5}
       })
     );
 
