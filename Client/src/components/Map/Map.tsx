@@ -62,7 +62,7 @@ export default function Map() {
     // add user locator control
     map.addControl(
       new mapboxgl.GeolocateControl({
-        fitBoundsOptions: {maxZoom: 3}
+        fitBoundsOptions: {maxZoom: 5}
       })
     );
 
