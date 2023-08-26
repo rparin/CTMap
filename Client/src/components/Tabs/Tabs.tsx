@@ -78,7 +78,6 @@ export default function Tabs() {
       }
     }
 
-    // cleanup function to remove map on unmount
     return () => {
       tabsContainer?.removeEventListener("click", clickHandler);
       tabsContainer?.removeEventListener("keydown", keyHandler);
