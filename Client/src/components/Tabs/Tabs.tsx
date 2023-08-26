@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import "./Tabs.css";
 import Results from "../Results";
+import "./Tabs.css";
 
 export default function Tabs() {
   useEffect(() => {
@@ -22,23 +22,21 @@ export default function Tabs() {
         panel.setAttribute("hidden", "true");
       });
 
-      activePanel!.removeAttribute("hidden");
+      activePanel?.removeAttribute("hidden");
 
       newTab.setAttribute("aria-selected", true);
       newTab.setAttribute("tabindex", "0");
       newTab.focus();
     }
-
-    tabsContainer!.addEventListener("click", (e) => {
-      const clickedTab = (e.target! as HTMLElement).closest("button");
-      const currentTab = tabsContainer!.querySelector('[aria-selected="true"]');
+    const clickHandler = (e: any) => {
+      const clickedTab = (e.target as HTMLElement).closest("button");
+      const currentTab = tabsContainer?.querySelector('[aria-selected="true"]');
 
       if (!clickedTab || clickedTab === currentTab) return;
 
       switchTab(clickedTab);
-    });
-
-    tabsContainer!.addEventListener("keydown", (e: any) => {
+    };
+    const keyHandler = (e: any) => {
       switch (e.key) {
         case "ArrowLeft":
           moveLeft();
@@ -55,7 +53,11 @@ export default function Tabs() {
           switchTab(tabButtons[tabButtons.length - 1]);
           break;
       }
-    });
+    };
+
+    tabsContainer!.addEventListener("click", clickHandler);
+
+    tabsContainer!.addEventListener("keydown", keyHandler);
 
     function moveLeft() {
       const currentTab = document.activeElement;
@@ -69,7 +71,7 @@ export default function Tabs() {
 
     function moveRight() {
       const currentTab = document.activeElement;
-      if (!currentTab!.nextElementSibling) {
+      if (currentTab?.nextElementSibling) {
         (tabButtons.item(0) as HTMLElement)?.focus();
       } else {
         (currentTab!.nextElementSibling as HTMLElement)?.focus();
@@ -77,7 +79,10 @@ export default function Tabs() {
     }
 
     // cleanup function to remove map on unmount
-    return () => {};
+    return () => {
+      tabsContainer?.removeEventListener("click", clickHandler);
+      tabsContainer?.removeEventListener("keydown", keyHandler);
+    };
   }, []);
   return (
     <>

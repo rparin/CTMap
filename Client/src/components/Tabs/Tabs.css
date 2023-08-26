@@ -1,7 +1,3 @@
-.wrapper {
-  width: min(60rem, 100% - 2rem);
-}
-
 [role="tablist"] {
   display: flex;
   width: fit-content;
