@@ -31,40 +31,6 @@ export default function Map() {
   };
 
   useEffect(() => {
-    const tabsContainer = document.querySelector("[role=tablist]");
-    const tabButtons = tabsContainer!.querySelectorAll("[role=tab]");
-    const tabPanels = document.querySelectorAll("[role=tabpanel]");
-
-    function switchTab(newTab: any) {
-      const activePanelId = newTab.getAttribute("aria-controls");
-      const activePanel = tabsContainer!.nextElementSibling!.querySelector(
-        "#" + CSS.escape(activePanelId)
-      );
-      tabButtons.forEach((button) => {
-        button.setAttribute("aria-selected", "false");
-        button.setAttribute("tabindex", "-1");
-      });
-
-      tabPanels.forEach((panel) => {
-        panel.setAttribute("hidden", "true");
-      });
-
-      activePanel!.removeAttribute("hidden");
-
-      newTab.setAttribute("aria-selected", true);
-      newTab.setAttribute("tabindex", "0");
-      newTab.focus();
-    }
-
-    tabsContainer!.addEventListener("click", (e) => {
-      const clickedTab = (e.target! as HTMLElement).closest("button");
-      const currentTab = tabsContainer!.querySelector('[aria-selected="true"]');
-
-      if (!clickedTab || clickedTab === currentTab) return;
-
-      switchTab(clickedTab);
-    });
-
     const map = new mapboxgl.Map({
       container: mapContainer.current!,
       style: "mapbox://styles/yenlei/cllepzpeh00ha01pwed4dhdh0", // map styling here; streets and other miscellaneous stuff were removed here
