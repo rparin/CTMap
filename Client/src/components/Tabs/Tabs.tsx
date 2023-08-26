@@ -102,7 +102,7 @@ export default function Tabs() {
           Filters
         </button>
       </div>
-      <div className="tab-panels">
+      <div className="px-5">
         <div id="tabPanel-1" role="tabpanel" aria-labelledby="tab-1">
           <Results />
         </div>
