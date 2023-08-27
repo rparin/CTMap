@@ -2,7 +2,7 @@
   display: flex;
   width: fit-content;
   position: relative;
-  margin-block: 3rem;
+  margin-block: 0.5rem;
 }
 
 [role="tablist"]::after {
