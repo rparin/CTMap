@@ -90,10 +90,8 @@ export default function Map() {
         {/* Todo add location search bar here */}
       </div>
 
-      <div className="absolute m-5 bottom-10 text-black">
-        <div className="bg-slate-200 w-96 h-[40rem]">
-          <Tabs />
-        </div>
+      <div className="absolute m-5 bottom-10 text-black bg-slate-200 w-96 h-[40rem] overflow-y-auto">
+        <Tabs />
       </div>
     </>
   );

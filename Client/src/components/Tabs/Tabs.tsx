@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Results from "../Results";
+import Result from "../Result";
 import "./Tabs.css";
 
 export default function Tabs() {
@@ -103,7 +103,7 @@ export default function Tabs() {
       </div>
       <div className="px-5">
         <div id="tabPanel-1" role="tabpanel" aria-labelledby="tab-1">
-          <Results />
+          <Result />
         </div>
 
         <div id="tabPanel-2" hidden role="tabpanel" aria-labelledby="tab-2">
