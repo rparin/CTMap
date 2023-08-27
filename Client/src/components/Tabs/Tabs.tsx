@@ -103,7 +103,7 @@ export default function Tabs() {
       </div>
       <div className="px-3">
         <div
-          className="flex flex-col gap-2"
+          className="flex flex-col gap-2 pb-2"
           id="tabPanel-1"
           role="tabpanel"
           aria-labelledby="tab-1">
