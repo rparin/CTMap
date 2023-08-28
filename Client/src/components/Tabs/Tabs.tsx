@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Result from "../Result";
 import "./Tabs.css";
+import Filters from "../Filters/Filters";
 
 export default function Tabs() {
   useEffect(() => {
@@ -110,7 +111,7 @@ export default function Tabs() {
         </div>
 
         <div id="tabPanel-2" hidden role="tabpanel" aria-labelledby="tab-2">
-          <p>Insert Filter options here</p>
+          <Filters />
         </div>
       </div>
     </>
