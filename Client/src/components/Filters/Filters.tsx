@@ -1,4 +1,5 @@
 import { useState } from "react";
+import EligibilityCriteria from "./EligibilityCriteria";
 
 export default function Filters() {
     const handleClear = () => {
@@ -10,21 +11,7 @@ export default function Filters() {
 
     return (
     <form id="filters">
-        <h1>Eligibility Criterion</h1>
-        <p><b>Sex</b></p>
-        <p><input type="checkbox" name="sex" id="all-sex" value="all_sex" /> <label htmlFor="all-sex">All</label></p>
-        <p><input type="checkbox" name="sex" id ="male" value="male" /> <label htmlFor="male">Male</label></p>
-        <p><input type="checkbox" name="sex" id="female" value="female" /> <label htmlFor="female">Female</label></p>
-
-        <p><b>Age</b></p>
-        <p><input type="checkbox" name="age" id ="minor" value="minor" /> <label htmlFor="minor">Minor (0-17)</label></p>
-        <p><input type="checkbox" name="age" id ="adult" value="adult" /> <label htmlFor="adult">Adult (18-64)</label></p>
-        <p><input type="checkbox" name="age" id ="older-adult" value="older_adult" /> <label htmlFor="older-adult">Older Adult (65+)</label></p>
-        <p><input type="checkbox" name="age" id ="custom-age" /> <label htmlFor="custom-age">Custom Range</label>
-            <input type="number" id="min-age" min="0" />
-            -
-            <input type="number" id="max-age" min="0" />
-        </p>
+        <EligibilityCriteria />
 
         <h1>Study Phase</h1>
         <p><input type="checkbox" name="phase" id="early-phase" value="early_phase" /> <label htmlFor="early-phase">Early Phase</label></p>
