@@ -1,3 +1,5 @@
+const CTRes = require("./CTRes");
+
 class ctHelper {
   constructor() {}
 
@@ -12,35 +14,17 @@ class ctHelper {
   //parse data from clinical trial api
   //https://clinicaltrials.gov/api/v2/studies
   async parseSearchResults(res) {
+    const ctRes = new CTRes(res);
     const data = {};
     const cords = new Map();
-    for (let i = 0; i < res.studies.length; i++) {
-      const location = new Set();
 
-      for (
-        let j = 0;
-        res.studies[i].protocolSection.contactsLocationsModule &&
-        res.studies[i].protocolSection.contactsLocationsModule.locations &&
-        j <
-          res.studies[i].protocolSection.contactsLocationsModule.locations
-            .length;
-        j++
-      ) {
-        let loc =
-          res.studies[i].protocolSection.contactsLocationsModule.locations[j]
-            .country;
-        if (
-          res.studies[i].protocolSection.contactsLocationsModule.locations[j]
-            .state
-        ) {
-          loc =
-            res.studies[i].protocolSection.contactsLocationsModule.locations[j]
-              .state +
-            ", " +
-            res.studies[i].protocolSection.contactsLocationsModule.locations[j]
-              .country;
-        }
+    for (let i = 0; i < ctRes.getLen(); i++) {
+      let locations = ctRes.getLocations(i);
+      data[ctRes.getNCTId(i)] = ctRes.getJson(i);
+      data[ctRes.getNCTId(i)]["geolocations"] = [];
 
+      for (let j = 0; j < locations?.length; j++) {
+        let loc = locations[j];
         if (!cords.has(loc)) {
           const latLong = await this.getLatLong(
             loc,
@@ -48,13 +32,10 @@ class ctHelper {
           );
           cords.set(loc, latLong);
         }
-
-        location.add(cords.get(loc));
+        data[ctRes.getNCTId(i)]["geolocations"].push(cords.get(loc));
       }
-
-      data[res.studies[i].protocolSection.identificationModule.nctId] =
-        Array.from(location);
     }
+
     return data;
   }
 }

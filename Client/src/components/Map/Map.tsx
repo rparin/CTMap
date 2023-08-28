@@ -53,10 +53,10 @@ export default function Map() {
         while (colors.has(curColor)) {
           curColor = getRandomColor();
         }
-        const arr: any[] = searchResult[key as keyof {}];
-        for (let i = 0; i < arr.length; i++) {
+        const study: any = searchResult[key as keyof {}];
+        for (let i = 0; i < study["geolocations"].length; i++) {
           const marker = new mapboxgl.Marker({ color: curColor })
-            .setLngLat(arr[i])
+            .setLngLat(study["geolocations"][i])
             .addTo(map);
           const mElement = marker.getElement();
 
