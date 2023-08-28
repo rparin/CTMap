@@ -1,8 +1,11 @@
 import { useState } from "react";
 
 export default function Filters() {
+    const handleClear = () => {
+        console.log("Clear filters button clicked.");
+    }
     const handleApply = () => {
-        console.log("Apply Filters Button Clicked");
+        console.log("Apply filters button clicked");
     };
 
     return (
@@ -47,7 +50,9 @@ export default function Filters() {
         <p><input type="checkbox" name="results" id="with-results" value="with_results" /> <label htmlFor="with-results">With Results</label></p>
         <p><input type="checkbox" name="results" id="without-results" value="without_results" /> <label htmlFor="without-results">Without Results</label></p>
 
-        <button type="button" id="filter-button" onClick={handleApply}>Apply Filters</button>
+
+        <button type="button" id="clear-button" onClick={handleClear}>Clear Filters</button>
+        <button type="button" id="apply-button" onClick={handleApply}>Apply Filters</button>
     </form>
     );
 }
