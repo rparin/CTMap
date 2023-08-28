@@ -20,7 +20,7 @@ class ctHelper {
 
     for (let i = 0; i < ctRes.getLen(); i++) {
       data[ctRes.getNCTId(i)] = ctRes.getJson(i);
-      data[ctRes.getNCTId(i)]["geolocations"] = [];
+      data[ctRes.getNCTId(i)].geolocations = [];
       let locations = data[ctRes.getNCTId(i)].locations;
 
       for (let j = 0; j < locations?.length; j++) {
@@ -32,7 +32,7 @@ class ctHelper {
           );
           cords.set(loc, latLong);
         }
-        data[ctRes.getNCTId(i)]["geolocations"].push(cords.get(loc));
+        data[ctRes.getNCTId(i)].geolocations.push(cords.get(loc));
       }
     }
 
