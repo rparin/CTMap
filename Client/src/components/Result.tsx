@@ -2,7 +2,7 @@ import RHeader from "./RHeader";
 
 export default function Result() {
   return (
-    <section className="p-3 bg-blue-400/20 rounded-md">
+    <section className="p-3 bg-blue-400/20 rounded-md mb-2">
       <p className="flex justify-end text-sky-500 text-xs gap-1 leading-3">
         ClinicalTrials.gov ID
         <span className="text-black font-bold">{"NCT02376244"}</span>
