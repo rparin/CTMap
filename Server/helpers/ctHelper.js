@@ -19,9 +19,9 @@ class ctHelper {
     const cords = new Map();
 
     for (let i = 0; i < ctRes.getLen(); i++) {
-      let locations = ctRes.getLocations(i);
       data[ctRes.getNCTId(i)] = ctRes.getJson(i);
       data[ctRes.getNCTId(i)]["geolocations"] = [];
+      let locations = data[ctRes.getNCTId(i)].locations;
 
       for (let j = 0; j < locations?.length; j++) {
         let loc = locations[j];
