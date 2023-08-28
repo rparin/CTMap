@@ -101,12 +101,8 @@ export default function Tabs() {
           Filters
         </button>
       </div>
-      <div className="px-3">
-        <div
-          className="flex flex-col gap-2 pb-2"
-          id="tabPanel-1"
-          role="tabpanel"
-          aria-labelledby="tab-1">
+      <div className="px-3 flex flex-col gap-2 pb-2">
+        <div id="tabPanel-1" role="tabpanel" aria-labelledby="tab-1">
           <Result />
           <Result />
           <Result />
