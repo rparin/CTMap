@@ -8,7 +8,7 @@ class ctHelper {
       `https://api.mapbox.com/geocoding/v5/mapbox.places/${place}.json?access_token=${accessToken}`
     );
     const res = await response.json();
-    return res.features[0].center;
+    return res?.features[0]?.center;
   }
 
   //parse data from clinical trial api
@@ -22,17 +22,23 @@ class ctHelper {
       data[ctRes.getNCTId(i)] = ctRes.getJson(i);
       data[ctRes.getNCTId(i)].geolocations = [];
       let locations = data[ctRes.getNCTId(i)].locations;
+      var latLong = undefined;
 
       for (let j = 0; j < locations?.length; j++) {
         let loc = locations[j];
         if (!cords.has(loc)) {
-          const latLong = await this.getLatLong(
+          latLong = await this.getLatLong(
             loc,
             "MAP_TOKEN"
           );
+
           cords.set(loc, latLong);
+        } else {
+          latLong = cords.get(loc);
         }
-        data[ctRes.getNCTId(i)].geolocations.push(cords.get(loc));
+        if (latLong) {
+          data[ctRes.getNCTId(i)].geolocations.push(cords.get(loc));
+        }
       }
     }
 
