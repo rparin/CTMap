@@ -40,7 +40,7 @@ export default function Map() {
       style: "MAP_STYLE", // map styling here; streets and other miscellaneous stuff were removed here
       center: [lng, lat],
       zoom: zoom,
-      maxZoom: 10
+      maxZoom: 15
     });
 
     // add geocoder control
@@ -49,10 +49,16 @@ export default function Map() {
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl,
         marker: false,    // do not display a marker on location so that results markers can be seen
-        types: 'country, region, postcode, district, place, locality, neighborhood',  // limits searches and prevents specific addresses from being searched for
         placeholder: "Search location"
       })
     );
+
+    // everytime map is interacted with => lng, lat and zoom coordinates will be changed (essentially the current location)
+    map.on('move', () => {
+      setLng(map.getCenter().lng.toFixed(4));
+      setLat(map.getCenter().lat.toFixed(4));
+      setZoom(map.getZoom().toFixed(2));
+    });
 
     // add zoom control
     const nav = new mapboxgl.NavigationControl({
@@ -110,7 +116,8 @@ export default function Map() {
       <div className="flex justify-between absolute m-5 gap-3">
         <Search setResult={setResult} />
 
-        {/* Todo add location search bar here */}
+        {/* temporarily print coordinates here for reference */}
+        Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
     </>
   );
