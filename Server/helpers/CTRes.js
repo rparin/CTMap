@@ -47,8 +47,9 @@ class CTRes {
 
   getConditions(index) {
     if (this._validIndex(index)) {
-      return this.ctRes.studies[index].protocolSection?.conditionsModule
-        ?.conditions;
+      return this.ctRes.studies[
+        index
+      ].protocolSection?.conditionsModule?.conditions?.toString();
     }
     return undefined;
   }
@@ -102,7 +103,9 @@ class CTRes {
 
   getPhase(index) {
     if (this._validIndex(index)) {
-      return this.ctRes.studies[index].protocolSection?.designModule?.phases;
+      return this.ctRes.studies[
+        index
+      ].protocolSection?.designModule?.phases?.toString();
     }
     return undefined;
   }

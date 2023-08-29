@@ -1,4 +1,4 @@
-import React from "react";
+import RHeader from "./RHeader";
 
 export type pInfo = {
   id: string;
@@ -10,12 +10,16 @@ export type pInfo = {
 
 export default function MPopup(info: pInfo) {
   return (
-    <section>
-      <p>{info.id}</p>
-      <h3>{info.title}</h3>
-      <p>{info.studyStart}</p>
-      <p>{info.studyType}</p>
-      <p>{info.phase}</p>
+    <section className="flex flex-col gap-1">
+      <RHeader hr={"NCTID"} info={info.id} />
+
+      <RHeader hr={"Title"} info={info.title} />
+      <div className="flex justify-between">
+        <RHeader hr={"Study Start"} info={info.studyStart} />
+        <RHeader hr={"Study Type"} info={info.studyType} />
+      </div>
+
+      <RHeader hr={"Phase"} info={info.phase} />
     </section>
   );
 }
