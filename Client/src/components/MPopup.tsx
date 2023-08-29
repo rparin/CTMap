@@ -18,8 +18,7 @@ export default function MPopup(info: pInfo) {
         <RHeader hr={"Study Start"} info={info.studyStart} />
         <RHeader hr={"Study Type"} info={info.studyType} />
       </div>
-
-      <RHeader hr={"Phase"} info={info.phase} />
+      {info.phase && <RHeader hr={"Phase"} info={info.phase} />}
     </section>
   );
 }
