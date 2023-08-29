@@ -22,6 +22,7 @@ export default function Map() {
   const [lng, setLng] = useState(-70.9);
   const [lat, setLat] = useState(42.35);
   const [zoom, setZoom] = useState(5);
+  const [place, setPlace] = useState(null);
 
   //Get and store data from search result
   const [searchResult, setResult] = useState({});
@@ -44,20 +45,17 @@ export default function Map() {
     });
 
     // add geocoder control
-    map.addControl(
-      new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken,
-        mapboxgl: mapboxgl,
-        marker: false,    // do not display a marker on location so that results markers can be seen
-        placeholder: "Search location"
-      })
-    );
+    const geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      mapboxgl: mapboxgl,
+      marker: false,    // do not display a marker on location so that results markers can be seen
+      placeholder: "Search location"
+    });
+    map.addControl(geocoder);
 
-    // everytime map is interacted with => lng, lat and zoom coordinates will be changed (essentially the current location)
-    map.on('move', () => {
-      setLng(map.getCenter().lng.toFixed(4));
-      setLat(map.getCenter().lat.toFixed(4));
-      setZoom(map.getZoom().toFixed(2));
+    // when the user searches a location via the location searchbox, set the place
+    geocoder.on('result', (event) => {
+      setPlace(event.result.place_name);
     });
 
     // add zoom control
@@ -69,6 +67,9 @@ export default function Map() {
     // add user locator control
     const userLocator = map.addControl(
       new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true
+        },
         fitBoundsOptions: {maxZoom: 5}
       })
     );
@@ -117,7 +118,7 @@ export default function Map() {
         <Search setResult={setResult} />
 
         {/* temporarily print coordinates here for reference */}
-        Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+        Place: {place}
       </div>
     </>
   );
