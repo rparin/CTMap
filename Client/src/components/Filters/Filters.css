@@ -1,0 +1,40 @@
+#filters {
+    margin: .5rem;
+    display: grid;
+    gap:0.5rem;
+}
+
+#filters h1 {
+    font-size: 1rem;
+    font-weight: bolder;
+}
+
+#filters input[type=number] {
+    max-width: 5rem;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+}
+
+#filter-buttons {
+    display: inline-flex;
+    gap: 0.5rem;
+}
+
+#clear-button {
+    font-weight: bold;
+    color: rgb(59 130 246);
+    background-color: transparent;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgb(59 130 246);
+    border-radius: 0.25rem;
+}
+
+#clear-button:hover {
+    color: rgb(29 78 216);
+    border-color: rgb(29 78 216);
+}
