@@ -25,15 +25,6 @@ export default function Filters() {
             setAgeRange({child: false, adult: false, older_adult: false});
         }
     }
-    const checkAgeRange = (range:string) => {
-        if (range === "child") {
-            setAgeRange({child : !ageRange.child, adult: ageRange.adult, older_adult: ageRange.older_adult});
-        } else if (range === "adult") {
-            setAgeRange({child : ageRange.child, adult: !ageRange.adult, older_adult: ageRange.older_adult});
-        } else {
-            setAgeRange({child : ageRange.child, adult: ageRange.adult, older_adult: !ageRange.older_adult});
-        }
-    }
 
     
     // CLEAR/ APPLY BUTTON HANDLERS
@@ -59,9 +50,9 @@ export default function Filters() {
 
             <p><b>Age</b></p>
             <p><input type="radio" name="age" id="ranges" onClick={() => toggleIsCustom(false)} /> <label htmlFor="ranges">Select Ranges</label></p>
-            <p><input type="checkbox" name="age" id ="child" value="child" onClick={() => checkAgeRange("child")} /> <label htmlFor="child">Child (birth-17)</label></p>
-            <p><input type="checkbox" name="age" id ="adult" value="adult" onClick={() => checkAgeRange("adult")} /> <label htmlFor="adult">Adult (18-64)</label></p>
-            <p><input type="checkbox" name="age" id ="older-adult" value="older_adult" onClick={() => checkAgeRange("older_adult")} /> <label htmlFor="older-adult">Older Adult (65+)</label></p>
+            <p><input type="checkbox" name="age" id ="child" value="child" onClick={() => setAgeRange({...ageRange, child : !ageRange.child})} /> <label htmlFor="child">Child (birth-17)</label></p>
+            <p><input type="checkbox" name="age" id ="adult" value="adult" onClick={() => setAgeRange({...ageRange, adult : !ageRange.adult})} /> <label htmlFor="adult">Adult (18-64)</label></p>
+            <p><input type="checkbox" name="age" id ="older-adult" value="older_adult" onClick={() => setAgeRange({...ageRange, older_adult : !ageRange.older_adult})} /> <label htmlFor="older-adult">Older Adult (65+)</label></p>
 
             <p><input type="radio" name="age" id ="custom-age" onClick={() => toggleIsCustom(true)} /> <label htmlFor="custom-age">Custom Range</label>
                 <input type="number" id="min-age" min="0" />
