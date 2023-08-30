@@ -35,6 +35,17 @@ export default function Filters() {
         phase4: false,
         na: false
     });
+
+    //STUDY TYPE
+    const [studyType, setStudyType] = useState({
+        interventional: false,
+        observational: false,
+        patient_registries: false,
+        expanded_access: false,
+        individual_patients: false,
+        intermediate_size_population: false,
+        treatment_ind_protocol: false
+    });
     
     // CLEAR/ APPLY BUTTON HANDLERS
     const handleClear = () => {
@@ -84,10 +95,31 @@ export default function Filters() {
             <p><input type="checkbox" name="phase" id="phase-na" value="phase-na" onClick={() => setStudyPhase({...studyPhase, na: !studyPhase.na})} /> <label htmlFor="phase-na">Not Applicable</label></p>
         </fieldset>
 
+        
+        <fieldset name="study-type">
+        <h1>Study Type</h1>
+            <p><input type="checkbox" name="type" id="interventional" value="interventional"
+                onClick={() => setStudyType({...studyType, interventional: !studyType.interventional})} /> <label htmlFor="interventional">Interventional</label></p>
+
+            <p><input type="checkbox" name="type" id="observational" value="observational"
+                onClick={() => setStudyType({...studyType, observational: !studyType.observational})} /> <label htmlFor="observational">Observational</label></p>
+            <p>&emsp;<input type="checkbox" name="type" id="patient-registries" value="patient_registries"
+                onClick={() => setStudyType({...studyType, patient_registries: !studyType.patient_registries})} /> <label htmlFor="patient-registries">Patient Registries</label></p>
+
+            <p><input type="checkbox" name="type" id="expanded-access" value="expanded_access"
+                onClick={() => setStudyType({...studyType, expanded_access: !studyType.expanded_access})} /> <label htmlFor="expanded-access">Expanded Access</label></p>
+            <p>&emsp;<input type="checkbox" name="type" id="individual-patients" value="individual_patients"
+                onClick={() => setStudyType({...studyType, individual_patients: !studyType.individual_patients})} /> <label htmlFor="individual-patients">Individual Patients</label></p>
+            <p>&emsp;<input type="checkbox" name="type" id="intermediate-size-population" value="intermediate_size_population"
+                onClick={() => setStudyType({...studyType, intermediate_size_population: !studyType.intermediate_size_population})} /> <label htmlFor="intermediate-size-population">Intermediate-size Population</label></p>
+            <p>&emsp;<input type="checkbox" name="type" id="treatment-ind-protocol" value="treatment_ind_protocol"
+                onClick={() => setStudyType({...studyType, treatment_ind_protocol: !studyType.treatment_ind_protocol})} /> <label htmlFor="treatment-ind-protocol">Treatment IND/Protocol</label></p>
+        </fieldset>
+
 
         {/* <EligibilityCriteria /> */}
         {/* <StudyPhase /> */}
-        <StudyType />
+        {/* <StudyType /> */}
         <StudyResults />
 
         <div id="filter-buttons">
