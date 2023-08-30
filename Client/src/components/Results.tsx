@@ -1,4 +1,4 @@
-import { JSX, use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Result from "./Result";
 
 export default function Results({ searchResult }: { searchResult: {} }) {
