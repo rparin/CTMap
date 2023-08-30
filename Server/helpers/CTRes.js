@@ -14,7 +14,7 @@ class CTRes {
       studyComp: this.getStudyCompletion(index),
       primaryComp: this.getPrimaryCompletion(index),
       studyType: this.getStudyType(index),
-      enroll: this.getEnrollment(index),
+      enrollType: this.getEnrollment(index),
       enrollType: this.getEnrollmentType(index),
       phase: this.getPhase(index),
       locations: this.getLocations(index),
