@@ -53,6 +53,13 @@ export default function Filters() {
     // CLEAR/ APPLY BUTTON HANDLERS
     const handleClear = () => {
         setSex("all-sex");
+        setIsCustom(false);
+        setAgeRange({child: false, adult: false, older_adult: false});
+        setCustomAgeRange({min: null, max: null})
+        setAcceptsVolunteers(false);
+        setStudyPhase({early: false, phase1: false, phase2: false, phase3: false, phase4: false, na: false});
+        setStudyType({interventional: false, observational: false, patient_registries: false, expanded_access: false, individual_patients: false, intermediate_size_population: false, treatment_ind_protocol: false});
+        setStudyResults({with: false, without: false})
         console.log("Clear filters button clicked.");
     }
     const handleApply = () => {
