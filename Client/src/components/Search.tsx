@@ -25,7 +25,6 @@ export default function Search({
     if (prevValue != searchValue) {
       fetch(ct_search_ep + "/" + searchValue).then((res) =>
         res.json().then((data) => {
-          console.log(data.searchResult);
           setResult(data.searchResult);
         })
       );

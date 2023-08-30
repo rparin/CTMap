@@ -96,7 +96,7 @@ export default function Map() {
       </div>
 
       <div className="absolute m-5 bottom-10 text-black bg-slate-200 w-96 h-[40rem] overflow-y-auto ">
-        <Tabs />
+        <Tabs searchResult={searchResult} />
       </div>
     </>
   );
