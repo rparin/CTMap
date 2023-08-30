@@ -46,6 +46,9 @@ export default function Filters() {
         intermediate_size_population: false,
         treatment_ind_protocol: false
     });
+
+    //STUDY RESULTS
+    const [withResults, setStudyResults] = useState({with: false, without: false});
     
     // CLEAR/ APPLY BUTTON HANDLERS
     const handleClear = () => {
@@ -116,11 +119,18 @@ export default function Filters() {
                 onClick={() => setStudyType({...studyType, treatment_ind_protocol: !studyType.treatment_ind_protocol})} /> <label htmlFor="treatment-ind-protocol">Treatment IND/Protocol</label></p>
         </fieldset>
 
+        
+        <fieldset name="study-results">
+            <h1>Study Results</h1>
+            <p><input type="checkbox" name="results" id="with-results" value="with_results" onClick={() => {setStudyResults({...withResults, with: !withResults.with})}} /> <label htmlFor="with-results">With Results</label></p>
+            <p><input type="checkbox" name="results" id="without-results" value="without_results" onClick={() => {setStudyResults({...withResults, without: !withResults.without})}} /> <label htmlFor="without-results">Without Results</label></p>
+        </fieldset>
+
 
         {/* <EligibilityCriteria /> */}
         {/* <StudyPhase /> */}
         {/* <StudyType /> */}
-        <StudyResults />
+        {/* <StudyResults /> */}
 
         <div id="filter-buttons">
             <button type="reset" id="clear-button" onClick={handleClear}>Clear Filters</button>
