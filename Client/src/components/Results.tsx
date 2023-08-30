@@ -18,7 +18,7 @@ export default function Results({ searchResult }: { searchResult: {} }) {
           start={study.studyStart}
           primary={study.primaryComp}
           completion={study.studyComp}
-          enrollment={study.enrollType}
+          enrollment={study.enroll}
           type={study.enrollType}
           phase={study.phase}
         />
