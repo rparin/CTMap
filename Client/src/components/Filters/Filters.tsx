@@ -1,8 +1,4 @@
 import "./Filters.css";
-import EligibilityCriteria from "./EligibilityCriteria";
-import StudyPhase from "./StudyPhase";
-import StudyType from "./StudyType";
-import StudyResults from "./StudyResults";
 import {useState} from "react";
 
 export default function Filters() {
@@ -173,12 +169,7 @@ export default function Filters() {
             <p><input type="checkbox" name="results" id="with-results" value="with_results" onClick={() => {setStudyResults({...studyResults, with: !studyResults.with})}} /> <label htmlFor="with-results">With Results</label></p>
             <p><input type="checkbox" name="results" id="without-results" value="without_results" onClick={() => {setStudyResults({...studyResults, without: !studyResults.without})}} /> <label htmlFor="without-results">Without Results</label></p>
         </fieldset>
-
-
-        {/* <EligibilityCriteria /> */}
-        {/* <StudyPhase /> */}
-        {/* <StudyType /> */}
-        {/* <StudyResults /> */}
+        
 
         <div id="filter-buttons">
             <button type="reset" id="clear-button" onClick={handleClear}>Clear Filters</button>
