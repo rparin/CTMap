@@ -63,10 +63,51 @@ export default function Filters() {
         console.log("Clear filters button clicked.");
     }
     const handleApply = () => {
-        console.log("sex: " + sex);
-        console.log("custom?: " + isCustom + ", child: " + ageRange.child + ", adult: " + ageRange.adult + ", older_adult: " + ageRange.older_adult);
-        console.log("volunteers?: " + acceptsVolunteers);
         console.log("Apply filters button clicked");
+        console.log(compileFilters());
+    };
+
+    const compileFilters = () => {
+        var eligibility = {
+            "sex": sex,
+            "age": {
+                isCustom: isCustom,
+                min: customRange.min,
+                max: customRange.max,
+                child: ageRange.child,
+                adult: ageRange.adult,
+                older_adult: ageRange.older_adult
+            },
+            "volunteers": acceptsVolunteers
+        };
+        var phase = {
+            "early": studyPhase.early,
+            "phase1": studyPhase.phase1,
+            "phase2": studyPhase.phase2,
+            "phase3": studyPhase.phase3,
+            "phase4": studyPhase.phase4,
+            "na": studyPhase.na
+        };
+        var type = {
+            "interventional": studyType.interventional,
+            "observational": studyType.observational,
+            "patient_registries": studyType.patient_registries,
+            "expanded_access": studyType.expanded_access,
+            "individual_patients": studyType.individual_patients,
+            "intermediate_size_population": studyType.intermediate_size_population,
+            "treatment_ind_protocol": studyType.treatment_ind_protocol
+        };
+        var results = {
+            with: withResults.with,
+            without: withResults.without
+        };
+
+        return JSON.stringify({
+            "eligibility": eligibility,
+            "phase": phase,
+            "type": type,
+            "results": results
+        });
     };
 
     return (
