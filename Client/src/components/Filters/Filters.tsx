@@ -7,7 +7,7 @@ import {useState} from "react";
 
 export default function Filters() {
     // ELIGIBILITY CRITERION
-    const [sex, setSex] = useState("all-sex");
+    const [sex, setSex] = useState("all");
     const [isCustom, setIsCustom] = useState(false);
     const [ageRange, setAgeRange] = useState({
         child: false,
@@ -48,11 +48,11 @@ export default function Filters() {
     });
 
     //STUDY RESULTS
-    const [withResults, setStudyResults] = useState({with: false, without: false});
+    const [studyResults, setStudyResults] = useState({with: false, without: false});
     
     // CLEAR/ APPLY BUTTON HANDLERS
     const handleClear = () => {
-        setSex("all-sex");
+        setSex("all");
         setIsCustom(false);
         setAgeRange({child: false, adult: false, older_adult: false});
         setCustomAgeRange({min: null, max: null})
@@ -98,8 +98,8 @@ export default function Filters() {
             "treatment_ind_protocol": studyType.treatment_ind_protocol
         };
         var results = {
-            with: withResults.with,
-            without: withResults.without
+            with: studyResults.with,
+            without: studyResults.without
         };
 
         return JSON.stringify({
@@ -115,7 +115,7 @@ export default function Filters() {
         <fieldset name="eligibility-criteria">
             <h1>Eligibility Criterion</h1>
             <p><b>Sex</b></p>
-            <p><input type="radio" name="sex" id="all-sex" value="all-sex" onClick={() => setSex("all-sex")} /> <label htmlFor="all-sex">All</label></p>
+            <p><input type="radio" name="sex" id="all" value="all" onClick={() => setSex("all")} /> <label htmlFor="all">All</label></p>
             <p><input type="radio" name="sex" id ="male" value="male" onClick={() => setSex("male")} /> <label htmlFor="male">Male</label></p>
             <p><input type="radio" name="sex" id="female" value="female" onClick={() => setSex("female")} /> <label htmlFor="female">Female</label></p>
 
@@ -170,8 +170,8 @@ export default function Filters() {
         
         <fieldset name="study-results">
             <h1>Study Results</h1>
-            <p><input type="checkbox" name="results" id="with-results" value="with_results" onClick={() => {setStudyResults({...withResults, with: !withResults.with})}} /> <label htmlFor="with-results">With Results</label></p>
-            <p><input type="checkbox" name="results" id="without-results" value="without_results" onClick={() => {setStudyResults({...withResults, without: !withResults.without})}} /> <label htmlFor="without-results">Without Results</label></p>
+            <p><input type="checkbox" name="results" id="with-results" value="with_results" onClick={() => {setStudyResults({...studyResults, with: !studyResults.with})}} /> <label htmlFor="with-results">With Results</label></p>
+            <p><input type="checkbox" name="results" id="without-results" value="without_results" onClick={() => {setStudyResults({...studyResults, without: !studyResults.without})}} /> <label htmlFor="without-results">Without Results</label></p>
         </fieldset>
 
 
