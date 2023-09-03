@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import Result from "../Result";
+import Results from "../Results";
 import "./Tabs.css";
 import Filters from "../Filters/Filters";
 
-export default function Tabs() {
+export default function Tabs({ searchResult }: { searchResult: {} }) {
   useEffect(() => {
     const tabsContainer = document.querySelector("[role=tablist]");
     const tabButtons = tabsContainer!.querySelectorAll("[role=tab]");
@@ -104,10 +104,7 @@ export default function Tabs() {
       </div>
       <div className="px-3 pb-2">
         <div id="tabPanel-1" role="tabpanel" aria-labelledby="tab-1">
-          <Result />
-          <Result />
-          <Result />
-          <Result />
+          <Results searchResult={searchResult} />
         </div>
 
         <div id="tabPanel-2" hidden role="tabpanel" aria-labelledby="tab-2">
