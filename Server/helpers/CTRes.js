@@ -4,6 +4,23 @@ class CTRes {
     this.len = res.studies.length;
   }
 
+  getJson(index) {
+    return {
+      nctId: this.getNCTId(index),
+      title: this.getTitle(index),
+      sponsor: this.getSponsor(index),
+      conditions: this.getConditions(index),
+      studyStart: this.getStudyStart(index),
+      studyComp: this.getStudyCompletion(index),
+      primaryComp: this.getPrimaryCompletion(index),
+      studyType: this.getStudyType(index),
+      enroll: this.getEnrollment(index),
+      enrollType: this.getEnrollmentType(index),
+      phase: this.getPhase(index),
+      locations: this.getLocations(index),
+    };
+  }
+
   getNCTId(index) {
     if (this._validIndex(index)) {
       return this.ctRes.studies[index].protocolSection.identificationModule
@@ -30,8 +47,9 @@ class CTRes {
 
   getConditions(index) {
     if (this._validIndex(index)) {
-      return this.ctRes.studies[index].protocolSection?.conditionsModule
-        ?.conditions;
+      return this.ctRes.studies[
+        index
+      ].protocolSection?.conditionsModule?.conditions?.toString();
     }
     return undefined;
   }
@@ -85,7 +103,9 @@ class CTRes {
 
   getPhase(index) {
     if (this._validIndex(index)) {
-      return this.ctRes.studies[index].protocolSection?.designModule?.phases;
+      return this.ctRes.studies[
+        index
+      ].protocolSection?.designModule?.phases?.toString();
     }
     return undefined;
   }

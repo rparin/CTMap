@@ -48,22 +48,27 @@ export default function Map() {
     if (!isEmpty(searchResult)) {
       let colors = new Set();
       for (var key in searchResult) {
-        let nctId = key;
         let curColor = getRandomColor();
         while (colors.has(curColor)) {
           curColor = getRandomColor();
         }
-        const arr: any[] = searchResult[key as keyof {}];
-        for (let i = 0; i < arr.length; i++) {
+        const study: any = searchResult[key as keyof {}];
+        for (let i = 0; i < study.geolocations.length; i++) {
           const marker = new mapboxgl.Marker({ color: curColor })
-            .setLngLat(arr[i])
+            .setLngLat(study.geolocations[i])
             .addTo(map);
           const mElement = marker.getElement();
 
           //Create Popup on marker click
           const mHandler = () => {
             const popup = createPopup(
-              { title: nctId, details: "pDetails" },
+              {
+                id: study.nctId,
+                title: study.title,
+                studyStart: study.studyStart,
+                studyType: study.studyType,
+                phase: study.phase,
+              },
               { offset: 25 }
             );
             marker.setPopup(popup).togglePopup();
@@ -91,7 +96,7 @@ export default function Map() {
       </div>
 
       <div className="absolute m-5 bottom-10 text-black bg-slate-200 w-96 h-[40rem] overflow-y-auto ">
-        <Tabs />
+        <Tabs searchResult={searchResult} />
       </div>
     </>
   );
@@ -104,7 +109,13 @@ function createPopup(
   const popup = new mapboxgl.Popup(pOptions);
   const pContainer = document.createElement("div");
   createRoot(pContainer).render(
-    <MPopup title={popupInfo.title} details={popupInfo.details} />
+    <MPopup
+      id={popupInfo.id}
+      title={popupInfo.title}
+      studyStart={popupInfo.studyStart}
+      studyType={popupInfo.studyType}
+      phase={popupInfo.phase}
+    />
   );
   popup.setDOMContent(pContainer);
   return popup;

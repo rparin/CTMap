@@ -7,7 +7,7 @@ const router = express.Router();
 const ctHelper = new CTHelper();
 
 router.get("/studies/:search", async (req, res) => {
-  const apiUrl = `https://clinicaltrials.gov/api/v2/studies?query.cond=${req.params.search}&fields=NCTId,LocationState,LocationCountry&pageSize=50`;
+  const apiUrl = `https://clinicaltrials.gov/api/v2/studies?query.cond=${req.params.search}&fields=NCTId,LocationState,LocationCountry,BriefTitle,Condition,LeadSponsorName,StudyType,Phase,EnrollmentInfo,PrimaryCompletionDate,StartDate,CompletionDate&pageSize=50`;
   try {
     let response = await fetch(apiUrl);
     response = await response.json();
