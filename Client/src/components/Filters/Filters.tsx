@@ -3,7 +3,7 @@ import { useState } from "react";
 
 export default function Filters() {
   // ELIGIBILITY CRITERION
-  const [sex, setSex] = useState("all");
+  const [sex, setSex] = useState(""); //blank = all
   const [isCustom, setIsCustom] = useState(false);
   const [ageRange, setAgeRange] = useState({
     child: false,
@@ -24,11 +24,11 @@ export default function Filters() {
 
   // STUDY PHASE
   const [studyPhase, setStudyPhase] = useState({
-    early: false,
-    phase1: false,
-    phase2: false,
-    phase3: false,
-    phase4: false,
+    early: true,
+    phase1: true,
+    phase2: true,
+    phase3: true,
+    phase4: true,
     na: false,
   });
 
@@ -41,23 +41,23 @@ export default function Filters() {
 
   //STUDY RESULTS
   const [studyResults, setStudyResults] = useState({
-    with: false,
-    without: false,
+    with: true,
+    without: true,
   });
 
   // CLEAR/ APPLY BUTTON HANDLERS
   const handleClear = () => {
-    setSex("all");
+    setSex("");
     setIsCustom(false);
     setAgeRange({ child: false, adult: false, older_adult: false });
     setCustomAgeRange({ min: null, max: null });
     setAcceptsVolunteers(false);
     setStudyPhase({
-      early: false,
-      phase1: false,
-      phase2: false,
-      phase3: false,
-      phase4: false,
+      early: true,
+      phase1: true,
+      phase2: true,
+      phase3: true,
+      phase4: true,
       na: false,
     });
     setStudyType({
@@ -65,7 +65,7 @@ export default function Filters() {
       observational: false,
       expanded_access: false,
     });
-    setStudyResults({ with: false, without: false });
+    setStudyResults({ with: true, without: true });
     console.log("Clear filters button clicked.");
   };
   const handleApply = () => {
@@ -125,7 +125,7 @@ export default function Filters() {
             name="sex"
             id="all"
             value="all"
-            onClick={() => setSex("all")}
+            onClick={() => setSex("")}
           />{" "}
           <label htmlFor="all">All</label>
         </p>
@@ -135,7 +135,7 @@ export default function Filters() {
             name="sex"
             id="male"
             value="male"
-            onClick={() => setSex("male")}
+            onClick={() => setSex("m")}
           />{" "}
           <label htmlFor="male">Male</label>
         </p>
@@ -145,7 +145,7 @@ export default function Filters() {
             name="sex"
             id="female"
             value="female"
-            onClick={() => setSex("female")}
+            onClick={() => setSex("f")}
           />{" "}
           <label htmlFor="female">Female</label>
         </p>
@@ -227,6 +227,7 @@ export default function Filters() {
         <h1>Study Phase</h1>
         <p>
           <input
+            defaultChecked
             type="checkbox"
             name="phase"
             id="early-phase-1"
@@ -239,6 +240,7 @@ export default function Filters() {
         </p>
         <p>
           <input
+            defaultChecked
             type="checkbox"
             name="phase"
             id="phase-1"
@@ -251,6 +253,7 @@ export default function Filters() {
         </p>
         <p>
           <input
+            defaultChecked
             type="checkbox"
             name="phase"
             id="phase-2"
@@ -263,6 +266,7 @@ export default function Filters() {
         </p>
         <p>
           <input
+            defaultChecked
             type="checkbox"
             name="phase"
             id="phase-3"
@@ -275,6 +279,7 @@ export default function Filters() {
         </p>
         <p>
           <input
+            defaultChecked
             type="checkbox"
             name="phase"
             id="phase-4"
@@ -301,6 +306,7 @@ export default function Filters() {
         <h1>Study Type</h1>
         <p>
           <input
+            defaultChecked
             type="checkbox"
             name="type"
             id="interventional"
@@ -317,6 +323,7 @@ export default function Filters() {
 
         <p>
           <input
+            defaultChecked
             type="checkbox"
             name="type"
             id="observational"
@@ -333,6 +340,7 @@ export default function Filters() {
 
         <p>
           <input
+            defaultChecked
             type="checkbox"
             name="type"
             id="expanded-access"
@@ -352,6 +360,7 @@ export default function Filters() {
         <h1>Study Results</h1>
         <p>
           <input
+            defaultChecked
             type="checkbox"
             name="results"
             id="with-results"
@@ -364,6 +373,7 @@ export default function Filters() {
         </p>
         <p>
           <input
+            defaultChecked
             type="checkbox"
             name="results"
             id="without-results"
