@@ -389,7 +389,7 @@ export default function Filters() {
         </p>
       </fieldset>
 
-      <div id="filter-buttons">
+      <div id="filter-buttons" className="flex justify-end">
         <button type="reset" id="clear-button" onClick={handleClear}>
           Clear Filters
         </button>
