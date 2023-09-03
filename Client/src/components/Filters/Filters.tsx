@@ -24,11 +24,11 @@ export default function Filters() {
 
   // STUDY PHASE
   const [studyPhase, setStudyPhase] = useState({
-    early: true,
-    phase1: true,
-    phase2: true,
-    phase3: true,
-    phase4: true,
+    early: false,
+    phase1: false,
+    phase2: false,
+    phase3: false,
+    phase4: false,
     na: false,
   });
 
@@ -41,8 +41,8 @@ export default function Filters() {
 
   //STUDY RESULTS
   const [studyResults, setStudyResults] = useState({
-    with: true,
-    without: true,
+    with: false,
+    without: false,
   });
 
   // CLEAR/ APPLY BUTTON HANDLERS
@@ -53,11 +53,11 @@ export default function Filters() {
     setCustomAgeRange({ min: null, max: null });
     setAcceptsVolunteers(false);
     setStudyPhase({
-      early: true,
-      phase1: true,
-      phase2: true,
-      phase3: true,
-      phase4: true,
+      early: false,
+      phase1: false,
+      phase2: false,
+      phase3: false,
+      phase4: false,
       na: false,
     });
     setStudyType({
@@ -227,7 +227,6 @@ export default function Filters() {
         <h1>Study Phase</h1>
         <p>
           <input
-            defaultChecked
             type="checkbox"
             name="phase"
             id="early-phase-1"
@@ -240,7 +239,6 @@ export default function Filters() {
         </p>
         <p>
           <input
-            defaultChecked
             type="checkbox"
             name="phase"
             id="phase-1"
@@ -253,7 +251,6 @@ export default function Filters() {
         </p>
         <p>
           <input
-            defaultChecked
             type="checkbox"
             name="phase"
             id="phase-2"
@@ -266,7 +263,6 @@ export default function Filters() {
         </p>
         <p>
           <input
-            defaultChecked
             type="checkbox"
             name="phase"
             id="phase-3"
@@ -279,7 +275,6 @@ export default function Filters() {
         </p>
         <p>
           <input
-            defaultChecked
             type="checkbox"
             name="phase"
             id="phase-4"
@@ -306,7 +301,6 @@ export default function Filters() {
         <h1>Study Type</h1>
         <p>
           <input
-            defaultChecked
             type="checkbox"
             name="type"
             id="interventional"
@@ -323,7 +317,6 @@ export default function Filters() {
 
         <p>
           <input
-            defaultChecked
             type="checkbox"
             name="type"
             id="observational"
@@ -340,7 +333,6 @@ export default function Filters() {
 
         <p>
           <input
-            defaultChecked
             type="checkbox"
             name="type"
             id="expanded-access"
@@ -360,7 +352,6 @@ export default function Filters() {
         <h1>Study Results</h1>
         <p>
           <input
-            defaultChecked
             type="checkbox"
             name="results"
             id="with-results"
@@ -373,7 +364,6 @@ export default function Filters() {
         </p>
         <p>
           <input
-            defaultChecked
             type="checkbox"
             name="results"
             id="without-results"
