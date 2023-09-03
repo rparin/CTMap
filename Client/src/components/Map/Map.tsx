@@ -22,6 +22,7 @@ export default function Map() {
 
   //Get and store data from search result
   const [searchResult, setResult] = useState({});
+  const [filterValue, setFilter] = useState({});
   const mEventHandlers: { marker: HTMLElement; func: () => void }[] = [];
 
   const removeMarkerEvents = async () => {
@@ -90,13 +91,13 @@ export default function Map() {
     <>
       <div ref={mapContainer} className="map_container" />
       <div className="flex justify-between absolute m-5 gap-3">
-        <Search setResult={setResult} />
+        <Search setResult={setResult} filterValue={filterValue} />
 
         {/* Todo add location search bar here */}
       </div>
 
       <div className="absolute m-5 bottom-10 text-black bg-slate-200 w-96 h-[40rem] overflow-y-auto ">
-        <Tabs searchResult={searchResult} />
+        <Tabs searchResult={searchResult} setFilter={setFilter} />
       </div>
     </>
   );
