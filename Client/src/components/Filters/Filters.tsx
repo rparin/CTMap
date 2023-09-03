@@ -1,7 +1,11 @@
 import "./Filters.css";
 import { useState } from "react";
 
-export default function Filters() {
+export default function Filters({
+  setFilter,
+}: {
+  setFilter: React.Dispatch<React.SetStateAction<string>>;
+}) {
   // ELIGIBILITY CRITERION
   const [sex, setSex] = useState(""); //blank = all
   const [isCustom, setIsCustom] = useState(false);
@@ -70,7 +74,7 @@ export default function Filters() {
   };
   const handleApply = () => {
     console.log("Apply filters button clicked");
-    console.log(compileFilters());
+    setFilter(compileFilters());
   };
 
   const compileFilters = () => {

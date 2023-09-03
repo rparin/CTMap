@@ -1,9 +1,11 @@
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 
 export default function Search({
   setResult,
+  filterValue,
 }: {
   setResult: React.Dispatch<React.SetStateAction<string>>;
+  filterValue: {};
 }) {
   //API Endpoints
   const ct_search_ep = "http://localhost:8080/api/ct/studies";
@@ -37,6 +39,11 @@ export default function Search({
       handleClick();
     }
   };
+
+  useEffect(() => {
+    //Apply filter search here
+    console.log(filterValue);
+  }, [filterValue]);
 
   return (
     <>

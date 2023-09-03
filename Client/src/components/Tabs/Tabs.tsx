@@ -3,7 +3,13 @@ import Results from "../Results";
 import "./Tabs.css";
 import Filters from "../Filters/Filters";
 
-export default function Tabs({ searchResult }: { searchResult: {} }) {
+export default function Tabs({
+  searchResult,
+  setFilter,
+}: {
+  searchResult: {};
+  setFilter: React.Dispatch<React.SetStateAction<string>>;
+}) {
   useEffect(() => {
     const tabsContainer = document.querySelector("[role=tablist]");
     const tabButtons = tabsContainer!.querySelectorAll("[role=tab]");
@@ -108,7 +114,7 @@ export default function Tabs({ searchResult }: { searchResult: {} }) {
         </div>
 
         <div id="tabPanel-2" hidden role="tabpanel" aria-labelledby="tab-2">
-          <Filters />
+          <Filters setFilter={setFilter} />
         </div>
       </div>
     </>
