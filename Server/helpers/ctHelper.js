@@ -85,7 +85,6 @@ class ctHelper {
     if (aggFilter != "&aggFilters=") {
       if (aggFilter[aggFilter.length - 1] == ",")
         aggFilter = aggFilter.substring(0, aggFilter.length - 1);
-      console.log(aggFilter);
       return aggFilter;
     }
     return "";
