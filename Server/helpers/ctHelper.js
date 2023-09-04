@@ -47,7 +47,6 @@ class ctHelper {
 
   async getFilterUrl(filterJson) {
     if (filterJson == "null" || !filterJson) return "";
-    console.log(filterJson);
     var aggFilter = "&aggFilters=";
     if (filterJson?.eligibility?.sex != "") {
       aggFilter += "sex:" + filterJson.eligibility.sex + ",";
