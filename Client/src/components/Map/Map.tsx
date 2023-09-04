@@ -22,7 +22,7 @@ export default function Map() {
 
   //Get and store data from search result
   const [searchResult, setResult] = useState({});
-  const [filterValue, setFilter] = useState({});
+  const [filterValue, setFilter] = useState<{} | null>(null);
   const mEventHandlers: { marker: HTMLElement; func: () => void }[] = [];
 
   const removeMarkerEvents = async () => {

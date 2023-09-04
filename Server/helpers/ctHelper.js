@@ -44,6 +44,52 @@ class ctHelper {
 
     return data;
   }
+
+  async getFilterUrl(filterJson) {
+    if (filterJson == "null" || !filterJson) return "";
+    console.log(filterJson);
+    var aggFilter = "&aggFilters=";
+    if (filterJson?.eligibility?.sex != "") {
+      aggFilter += "sex:" + filterJson.eligibility.sex + ",";
+    }
+
+    var phaseStr = "";
+    for (var key in filterJson?.phase) {
+      if (filterJson.phase[key] != "") {
+        phaseStr += filterJson.phase[key] + " ";
+      }
+    }
+
+    if (phaseStr != "") {
+      aggFilter += "phase:" + phaseStr.trim() + ",";
+    }
+
+    var typeStr = "";
+    for (var key in filterJson?.type) {
+      if (filterJson.type[key] != "") {
+        typeStr += filterJson.type[key] + " ";
+      }
+    }
+
+    if (typeStr != "") {
+      aggFilter += "studyType:" + typeStr.trim() + ",";
+    }
+
+    if (filterJson?.results?.with && filterJson?.results?.without) {
+      // Do Nothing
+    } else if (filterJson?.results?.with) {
+      aggFilter += "results:with";
+    } else if (filterJson?.results?.without) {
+      aggFilter += "results:without";
+    }
+    if (aggFilter != "&aggFilters=") {
+      if (aggFilter[aggFilter.length - 1] == ",")
+        aggFilter = aggFilter.substring(0, aggFilter.length - 1);
+      console.log(aggFilter);
+      return aggFilter;
+    }
+    return "";
+  }
 }
 
 module.exports = ctHelper;

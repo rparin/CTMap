@@ -26,21 +26,40 @@ export default function Filters({
     }
   };
 
+  const setValue = (
+    e: any,
+    jObj: any,
+    type: any,
+    jValue: any,
+    value: string
+  ) => {
+    if (e.target.checked) {
+      jObj({
+        ...type,
+        [jValue]: value,
+      });
+    } else {
+      jObj({
+        ...type,
+        [jValue]: "",
+      });
+    }
+  };
+
   // STUDY PHASE
   const [studyPhase, setStudyPhase] = useState({
-    early: false,
-    phase1: false,
-    phase2: false,
-    phase3: false,
-    phase4: false,
-    na: false,
+    early: "",
+    phase1: "",
+    phase2: "",
+    phase3: "",
+    phase4: "",
   });
 
   //STUDY TYPE
   const [studyType, setStudyType] = useState({
-    interventional: false,
-    observational: false,
-    expanded_access: false,
+    interventional: "",
+    observational: "",
+    expanded_access: "",
   });
 
   //STUDY RESULTS
@@ -57,17 +76,16 @@ export default function Filters({
     setCustomAgeRange({ min: null, max: null });
     setAcceptsVolunteers(false);
     setStudyPhase({
-      early: false,
-      phase1: false,
-      phase2: false,
-      phase3: false,
-      phase4: false,
-      na: false,
+      early: "",
+      phase1: "",
+      phase2: "",
+      phase3: "",
+      phase4: "",
     });
     setStudyType({
-      interventional: false,
-      observational: false,
-      expanded_access: false,
+      interventional: "",
+      observational: "",
+      expanded_access: "",
     });
     setStudyResults({ with: true, without: true });
     console.log("Clear filters button clicked.");
@@ -96,7 +114,6 @@ export default function Filters({
       phase2: studyPhase.phase2,
       phase3: studyPhase.phase3,
       phase4: studyPhase.phase4,
-      na: studyPhase.na,
     };
     var type = {
       interventional: studyType.interventional,
@@ -235,9 +252,9 @@ export default function Filters({
             name="phase"
             id="early-phase-1"
             value="early-phase-1"
-            onClick={() =>
-              setStudyPhase({ ...studyPhase, early: !studyPhase.early })
-            }
+            onClick={(e: any) => {
+              setValue(e, setStudyPhase, studyPhase, "early", "0");
+            }}
           />{" "}
           <label htmlFor="early-phase-1">Early Phase 1</label>
         </p>
@@ -247,9 +264,9 @@ export default function Filters({
             name="phase"
             id="phase-1"
             value="phase-1"
-            onClick={() =>
-              setStudyPhase({ ...studyPhase, phase1: !studyPhase.phase1 })
-            }
+            onClick={(e: any) => {
+              setValue(e, setStudyPhase, studyPhase, "phase1", "1");
+            }}
           />{" "}
           <label htmlFor="phase-1">Phase 1</label>
         </p>
@@ -259,9 +276,9 @@ export default function Filters({
             name="phase"
             id="phase-2"
             value="phase-2"
-            onClick={() =>
-              setStudyPhase({ ...studyPhase, phase2: !studyPhase.phase2 })
-            }
+            onClick={(e: any) => {
+              setValue(e, setStudyPhase, studyPhase, "phase2", "2");
+            }}
           />{" "}
           <label htmlFor="phase-2">Phase 2</label>
         </p>
@@ -271,9 +288,9 @@ export default function Filters({
             name="phase"
             id="phase-3"
             value="phase-3"
-            onClick={() =>
-              setStudyPhase({ ...studyPhase, phase3: !studyPhase.phase3 })
-            }
+            onClick={(e: any) => {
+              setValue(e, setStudyPhase, studyPhase, "phase3", "3");
+            }}
           />{" "}
           <label htmlFor="phase-3">Phase 3</label>
         </p>
@@ -283,21 +300,11 @@ export default function Filters({
             name="phase"
             id="phase-4"
             value="phase-4"
-            onClick={() =>
-              setStudyPhase({ ...studyPhase, phase4: !studyPhase.phase4 })
-            }
+            onClick={(e: any) => {
+              setValue(e, setStudyPhase, studyPhase, "phase4", "4");
+            }}
           />{" "}
           <label htmlFor="phase-4">Phase 4</label>
-        </p>
-        <p>
-          <input
-            type="checkbox"
-            name="phase"
-            id="phase-na"
-            value="phase-na"
-            onClick={() => setStudyPhase({ ...studyPhase, na: !studyPhase.na })}
-          />{" "}
-          <label htmlFor="phase-na">Not Applicable</label>
         </p>
       </fieldset>
 
@@ -309,12 +316,9 @@ export default function Filters({
             name="type"
             id="interventional"
             value="interventional"
-            onClick={() =>
-              setStudyType({
-                ...studyType,
-                interventional: !studyType.interventional,
-              })
-            }
+            onClick={(e: any) => {
+              setValue(e, setStudyType, studyType, "interventional", "int");
+            }}
           />{" "}
           <label htmlFor="interventional">Interventional</label>
         </p>
@@ -325,12 +329,9 @@ export default function Filters({
             name="type"
             id="observational"
             value="observational"
-            onClick={() =>
-              setStudyType({
-                ...studyType,
-                observational: !studyType.observational,
-              })
-            }
+            onClick={(e: any) => {
+              setValue(e, setStudyType, studyType, "observational", "obs");
+            }}
           />{" "}
           <label htmlFor="observational">Observational</label>
         </p>
@@ -341,12 +342,9 @@ export default function Filters({
             name="type"
             id="expanded-access"
             value="expanded_access"
-            onClick={() =>
-              setStudyType({
-                ...studyType,
-                expanded_access: !studyType.expanded_access,
-              })
-            }
+            onClick={(e: any) => {
+              setValue(e, setStudyType, studyType, "expanded_access", "exp");
+            }}
           />{" "}
           <label htmlFor="expanded-access">Expanded Access</label>
         </p>
