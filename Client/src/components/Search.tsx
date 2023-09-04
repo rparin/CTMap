@@ -45,7 +45,6 @@ export default function Search({
 
   useEffect(() => {
     if (searchValue == "") return;
-    console.log(filterValue);
     callSearchAPI();
   }, [filterValue]);
 
