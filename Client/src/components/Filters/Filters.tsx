@@ -1,4 +1,3 @@
-import "./Filters.css";
 import { useState } from "react";
 
 export default function Filters({
