@@ -5,14 +5,13 @@ const fetch = (...args) =>
 
 const router = express.Router();
 const ctHelper = new CTHelper();
+const fields =
+  "NCTId,LocationState,LocationCountry,BriefTitle,Condition,LeadSponsorName,StudyType,Phase,EnrollmentInfo,PrimaryCompletionDate,StartDate,CompletionDate,MinimumAge,MaximumAge,Sex,StdAge,HealthyVolunteers";
 
 router.get("/studies/:search/:filter", async (req, res) => {
-  let aggFilter = await ctHelper.getFilterUrl(JSON.parse(req.params.filter));
-  var apiUrl = `https://clinicaltrials.gov/api/v2/studies?query.cond=${req.params.search}&fields=NCTId,LocationState,LocationCountry,BriefTitle,Condition,LeadSponsorName,StudyType,Phase,EnrollmentInfo,PrimaryCompletionDate,StartDate,CompletionDate&pageSize=50`;
-  if (aggFilter != "") {
-    apiUrl += aggFilter;
-  }
-
+  let aggFilter = ctHelper.getAggFilterUrl(JSON.parse(req.params.filter));
+  let postFilter = ctHelper.getPostFilterUrl(JSON.parse(req.params.filter));
+  var apiUrl = `https://clinicaltrials.gov/api/v2/studies?query.cond=${req.params.search}&fields=${fields}&pageSize=50${aggFilter}${postFilter}`;
   try {
     let response = await fetch(apiUrl);
     response = await response.json();
