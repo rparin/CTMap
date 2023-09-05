@@ -135,10 +135,10 @@ export default function Filters({
 
   return (
     <form id="filters">
-      <fieldset name="eligibility-criteria">
+      <fieldset name="eligibility-criteria" className="p-3 bg-blue-400/20 rounded-md mb-2">
         <h1>Eligibility Criterion</h1>
-        <p>
-          <b>Sex</b>
+        <p className="text-sky-500 font-bold text-xs border-b-2 border-solid border-x-2 border-transparent border-b-sky-600/20">
+          Sex
         </p>
         <p>
           <input
@@ -171,8 +171,8 @@ export default function Filters({
           <label htmlFor="female">Female</label>
         </p>
 
-        <p>
-          <b>Age</b>
+        <p className="text-sky-500 font-bold text-xs border-b-2 border-solid border-x-2 border-transparent border-b-sky-600/20">
+          Age
         </p>
         <p>
           <input
@@ -206,8 +206,8 @@ export default function Filters({
           />{" "}
           <label htmlFor="older-adult">Older Adult (65+)</label>
         </p>
-        <p>
-          <b>Accepts healthy volunteers</b>
+        <p className="text-sky-500 font-bold text-xs border-b-2 border-solid border-x-2 border-transparent border-b-sky-600/20">
+          Accepts healthy volunteers
         </p>
         <p>
           <input
@@ -227,7 +227,7 @@ export default function Filters({
         </p>
       </fieldset>
 
-      <fieldset name="study-phase">
+      <fieldset name="study-phase" className="p-3 bg-blue-400/20 rounded-md mb-2">
         <h1>Study Phase</h1>
         <p>
           <input
@@ -291,7 +291,7 @@ export default function Filters({
         </p>
       </fieldset>
 
-      <fieldset name="study-type">
+      <fieldset name="study-type" className="p-3 bg-blue-400/20 rounded-md mb-2">
         <h1>Study Type</h1>
         <p>
           <input
@@ -333,7 +333,7 @@ export default function Filters({
         </p>
       </fieldset>
 
-      <fieldset name="study-results">
+      <fieldset name="study-results" className="p-3 bg-blue-400/20 rounded-md mb-2">
         <h1>Study Results</h1>
         <p>
           <input
