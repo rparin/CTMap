@@ -54,6 +54,7 @@ export default function Map() {
     });
     map.addControl(geocoder);
 
+    // result event is triggered when the user selects a result from the location search bar's dropdown menu
     // when the user searches a location via the location searchbox, set the place
     geocoder.on('result', (event) => {
       setPlace(event.result.place_name);
@@ -65,7 +66,7 @@ export default function Map() {
     });
     map.addControl(nav, "bottom-right");
 
-    // add user locator control
+    // create and add user locator control
     const geolocate = new mapboxgl.GeolocateControl({
       positionOptions: {
       enableHighAccuracy: true
@@ -73,7 +74,6 @@ export default function Map() {
       trackUserLocation: true,
       fitBoundsOptions: {maxZoom: 5}
       });
-      // Add the control to the map.
     map.addControl(geolocate);
 
     // geolocate event is triggered when user click on the "use my location button"
