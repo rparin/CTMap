@@ -23,6 +23,7 @@ export default function Map() {
   const [lat, setLat] = useState(42.35);
   const [zoom, setZoom] = useState(5);
   const [place, setPlace] = useState(null);
+  const [cr, setCR] = useState('');
 
   //Get and store data from search result
   const [searchResult, setResult] = useState({});
@@ -65,14 +66,29 @@ export default function Map() {
     map.addControl(nav, "bottom-right");
 
     // add user locator control
-    const userLocator = map.addControl(
-      new mapboxgl.GeolocateControl({
-        positionOptions: {
-          enableHighAccuracy: true
-        },
-        fitBoundsOptions: {maxZoom: 5}
-      })
-    );
+    const geolocate = new mapboxgl.GeolocateControl({
+      positionOptions: {
+      enableHighAccuracy: true
+      },
+      trackUserLocation: true,
+      fitBoundsOptions: {maxZoom: 5}
+      });
+      // Add the control to the map.
+    map.addControl(geolocate);
+
+    // geolocate event is triggered when user click on the "use my location button"
+    geolocate.on('geolocate', (pos) => {
+      // ask the mapbox geocoding api for places in the given coordinates (since geolocate only gives users' coordinates)
+      // be aware that the coordinates may not be accurate so i just limited the types to be cities/zipcodes and higher in terms of hierarchy (so specific addresses will not be considered)
+      const reverseGeocode = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + pos.coords.longitude + ',' + pos.coords.latitude + '.json?types=country,region,postcode,district,place&access_token=' + mapboxgl.accessToken;
+
+      fetch(reverseGeocode).then((res) =>
+        res.json().then((data) => {
+          // after the data is fetched then set the place to the first place in the results
+          setPlace(data.features[0].place_name);
+        })
+      );
+    });
 
     //Fill map with result pins
     if (!isEmpty(searchResult)) {
