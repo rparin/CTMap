@@ -15,7 +15,7 @@ export default function Filters({
     older_adult: false,
   });
   const [customRange, setCustomAgeRange] = useState({ min: null, max: null });
-  const [acceptsVolunteers, setAcceptsVolunteers] = useState(false);
+  const [acceptsVolunteers, setAcceptsVolunteers] = useState("");
 
   const toggleIsCustom = (isCustom: boolean) => {
     setIsCustom(isCustom);
@@ -74,7 +74,7 @@ export default function Filters({
     setIsCustom(false);
     setAgeRange({ child: false, adult: false, older_adult: false });
     setCustomAgeRange({ min: null, max: null });
-    setAcceptsVolunteers(false);
+    setAcceptsVolunteers("");
     setStudyPhase({
       early: "",
       phase1: "",
@@ -176,15 +176,6 @@ export default function Filters({
         </p>
         <p>
           <input
-            type="radio"
-            name="age"
-            id="ranges"
-            onClick={() => toggleIsCustom(false)}
-          />{" "}
-          <label htmlFor="ranges">Select Ranges</label>
-        </p>
-        <p>
-          <input
             type="checkbox"
             name="age"
             id="child"
@@ -215,20 +206,6 @@ export default function Filters({
           />{" "}
           <label htmlFor="older-adult">Older Adult (65+)</label>
         </p>
-
-        <p>
-          <input
-            type="radio"
-            name="age"
-            id="custom-age"
-            onClick={() => toggleIsCustom(true)}
-          />{" "}
-          <label htmlFor="custom-age">Custom Range</label>
-          <input type="number" id="min-age" min="0" />
-          -
-          <input type="number" id="max-age" min="0" />
-        </p>
-
         <p>
           <b>Accepts healthy volunteers</b>
         </p>
@@ -238,7 +215,13 @@ export default function Filters({
             name="volunteers"
             id="healthy-volunteers"
             value="healthy-volunteers"
-            onClick={() => setAcceptsVolunteers(!acceptsVolunteers)}
+            onClick={(e: any) => {
+              if (e.target.checked) {
+                setAcceptsVolunteers("y");
+              } else {
+                setAcceptsVolunteers("");
+              }
+            }}
           />{" "}
           <label htmlFor="healthy-volunteers">Yes</label>
         </p>

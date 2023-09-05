@@ -18,6 +18,9 @@ class CTRes {
       enrollType: this.getEnrollmentType(index),
       phase: this.getPhase(index),
       locations: this.getLocations(index),
+      ageRange: this.getAgeRange(index),
+      sex: this.getSex(index),
+      healthy: this.getAcceptsHealthy(index),
     };
   }
 
@@ -50,6 +53,65 @@ class CTRes {
       return this.ctRes.studies[
         index
       ].protocolSection?.conditionsModule?.conditions?.toString();
+    }
+    return undefined;
+  }
+
+  getSex(index) {
+    if (this._validIndex(index)) {
+      return this.ctRes.studies[index].protocolSection?.eligibilityModule?.sex;
+    }
+    return undefined;
+  }
+
+  getMinAge(index) {
+    if (this._validIndex(index)) {
+      return this.ctRes.studies[index].protocolSection?.eligibilityModule
+        ?.minimumAge;
+    }
+    return undefined;
+  }
+
+  getMaxAge(index) {
+    if (this._validIndex(index)) {
+      return this.ctRes.studies[index].protocolSection?.eligibilityModule
+        ?.maximumAge;
+    }
+    return undefined;
+  }
+
+  getStdAges(index) {
+    if (this._validIndex(index)) {
+      return this.ctRes.studies[
+        index
+      ].protocolSection?.eligibilityModule?.stdAges?.toString();
+    }
+    return undefined;
+  }
+
+  getAgeRange(index) {
+    var minAge = this.getMinAge(index);
+    var maxAge = this.getMaxAge(index);
+    if (!minAge && !maxAge) {
+      return undefined;
+    } else if (!minAge) {
+      return "up to " + maxAge;
+    } else if (!maxAge) {
+      return minAge + " and older";
+    } else if (minAge && maxAge) {
+      return minAge + " to " + maxAge;
+    }
+    return undefined;
+  }
+
+  getAcceptsHealthy(index) {
+    if (this._validIndex(index)) {
+      const healthy =
+        this.ctRes.studies[index].protocolSection?.eligibilityModule
+          ?.healthyVolunteers;
+      if (healthy == undefined) return undefined;
+      else if (healthy) return "Yes";
+      else return "No";
     }
     return undefined;
   }

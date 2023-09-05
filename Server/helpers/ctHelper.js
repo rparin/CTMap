@@ -45,11 +45,15 @@ class ctHelper {
     return data;
   }
 
-  async getFilterUrl(filterJson) {
+  getAggFilterUrl(filterJson) {
     if (filterJson == "null" || !filterJson) return "";
     var aggFilter = "&aggFilters=";
     if (filterJson?.eligibility?.sex != "") {
       aggFilter += "sex:" + filterJson.eligibility.sex + ",";
+    }
+
+    if (filterJson?.eligibility?.volunteers != "") {
+      aggFilter += "healthy:" + filterJson.eligibility.volunteers + ",";
     }
 
     var phaseStr = "";
@@ -58,7 +62,6 @@ class ctHelper {
         phaseStr += filterJson.phase[key] + " ";
       }
     }
-
     if (phaseStr != "") {
       aggFilter += "phase:" + phaseStr.trim() + ",";
     }
@@ -69,7 +72,6 @@ class ctHelper {
         typeStr += filterJson.type[key] + " ";
       }
     }
-
     if (typeStr != "") {
       aggFilter += "studyType:" + typeStr.trim() + ",";
     }
@@ -87,6 +89,39 @@ class ctHelper {
       return aggFilter;
     }
     return "";
+  }
+
+  getPostFilterUrl(filterJson) {
+    if (filterJson == "null" || !filterJson) return "";
+    var min1, min2, max1, max2;
+    const child = filterJson?.eligibility?.age?.child;
+    const adult = filterJson?.eligibility?.age?.adult;
+    const olderAdult = filterJson?.eligibility?.age?.older_adult;
+
+    if ((child && adult && olderAdult) || (!child && !adult && !olderAdult)) {
+      return "";
+    } else if (child && adult) {
+      (min1 = "MIN"), (min2 = "17 years");
+      (max1 = "18 years"), (max2 = "64 years");
+    } else if (child && olderAdult) {
+      (min1 = "MIN"), (min2 = "17 years");
+      (max1 = "65 years"), (max2 = "MAX");
+    } else if (adult && olderAdult) {
+      (min1 = "18 years"), (min2 = "64 years");
+      (max1 = "65 years"), (max2 = "MAX");
+    } else if (child) {
+      (min1 = "MIN"), (min2 = "17 years");
+      (max1 = min1), (max2 = min2);
+      min1 = "MIN";
+    } else if (adult) {
+      (min1 = "18 years"), (min2 = "64 years");
+      (max1 = min1), (max2 = min2);
+    } else if (olderAdult) {
+      (min1 = "65 years"), (min2 = "MAX");
+      (max1 = min1), (max2 = min2);
+    }
+    var filter = `&postFilter.advanced=AREA[MinimumAge]RANGE[${min1}, ${min2}] AND AREA[MaximumAge]RANGE[${max1}, ${max2}]`;
+    return filter;
   }
 }
 

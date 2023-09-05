@@ -21,6 +21,9 @@ export default function Results({ searchResult }: { searchResult: {} }) {
           enrollment={study.enroll}
           type={study.enrollType}
           phase={study.phase}
+          healthy={study.healthy}
+          sex={study.sex}
+          ageRange={study.ageRange}
         />
       );
     }
