@@ -365,7 +365,11 @@ export default function Filters({
       </fieldset>
 
       <div id="filter-buttons" className="flex justify-end">
-        <button type="reset" id="clear-button" onClick={handleClear}>
+        <button
+            className="bg-none hover:text-blue-700 text-blue-500 font-bold py-2 px-4 rounded"
+            type="reset"
+            id="clear-button"
+            onClick={handleClear}>
           Clear Filters
         </button>
         <button
