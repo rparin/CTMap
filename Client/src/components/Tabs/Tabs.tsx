@@ -98,23 +98,23 @@ export default function Tabs({
           role="tab"
           aria-controls="tabPanel-1"
           aria-selected="true">
-          Results
+          Filters
         </button>
         <button
           id="tab-2"
           role="tab"
           aria-controls="tabPanel-2"
           aria-selected="false">
-          Filters
+          Results
         </button>
       </div>
       <div className="px-3 pb-2">
         <div id="tabPanel-1" role="tabpanel" aria-labelledby="tab-1">
-          <Results searchResult={searchResult} />
+          <Filters setFilter={setFilter} />
         </div>
 
         <div id="tabPanel-2" hidden role="tabpanel" aria-labelledby="tab-2">
-          <Filters setFilter={setFilter} />
+          <Results searchResult={searchResult} />
         </div>
       </div>
     </>
