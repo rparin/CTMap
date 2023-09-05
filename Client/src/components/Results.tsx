@@ -29,5 +29,10 @@ export default function Results({ searchResult }: { searchResult: {} }) {
     }
     setResults(cInfos);
   }, [searchResult]);
-  return <section>{results}</section>;
+  return (
+    <>
+      {results.length <= 0 && <section>No Results Found</section>}
+      {results.length > 0 && <section>{results}</section>}
+    </>
+  );
 }
