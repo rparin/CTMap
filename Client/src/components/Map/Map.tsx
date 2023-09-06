@@ -36,7 +36,7 @@ export default function Map() {
     });
   };
 
-  const locMarker = new mapboxgl.Marker();
+  const locMarker = new mapboxgl.Marker({draggable: true});
 
   // set initial settings and location
   useEffect(() => {
@@ -108,6 +108,18 @@ export default function Map() {
 
       locMarker.setLngLat([e.lngLat.lng, e.lngLat.lat])
         .addTo(map);
+    });
+
+    locMarker.on('dragend', () => {
+      const lngLat = locMarker.getLngLat();
+      const ct_location_ep = "http://localhost:8080/api/ct/location";
+      fetch(ct_location_ep + "/" + locMarker.getLngLat().lng + "," + locMarker.getLngLat().lat).then((res) =>
+        res.json().then((data) => {
+          // after the data is fetched then set the place to the first place in the results
+          console.log(data.locationResult);
+          setPlace(data.locationResult);
+        })
+      );
     });
 
     //Fill map with result pins
