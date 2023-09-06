@@ -45,7 +45,7 @@ export default function Map() {
       style: "MAP_STYLE", // map styling here; streets and other miscellaneous stuff were removed here
       center: [lng, lat],
       zoom: zoom,
-      maxZoom: 5
+      maxZoom: 8
     });
 
     // add geocoder control
@@ -61,6 +61,9 @@ export default function Map() {
     // when the user searches a location via the location searchbox, set the place
     geocoder.on('result', (event) => {
       setPlace(event.result.place_name);
+
+      locMarker.setLngLat(event.result.center)
+        .addTo(map);
     });
 
     // add zoom control
