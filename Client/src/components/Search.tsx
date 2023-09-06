@@ -1,9 +1,11 @@
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 
 export default function Search({
   setResult,
+  filterValue,
 }: {
   setResult: React.Dispatch<React.SetStateAction<string>>;
+  filterValue: {} | null;
 }) {
   //API Endpoints
   const ct_search_ep = "http://localhost:8080/api/ct/studies";
@@ -21,14 +23,8 @@ export default function Search({
   // call ct-api to get search results on button click or enter key
   const handleClick = () => {
     if (searchValue == "") return;
-
     if (prevValue != searchValue) {
-      fetch(ct_search_ep + "/" + searchValue).then((res) =>
-        res.json().then((data) => {
-          console.log(data.searchResult);
-          setResult(data.searchResult);
-        })
-      );
+      callSearchAPI();
     }
     setPrev(searchValue);
   };
@@ -38,6 +34,19 @@ export default function Search({
       handleClick();
     }
   };
+
+  const callSearchAPI = () => {
+    fetch(ct_search_ep + "/" + searchValue + "/" + filterValue).then((res) =>
+      res.json().then((data) => {
+        setResult(data.searchResult);
+      })
+    );
+  };
+
+  useEffect(() => {
+    if (searchValue == "") return;
+    callSearchAPI();
+  }, [filterValue]);
 
   return (
     <>

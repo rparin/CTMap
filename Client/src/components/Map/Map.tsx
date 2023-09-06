@@ -3,6 +3,7 @@
 import "./Map.css";
 import MPopup, { pInfo } from "../MPopup";
 import Search from "@/components/Search";
+import Tabs from "../Tabs/Tabs";
 
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -12,7 +13,6 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import React, { useRef, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { getEventListeners } from "events";
 
 mapboxgl.accessToken =
   "MAP_TOKEN";
@@ -27,6 +27,7 @@ export default function Map() {
 
   //Get and store data from search result
   const [searchResult, setResult] = useState({});
+  const [filterValue, setFilter] = useState<{} | null>(null);
   const mEventHandlers: { marker: HTMLElement; func: () => void }[] = [];
 
   const removeMarkerEvents = async () => {
@@ -94,22 +95,27 @@ export default function Map() {
     if (!isEmpty(searchResult)) {
       let colors = new Set();
       for (var key in searchResult) {
-        let nctId = key;
         let curColor = getRandomColor();
         while (colors.has(curColor)) {
           curColor = getRandomColor();
         }
-        const arr: any[] = searchResult[key as keyof {}];
-        for (let i = 0; i < arr.length; i++) {
+        const study: any = searchResult[key as keyof {}];
+        for (let i = 0; i < study.geolocations.length; i++) {
           const marker = new mapboxgl.Marker({ color: curColor })
-            .setLngLat(arr[i])
+            .setLngLat(study.geolocations[i])
             .addTo(map);
           const mElement = marker.getElement();
 
           //Create Popup on marker click
           const mHandler = () => {
             const popup = createPopup(
-              { title: nctId, details: "pDetails" },
+              {
+                id: study.nctId,
+                title: study.title,
+                studyStart: study.studyStart,
+                studyType: study.studyType,
+                phase: study.phase,
+              },
               { offset: 25 }
             );
             marker.setPopup(popup).togglePopup();
@@ -131,10 +137,14 @@ export default function Map() {
     <>
       <div ref={mapContainer} className="map_container" />
       <div className="flex justify-between absolute m-5 gap-3">
-        <Search setResult={setResult} />
+        <Search setResult={setResult} filterValue={filterValue} />
 
         {/* temporarily print coordinates here for reference */}
         Place: {place}
+      </div>
+
+      <div className="absolute m-5 bottom-10 text-black bg-slate-200 w-96 h-[40rem] overflow-y-auto ">
+        <Tabs searchResult={searchResult} setFilter={setFilter} />
       </div>
     </>
   );
@@ -147,7 +157,13 @@ function createPopup(
   const popup = new mapboxgl.Popup(pOptions);
   const pContainer = document.createElement("div");
   createRoot(pContainer).render(
-    <MPopup title={popupInfo.title} details={popupInfo.details} />
+    <MPopup
+      id={popupInfo.id}
+      title={popupInfo.title}
+      studyStart={popupInfo.studyStart}
+      studyType={popupInfo.studyType}
+      phase={popupInfo.phase}
+    />
   );
   popup.setDOMContent(pContainer);
   return popup;

@@ -1,6 +1,5 @@
 import "./Main.css";
 import Map from "@/components/Map/Map";
-import Results from "@/components/Results";
 
 export default function Main() {
   return (
@@ -9,7 +8,6 @@ export default function Main() {
       <Map />
 
       {/* Bottom Stuff (Todo) */}
-      <Results />
     </main>
   );
 }
