@@ -33,6 +33,16 @@ export default function Results({ searchResult }: { searchResult: {} }) {
     <>
       {results.length <= 0 && <section>No Results Found</section>}
       {results.length > 0 && <section>{results}</section>}
+      <p className="text-xs italic">
+        <a
+          className="font-bold text-sky-500"
+          href="https://clinicaltrials.gov"
+          title="Information on Clinical Trials and Human Research Studies">ClinicalTrials.gov</a> provides patients, their family members, and the public with easy and free access to information on clinical studies for a wide range of diseases and conditions.
+      </p>
+      <br />
+      <p className="text-xs italic">
+          ClinicalTrials.gov was developed by the National Library of Medicine. ClinicalTrials.gov is updated daily. You should check ClinicalTrials.gov frequently for updated information.
+      </p>
     </>
   );
 }
