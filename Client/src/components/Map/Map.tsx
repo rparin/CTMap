@@ -36,6 +36,8 @@ export default function Map() {
     });
   };
 
+  const locMarker = new mapboxgl.Marker();
+
   // set initial settings and location
   useEffect(() => {
     const map = new mapboxgl.Map({
@@ -43,7 +45,7 @@ export default function Map() {
       style: "MAP_STYLE", // map styling here; streets and other miscellaneous stuff were removed here
       center: [lng, lat],
       zoom: zoom,
-      maxZoom: 15
+      maxZoom: 5
     });
 
     // add geocoder control
@@ -72,8 +74,8 @@ export default function Map() {
       positionOptions: {
         enableHighAccuracy: true
       },
-      trackUserLocation: true,
-      fitBoundsOptions: {maxZoom: 5}
+      fitBoundsOptions: {maxZoom: 5},
+      showUserLocation: false
       });
     map.addControl(geolocate);
 
@@ -89,6 +91,23 @@ export default function Map() {
           setPlace(data.locationResult);
         })
       );
+
+      locMarker.setLngLat([pos.coords.longitude, pos.coords.latitude])
+        .addTo(map);
+    });
+
+    map.on("dblclick", function(e) {
+      const ct_location_ep = "http://localhost:8080/api/ct/location";
+      fetch(ct_location_ep + "/" + e.lngLat.lng + "," + e.lngLat.lat).then((res) =>
+        res.json().then((data) => {
+          // after the data is fetched then set the place to the first place in the results
+          console.log(data.locationResult);
+          setPlace(data.locationResult);
+        })
+      );
+
+      locMarker.setLngLat([e.lngLat.lng, e.lngLat.lat])
+        .addTo(map);
     });
 
     //Fill map with result pins
