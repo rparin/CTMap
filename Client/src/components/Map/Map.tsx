@@ -45,7 +45,7 @@ export default function Map() {
       style: "MAP_STYLE", // map styling here; streets and other miscellaneous stuff were removed here
       center: [lng, lat],
       zoom: zoom,
-      maxZoom: 8
+      maxZoom: 10
     });
 
     // add geocoder control
@@ -77,7 +77,6 @@ export default function Map() {
       positionOptions: {
         enableHighAccuracy: true
       },
-      fitBoundsOptions: {maxZoom: 5},
       showUserLocation: false
       });
     map.addControl(geolocate);
