@@ -22,8 +22,7 @@ export default function Map() {
   const [lng, setLng] = useState(-70.9);
   const [lat, setLat] = useState(42.35);
   const [zoom, setZoom] = useState(5);
-  const [place, setPlace] = useState(null);
-  const [cr, setCR] = useState('');
+  const [place, setPlace] = useState('');
 
   //Get and store data from search result
   const [searchResult, setResult] = useState({});
@@ -48,7 +47,9 @@ export default function Map() {
       maxZoom: 10
     });
 
-    // add geocoder control
+    // ------------------ ADD CONTROLS FOR MANIPULATING MAP ------------------
+    // geocoder control: a built in searchbar that automatically does
+    // forward geocoding (aka converts coordinates to real places)
     const geocoder = new MapboxGeocoder({
       accessToken: mapboxgl.accessToken,
       mapboxgl: mapboxgl,
@@ -57,22 +58,15 @@ export default function Map() {
     });
     map.addControl(geocoder);
 
-    // result event is triggered when the user selects a result from the location search bar's dropdown menu
-    // when the user searches a location via the location searchbox, set the place
-    geocoder.on('result', (event) => {
-      setPlace(event.result.place_name);
-
-      locMarker.setLngLat(event.result.center)
-        .addTo(map);
-    });
-
-    // add zoom control
+    // zoom control: allows user to zoom in/out by clicking on the +/- controls
+    // on the bottom right
     const nav = new mapboxgl.NavigationControl({
       showCompass: false, // do not show compass controls so rotation of the map is not allowed (not neeeded anyway)
     });
     map.addControl(nav, "bottom-right");
 
-    // create and add user locator control
+    // locator control: used for finding the user's location at the click of a
+    // button; located underneath the geocoder control/top right
     const geolocate = new mapboxgl.GeolocateControl({
       positionOptions: {
         enableHighAccuracy: true
@@ -80,49 +74,42 @@ export default function Map() {
       showUserLocation: false
       });
     map.addControl(geolocate);
+    // --------------------------- MAP CONTROLS END ---------------------------
 
-    // geolocate event is triggered when user click on the "use my location button"
-    geolocate.on('geolocate', (pos) => {
-      // ask the server for closest place in the given coordinates (since geolocate only gives users' coordinates)
-      // be aware that the coordinates may not be accurate so i just limited the types to be cities/zipcodes and higher in terms of hierarchy (so specific addresses will not be considered)
-      const ct_location_ep = "http://localhost:8080/api/ct/location";
-      fetch(ct_location_ep + "/" + pos.coords.longitude + "," + pos.coords.latitude).then((res) =>
-        res.json().then((data) => {
-          // after the data is fetched then set the place to the first place in the results
-          console.log(data.locationResult);
-          setPlace(data.locationResult);
-        })
-      );
+    // ----------------------- SELECT A LOCATION EVENTS -----------------------
+    // ** every event will change the current place name value, as well as place a marker on the map **
+    // TRIGGER #1: user selects a location from the location searchbar dropdown
+    geocoder.on('result', (event) => {
+      // no need for reverse geocoding here since we searched for the place name directly
+      setPlace(event.result.place_name);
+      locMarker.setLngLat(event.result.center)
+        .addTo(map);
+    });
 
+    // TRIGGER #2: user clicks on the "find my location button"
+    geolocate.on('geolocate', async (pos) => {
+      const placeName = reverseGeocode(pos.coords.longitude, pos.coords.latitude);
+      setPlace(await placeName);
       locMarker.setLngLat([pos.coords.longitude, pos.coords.latitude])
         .addTo(map);
     });
 
-    map.on("dblclick", function(e) {
-      const ct_location_ep = "http://localhost:8080/api/ct/location";
-      fetch(ct_location_ep + "/" + e.lngLat.lng + "," + e.lngLat.lat).then((res) =>
-        res.json().then((data) => {
-          // after the data is fetched then set the place to the first place in the results
-          console.log(data.locationResult);
-          setPlace(data.locationResult);
-        })
-      );
-
+    // TRIGGER #3: user double clicks on a point on the map
+    map.on("dblclick", async (e) => {
+      const placeName = reverseGeocode(e.lngLat.lng, e.lngLat.lat);
+      setPlace(await placeName);
       locMarker.setLngLat([e.lngLat.lng, e.lngLat.lat])
         .addTo(map);
     });
 
-    locMarker.on('dragend', () => {
-      const lngLat = locMarker.getLngLat();
-      const ct_location_ep = "http://localhost:8080/api/ct/location";
-      fetch(ct_location_ep + "/" + locMarker.getLngLat().lng + "," + locMarker.getLngLat().lat).then((res) =>
-        res.json().then((data) => {
-          // after the data is fetched then set the place to the first place in the results
-          console.log(data.locationResult);
-          setPlace(data.locationResult);
-        })
-      );
+    // TRIGGER #4: user drags their location pin around on map
+    locMarker.on('dragend', async () => {
+      const placeName = reverseGeocode(locMarker.getLngLat().lng, locMarker.getLngLat().lat);
+      setPlace(await placeName);
+      locMarker.setLngLat([locMarker.getLngLat().lng, locMarker.getLngLat().lat])
+        .addTo(map);
     });
+    // ------------------------- LOCATION EVENTS END -------------------------
 
     //Fill map with result pins
     if (!isEmpty(searchResult)) {
@@ -217,4 +204,23 @@ function getRandomColor() {
     color += letters[Math.floor(Math.random() * 16)];
   }
   return color;
+}
+
+// params: coordinates on map (longitude and latitude as numbers)
+// returns: name of place (string) 
+// ask the server for closest place in the given coordinates (since geolocate only gives users' coordinates)
+// be aware that the coordinates may not be accurate so the types are limited to cities/zipcodes and higher in terms of hierarchy (so specific addresses will not be considered)
+async function reverseGeocode(
+  longitude: number,
+  latitude: number
+): Promise<string> {
+  const ct_location_ep = "http://localhost:8080/api/ct/location";
+  let placeName = "";
+  await fetch(ct_location_ep + "/" + longitude + "," + latitude).then(async (res) =>
+    await res.json().then((data) => {
+      // after the data is fetched then get the place name
+      placeName = data.locationResult;
+    })
+  );
+  return placeName;
 }
