@@ -49,7 +49,7 @@ export default function Map() {
 
     // ------------------ ADD CONTROLS FOR MANIPULATING MAP ------------------
     // geocoder control: a built in searchbar that automatically does
-    // forward geocoding (aka converts coordinates to real places)
+    // forward geocoding (aka converts place names to coordinates on map)
     const geocoder = new MapboxGeocoder({
       accessToken: mapboxgl.accessToken,
       mapboxgl: mapboxgl,
