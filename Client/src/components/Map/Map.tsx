@@ -35,8 +35,6 @@ export default function Map() {
     });
   };
 
-  const locMarker = new mapboxgl.Marker({draggable: true});
-
   // set initial settings and location
   useEffect(() => {
     const map = new mapboxgl.Map({
@@ -46,6 +44,8 @@ export default function Map() {
       zoom: zoom,
       maxZoom: 10
     });
+
+    const locMarker = new mapboxgl.Marker({draggable: true});
 
     // ------------------ ADD CONTROLS FOR MANIPULATING MAP ------------------
     // geocoder control: a built in searchbar that automatically does
