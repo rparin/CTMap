@@ -79,7 +79,7 @@ export default function Map() {
     // ----------------------- SELECT A LOCATION EVENTS -----------------------
     // ** every event will change the current place name value, as well as place a marker on the map **
     // TRIGGER #1: user selects a location from the location searchbar dropdown
-    geocoder.on('result', (event) => {
+    geocoder.on('result', (event: any) => {
       // no need for reverse geocoding here since we searched for the place name directly
       setPlace(event.result.place_name);
       locMarker.setLngLat(event.result.center)
@@ -87,7 +87,7 @@ export default function Map() {
     });
 
     // TRIGGER #2: user clicks on the "find my location button"
-    geolocate.on('geolocate', async (pos) => {
+    geolocate.on('geolocate', async (pos: any) => {
       const placeName = reverseGeocode(pos.coords.longitude, pos.coords.latitude);
       setPlace(await placeName);
       locMarker.setLngLat([pos.coords.longitude, pos.coords.latitude])
@@ -95,10 +95,10 @@ export default function Map() {
     });
 
     // TRIGGER #3: user double clicks on a point on the map
-    map.on("dblclick", async (e) => {
-      const placeName = reverseGeocode(e.lngLat.lng, e.lngLat.lat);
+    map.on("dblclick", async (event) => {
+      const placeName = reverseGeocode(event.lngLat.lng, event.lngLat.lat);
       setPlace(await placeName);
-      locMarker.setLngLat([e.lngLat.lng, e.lngLat.lat])
+      locMarker.setLngLat([event.lngLat.lng, event.lngLat.lat])
         .addTo(map);
     });
 
