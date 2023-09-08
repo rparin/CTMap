@@ -2,6 +2,7 @@
 
 import "./Map.css";
 import MPopup, { pInfo } from "../MPopup";
+import PageButton from "@/components/PageButton";
 import Search from "@/components/Search";
 import Tabs from "../Tabs/Tabs";
 
@@ -24,6 +25,9 @@ export default function Map() {
   const [searchResult, setResult] = useState({});
   const [filterValue, setFilter] = useState<{} | null>(null);
   const mEventHandlers: { marker: HTMLElement; func: () => void }[] = [];
+
+  const [prevPageToken, setPrevPage] = useState("");
+  const [nextPageToken, setNextPage] = useState("");
 
   const removeMarkerEvents = async () => {
     mEventHandlers.forEach(function (item, index) {
@@ -94,6 +98,11 @@ export default function Map() {
         <Search setResult={setResult} filterValue={filterValue} />
 
         {/* Todo add location search bar here */}
+      </div>
+
+      <div className="absolute bottom-[43rem] left-[15rem] m-5 text-black w-43">
+        <PageButton buttonName="Prev" pageToken={prevPageToken} />
+        <PageButton buttonName="Next" pageToken={nextPageToken} />
       </div>
 
       <div className="absolute m-5 bottom-10 text-black bg-slate-200 w-96 h-[40rem] overflow-y-auto ">
