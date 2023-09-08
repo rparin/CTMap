@@ -3,9 +3,11 @@ import { SetStateAction, useEffect, useState } from "react";
 export default function Search({
   setResult,
   filterValue,
+  setLoader
 }: {
   setResult: React.Dispatch<React.SetStateAction<string>>;
   filterValue: {} | null;
+  setLoader: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   //API Endpoints
   const ct_search_ep = "http://localhost:8080/api/ct/studies";
@@ -36,9 +38,11 @@ export default function Search({
   };
 
   const callSearchAPI = () => {
+    setLoader(true);
     fetch(ct_search_ep + "/" + searchValue + "/" + filterValue).then((res) =>
       res.json().then((data) => {
         setResult(data.searchResult);
+        setLoader(false);
       })
     );
   };
