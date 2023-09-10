@@ -26,8 +26,10 @@ export default function Map() {
   const [filterValue, setFilter] = useState<{} | null>(null);
   const mEventHandlers: { marker: HTMLElement; func: () => void }[] = [];
 
-  const [prevPageToken, setPrevPage] = useState("");
-  const [nextPageToken, setNextPage] = useState("");
+  // page stuff
+  const maxPageIndex = useRef(0);
+  const currentPageIndex = useRef(0);
+  const [currentPageToken, setPageToken] = useState<string | null>(null);
 
   const removeMarkerEvents = async () => {
     mEventHandlers.forEach(function (item, index) {
@@ -95,14 +97,15 @@ export default function Map() {
     <>
       <div ref={mapContainer} className="map_container" />
       <div className="flex justify-between absolute m-5 gap-3">
-        <Search setResult={setResult} filterValue={filterValue} />
+        <Search setResult={setResult} filterValue={filterValue} maxPageIndex={maxPageIndex} currentPageIndex={currentPageIndex} currentPageToken={currentPageToken} />
 
         {/* Todo add location search bar here */}
       </div>
 
-      <div className="absolute bottom-[43rem] left-[15rem] m-5 text-black w-43">
-        <PageButton buttonName="Prev" pageToken={prevPageToken} />
-        <PageButton buttonName="Next" pageToken={nextPageToken} />
+      <div className="absolute bottom-[43rem] m-5 text-white w-43">
+        <PageButton buttonName="Prev" maxPageIndex={maxPageIndex} currentPageIndex={currentPageIndex} setPageToken={setPageToken} pageDiff={-1} />
+        {(currentPageIndex.current > 0) ? (`Page ${currentPageIndex.current}`) : ("")}
+        <PageButton buttonName="Next" maxPageIndex={maxPageIndex} currentPageIndex={currentPageIndex} setPageToken={setPageToken} pageDiff={1} />
       </div>
 
       <div className="absolute m-5 bottom-10 text-black bg-slate-200 w-96 h-[40rem] overflow-y-auto ">
