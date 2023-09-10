@@ -99,7 +99,7 @@ export default function Map() {
   const [loader, setLoader] = useState(false);
   
   // default to 50 results per page
-  const [pageSize, setPageSize] = useState("50");
+  const [pageSize, setPageSize] = useState("1");
 
   return (
     <>
