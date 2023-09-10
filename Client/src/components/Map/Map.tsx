@@ -97,12 +97,24 @@ export default function Map() {
 
   // Show loader when results have not finished fetching
   const [loader, setLoader] = useState(false);
+  
+  // default to 50 results per page
+  const [pageSize, setPageSize] = useState("50");
 
   return (
     <>
       <div ref={mapContainer} className="map_container" />
       <div className="flex justify-between absolute m-5 gap-3">
-        <Search setResult={setResult} filterValue={filterValue} pageTokens={pageTokens} maxPageIndex={maxPageIndex} currentPageIndex={currentPageIndex} currentPageToken={currentPageToken} setLoader={setLoader} />
+        <Search
+          setResult={setResult}
+          filterValue={filterValue}
+          pageTokens={pageTokens}
+          maxPageIndex={maxPageIndex}
+          currentPageIndex={currentPageIndex}
+          currentPageToken={currentPageToken}
+          setLoader={setLoader}
+          pageSize={pageSize} />
+
 
         {/* Todo add location search bar here */}
       </div>
@@ -114,7 +126,7 @@ export default function Map() {
       </div>
 
       <div className="absolute m-5 bottom-10 text-black bg-slate-200 w-96 h-[40rem] overflow-y-auto ">
-        <Tabs searchResult={searchResult} setFilter={setFilter} />
+        <Tabs searchResult={searchResult} setFilter={setFilter} setPageSize={setPageSize} />
       </div>
 
       <Loader loader={loader}/>
