@@ -25,7 +25,7 @@ export default function Search({
   //Search Entry
   const [searchValue, setSearch] = useState("");
   const [prevValue, setPrev] = useState("");
-  const [prevPageSize, setPrevPageSize] = useState("50");
+  const [prevPageSize, setPrevPageSize] = useState("1");
 
   const handleChange = (event: {
     target: { value: SetStateAction<string> };
