@@ -11,6 +11,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 import React, { useRef, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
+import Loader from "../Loader";
 
 mapboxgl.accessToken =
   "MAP_TOKEN";
@@ -94,11 +95,14 @@ export default function Map() {
     };
   }, [searchResult]); // update map whenever searchResult changes
 
+  // Show loader when results have not finished fetching
+  const [loader, setLoader] = useState(false);
+
   return (
     <>
       <div ref={mapContainer} className="map_container" />
       <div className="flex justify-between absolute m-5 gap-3">
-        <Search setResult={setResult} filterValue={filterValue} pageTokens={pageTokens} maxPageIndex={maxPageIndex} currentPageIndex={currentPageIndex} currentPageToken={currentPageToken} />
+        <Search setResult={setResult} filterValue={filterValue} pageTokens={pageTokens} maxPageIndex={maxPageIndex} currentPageIndex={currentPageIndex} currentPageToken={currentPageToken} setLoader={setLoader} />
 
         {/* Todo add location search bar here */}
       </div>
@@ -112,6 +116,8 @@ export default function Map() {
       <div className="absolute m-5 bottom-10 text-black bg-slate-200 w-96 h-[40rem] overflow-y-auto ">
         <Tabs searchResult={searchResult} setFilter={setFilter} />
       </div>
+
+      <Loader loader={loader}/>
     </>
   );
 }

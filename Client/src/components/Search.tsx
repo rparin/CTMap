@@ -7,6 +7,7 @@ export default function Search({
   maxPageIndex,
   currentPageIndex,
   currentPageToken,
+  setLoader,
 }: {
   setResult: React.Dispatch<React.SetStateAction<string>>;
   filterValue: {} | null;
@@ -14,6 +15,7 @@ export default function Search({
   maxPageIndex: MutableRefObject<number>;
   currentPageIndex: MutableRefObject<number>;
   currentPageToken: string | null;
+  setLoader: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   //API Endpoints
   const ct_search_ep = "http://localhost:8080/api/ct/studies";
@@ -49,6 +51,7 @@ export default function Search({
   };
 
   const callSearchAPI = async () => {
+    setLoader(true);
     fetch(ct_search_ep + "/" + searchValue + "/" + filterValue + "/" + currentPageToken).then((res) =>
       res.json().then((data) => {
         setResult(data.searchResult);
@@ -58,6 +61,7 @@ export default function Search({
           pageTokens.current?.push(data.nextPageToken);
           maxPageIndex.current = currentPageIndex.current + 1;
         }
+        setLoader(false);
       })
     );
   };
