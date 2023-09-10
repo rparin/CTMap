@@ -3,15 +3,17 @@ import { MutableRefObject, SetStateAction, useEffect, useRef, useState } from "r
 export default function Search({
   setResult,
   filterValue,
+  pageTokens,       // is modified here
   maxPageIndex,
   currentPageIndex,
   currentPageToken,
 }: {
   setResult: React.Dispatch<React.SetStateAction<string>>;
   filterValue: {} | null;
+  pageTokens: MutableRefObject<string[]>;
   maxPageIndex: MutableRefObject<number>;
   currentPageIndex: MutableRefObject<number>;
-  currentPageToken: string | boolean | null;
+  currentPageToken: string | null;
 }) {
   //API Endpoints
   const ct_search_ep = "http://localhost:8080/api/ct/studies";
@@ -30,10 +32,10 @@ export default function Search({
   const handleClick = () => {
     if (searchValue == "") return;
     if (prevValue != searchValue) {
-      // reset page count and clear page token caches
+      // reset page count and clear page tokens
       currentPageIndex.current = 1;
       maxPageIndex.current = 1;
-      clearCacheData();
+      pageTokens.current = [];
 
       callSearchAPI();
     }
@@ -46,33 +48,14 @@ export default function Search({
     }
   };
 
-  const clearCacheData = () => {
-    caches.keys().then((names) => {
-        names.forEach((name) => {
-            if (name.startsWith("page")) {
-              caches.delete(name);
-            }
-        });
-    });
-  };
-
-  const addPageToCache = (pageToken: string | null, num: number) => {
-    // add next page token to cache
-    if ('caches' in window) {
-      caches.open("page" + (num)).then((cache) => {
-        cache.put("http://localhost:3000", new Response(JSON.stringify(pageToken)));
-      });
-    }
-  };
-
   const callSearchAPI = async () => {
     fetch(ct_search_ep + "/" + searchValue + "/" + filterValue + "/" + currentPageToken).then((res) =>
       res.json().then((data) => {
         setResult(data.searchResult);
         // if there is no nextPageToken and if we are at the current max page (aka highest page user as visited)
-        // this will help avoid adding to cache when unnecessary
+        // this will help avoid adding to page tokens when unnecessary
         if (data.nextPageToken != null && currentPageIndex.current + 1 > maxPageIndex.current) {
-          addPageToCache(data.nextPageToken, currentPageIndex.current + 1);
+          pageTokens.current?.push(data.nextPageToken);
           maxPageIndex.current = currentPageIndex.current + 1;
         }
       })
@@ -84,7 +67,7 @@ export default function Search({
     if (searchValue == "") return;
     currentPageIndex.current = 1;
     maxPageIndex.current = 1;
-    clearCacheData();
+    pageTokens.current = [];
 
     callSearchAPI();
   }, [filterValue]);

@@ -2,12 +2,14 @@ import { MutableRefObject, SetStateAction, useEffect, useState } from "react";
 
 export default function PageButton({
   buttonName,
+  pageTokens,       // is only read here
   maxPageIndex,
   currentPageIndex,
   setPageToken,
   pageDiff,
 }: {
   buttonName: string;
+  pageTokens: MutableRefObject<string[]>;
   maxPageIndex: MutableRefObject<number>;
   currentPageIndex: MutableRefObject<number>;
   setPageToken: React.Dispatch<React.SetStateAction<string | null>>;
@@ -15,28 +17,18 @@ export default function PageButton({
 }) {
     
   const handleClick = async (
-    num: number,
-    url: string) => {
+    num: number) => {
     if (num == 1) {
       currentPageIndex.current = 1;
       setPageToken(null);
       return;
     }
-    if (typeof caches === 'undefined') return false;
-    const cacheName: string = "page" + num;
-
-    const cacheStorage = await caches.open(cacheName);
-    const cachedResponse = await cacheStorage.match(url);
-
-    if (!cachedResponse || !cachedResponse.ok) {
-      console.log("page" + num + " from cache does not exist!");
-    }
-    
-    if (cachedResponse && cachedResponse.ok) {
-      return cachedResponse.json().then((item) => {
-        setPageToken(item);
-        currentPageIndex.current = currentPageIndex.current + pageDiff;
-      });
+    if (pageTokens.current != null) {
+      let newPageToken: string = pageTokens.current[num - 2];
+      if (newPageToken != null) {
+        setPageToken(pageTokens.current[num - 2]);
+        currentPageIndex.current = num;
+      }
     }
   };
 
@@ -45,7 +37,7 @@ export default function PageButton({
       <button
         className="bg-blue-500 m-1 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
         disabled={currentPageIndex.current + pageDiff == 0 || currentPageIndex.current == maxPageIndex.current}
-        onClick={() => handleClick(currentPageIndex.current + pageDiff, "http://localhost:3000")}>
+        onClick={() => handleClick(currentPageIndex.current + pageDiff)}>
         {buttonName}
       </button>
     </>
