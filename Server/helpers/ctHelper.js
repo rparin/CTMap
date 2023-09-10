@@ -11,6 +11,11 @@ class ctHelper {
     return res?.features[0]?.center;
   }
 
+  getNextPageToken(res) {
+    const ctRes = new CTRes(res);
+    return ctRes.getNextPage();
+  }
+
   //parse data from clinical trial api
   //https://clinicaltrials.gov/api/v2/studies
   async parseSearchResults(res) {
