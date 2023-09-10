@@ -2,6 +2,7 @@
 
 import "./Map.css";
 import MPopup, { pInfo } from "../MPopup";
+import PageButton from "@/components/PageButton";
 import Search from "@/components/Search";
 import Tabs from "../Tabs/Tabs";
 
@@ -24,6 +25,12 @@ export default function Map() {
   const [searchResult, setResult] = useState({});
   const [filterValue, setFilter] = useState<{} | null>(null);
   const mEventHandlers: { marker: HTMLElement; func: () => void }[] = [];
+
+  // page stuff
+  const pageTokens = useRef<string[]>([]);  // array indices compared to page number are off by 2 (instead of 1 by default) because first page's token is never stored (it's always null)
+  const maxPageIndex = useRef(0);
+  const currentPageIndex = useRef(0);
+  const [currentPageToken, setPageToken] = useState<string | null>(null);
 
   const removeMarkerEvents = async () => {
     mEventHandlers.forEach(function (item, index) {
@@ -91,9 +98,15 @@ export default function Map() {
     <>
       <div ref={mapContainer} className="map_container" />
       <div className="flex justify-between absolute m-5 gap-3">
-        <Search setResult={setResult} filterValue={filterValue} />
+        <Search setResult={setResult} filterValue={filterValue} pageTokens={pageTokens} maxPageIndex={maxPageIndex} currentPageIndex={currentPageIndex} currentPageToken={currentPageToken} />
 
         {/* Todo add location search bar here */}
+      </div>
+
+      <div className="absolute bottom-[43rem] m-5 text-white w-43">
+        <PageButton buttonName="Prev" pageTokens={pageTokens} maxPageIndex={maxPageIndex} currentPageIndex={currentPageIndex} setPageToken={setPageToken} pageDiff={-1} />
+        {(currentPageIndex.current > 0) ? (`Page ${currentPageIndex.current}`) : ("")}
+        <PageButton buttonName="Next" pageTokens={pageTokens} maxPageIndex={maxPageIndex} currentPageIndex={currentPageIndex} setPageToken={setPageToken} pageDiff={1} />
       </div>
 
       <div className="absolute m-5 bottom-10 text-black bg-slate-200 w-96 h-[40rem] overflow-y-auto ">
