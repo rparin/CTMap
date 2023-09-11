@@ -21,7 +21,7 @@ export default function Map() {
   const [lng, setLng] = useState(-70.9);
   const [lat, setLat] = useState(42.35);
   const [zoom, setZoom] = useState(3);
-  const [place, setPlace] = useState("");
+  const [place, setPlace] = useState<{} | null>(null);
 
   //Get and store data from search result
   const [searchResult, setResult] = useState({});
@@ -47,7 +47,7 @@ export default function Map() {
       center: [lng, lat],
       zoom: zoom,
     });
-    const locMarker = new mapboxgl.Marker({ draggable: true });
+    const locMarker = new mapboxgl.Marker({ draggable: false });
 
     // locator control: used for finding the user's location at the click of a
     // button; located underneath the geocoder control/top right
@@ -60,11 +60,15 @@ export default function Map() {
     map.addControl(geolocate);
 
     geolocate.on("geolocate", async (pos: any) => {
-      const placeName = reverseGeocode(
+      const placeName = await reverseGeocode(
         pos.coords.longitude,
         pos.coords.latitude
       );
-      setPlace(await placeName);
+      setPlace({
+        lng: pos.coords.longitude,
+        lat: pos.coords.latitude,
+        name: placeName,
+      });
       locMarker
         .setLngLat([pos.coords.longitude, pos.coords.latitude])
         .addTo(map);
@@ -72,8 +76,15 @@ export default function Map() {
 
     // TRIGGER #3: user double clicks on a point on the map
     map.on("dblclick", async (event: any) => {
-      const placeName = reverseGeocode(event.lngLat.lng, event.lngLat.lat);
-      setPlace(await placeName);
+      const placeName = await reverseGeocode(
+        event.lngLat.lng,
+        event.lngLat.lat
+      );
+      setPlace({
+        lng: event.lngLat.lng,
+        lat: event.lngLat.lat,
+        name: placeName,
+      });
       locMarker.setLngLat([event.lngLat.lng, event.lngLat.lat]).addTo(map);
     });
 

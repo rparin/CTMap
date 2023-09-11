@@ -11,8 +11,8 @@ export default function Tabs({
 }: {
   searchResult: {};
   setFilter: React.Dispatch<React.SetStateAction<string>>;
-  place: string;
-  setPlace: React.Dispatch<React.SetStateAction<string>>;
+  place: {} | null;
+  setPlace: React.Dispatch<React.SetStateAction<{} | null>>;
 }) {
   useEffect(() => {
     const tabsContainer = document.querySelector("[role=tablist]");

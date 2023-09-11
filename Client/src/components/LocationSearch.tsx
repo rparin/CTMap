@@ -10,8 +10,8 @@ export default function LocationSearch({
   setPlace,
   place,
 }: {
-  setPlace: React.Dispatch<SetStateAction<string>>;
-  place: string;
+  setPlace: React.Dispatch<SetStateAction<{} | null>>;
+  place: {} | null;
 }) {
   useEffect(() => {
     const geocoder = new MapboxGeocoder({
@@ -20,9 +20,19 @@ export default function LocationSearch({
       marker: false, // do not display a marker on location so that results markers can be seen
       placeholder: "Search by city, state, etc.",
     });
+
     geocoder.addTo("#geocoder-container");
-    geocoder.setInput(place);
-    geocoder.setMinLength(place.length + 1);
+
+    //Update geocoder input on double click or on Geolocate
+    if (place) {
+      const inputElements = document.getElementsByClassName(
+        "mapboxgl-ctrl-geocoder--input"
+      );
+
+      if (inputElements.length > 0) {
+        (inputElements[0] as any).value = (place as any).name;
+      }
+    }
 
     // ** every event will change the current place name value, as well as place a marker on the map **
     // TRIGGER #1: user selects a location from the location searchbar dropdown
@@ -32,8 +42,7 @@ export default function LocationSearch({
     });
 
     geocoder.on("clear", (event: any) => {
-      geocoder.setMinLength(1);
-      setPlace("");
+      setPlace(null);
     });
 
     return () => {
