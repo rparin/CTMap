@@ -6,7 +6,7 @@ const fetch = (...args) =>
 const router = express.Router();
 const ctHelper = new CTHelper();
 const fields =
-  "NCTId,LocationState,LocationCountry,BriefTitle,Condition,LeadSponsorName,StudyType,Phase,EnrollmentInfo,PrimaryCompletionDate,StartDate,CompletionDate,MinimumAge,MaximumAge,Sex,StdAge,HealthyVolunteers";
+  "NCTId,LocationState,LocationCountry,LocationCity,LocationFacility,LocationZip,BriefTitle,Condition,LeadSponsorName,StudyType,Phase,EnrollmentInfo,PrimaryCompletionDate,StartDate,CompletionDate,MinimumAge,MaximumAge,Sex,StdAge,HealthyVolunteers";
 
 router.get("/studies/:search/:filter/:pageToken", async (req, res) => {
   let aggFilter = ctHelper.getAggFilterUrl(JSON.parse(req.params.filter));

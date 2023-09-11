@@ -4,6 +4,9 @@ class ctHelper {
   constructor() {}
 
   async getLatLong(place, accessToken) {
+    if (!place) {
+      console.log(place);
+    }
     const response = await fetch(
       `https://api.mapbox.com/geocoding/v5/mapbox.places/${place}.json?access_token=${accessToken}`
     );
