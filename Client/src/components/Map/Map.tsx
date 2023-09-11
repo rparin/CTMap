@@ -125,10 +125,6 @@ export default function Map() {
     };
   }, [searchResult]); // update map whenever searchResult changes
 
-  useEffect(() => {
-    console.log(place);
-  }, [place]);
-
   // Show loader when results have not finished fetching
   const [loader, setLoader] = useState(false);
 
