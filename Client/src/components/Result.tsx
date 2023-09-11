@@ -14,6 +14,7 @@ type resultType = {
   healthy: string;
   sex: string;
   ageRange: string;
+  facility: string;
 };
 
 export default function Result(info: resultType) {
@@ -26,6 +27,7 @@ export default function Result(info: resultType) {
       <RHeader hr={"Study"} info={info.title} />
       <RHeader hr={"Sponsor"} info={info.sponsor} />
       <RHeader hr={"Condition"} info={info.conditions} />
+      <RHeader hr={"Facility"} info={info.facility} />
 
       <div className="grid grid-cols-2 mt-1 mb-1 gap-x-2">
         <RHeader hr={"Sex"} info={info.sex} />

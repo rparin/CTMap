@@ -118,6 +118,7 @@ export default function Map() {
                 studyStart: study.studyStart,
                 studyType: study.studyType,
                 phase: study.phase,
+                facility: study.facility,
               },
               { offset: 25 }
             );
@@ -203,6 +204,7 @@ function createPopup(
       studyStart={popupInfo.studyStart}
       studyType={popupInfo.studyType}
       phase={popupInfo.phase}
+      facility={popupInfo.facility}
     />
   );
   popup.setDOMContent(pContainer);

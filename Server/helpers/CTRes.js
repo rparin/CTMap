@@ -195,7 +195,7 @@ class CTRes {
           location.add(facility);
         }
 
-        return Array.from(location);
+        return Array.from(location).toString();
       }
       return undefined;
     }
