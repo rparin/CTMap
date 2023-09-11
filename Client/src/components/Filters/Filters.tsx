@@ -7,8 +7,8 @@ export default function Filters({
   setPlace,
 }: {
   setFilter: React.Dispatch<React.SetStateAction<string>>;
-  place: string;
-  setPlace: React.Dispatch<React.SetStateAction<string>>;
+  place: {} | null;
+  setPlace: React.Dispatch<React.SetStateAction<{} | null>>;
 }) {
   // ELIGIBILITY CRITERION
   const [sex, setSex] = useState(""); //blank = all
