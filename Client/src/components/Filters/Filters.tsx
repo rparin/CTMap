@@ -92,11 +92,11 @@ export default function Filters({
       expanded_access: "",
     });
     setStudyResults({ with: true, without: true });
+    setPlace(null);
     console.log("Clear filters button clicked.");
   };
   const handleApply = () => {
     console.log("Apply filters button clicked");
-    console.log(place);
     setFilter(compileFilters());
   };
 
@@ -135,6 +135,7 @@ export default function Filters({
       phase: phase,
       type: type,
       results: results,
+      location: place,
     });
   };
 
