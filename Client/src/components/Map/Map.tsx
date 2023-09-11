@@ -21,6 +21,7 @@ export default function Map() {
   const [lng, setLng] = useState(-70.9);
   const [lat, setLat] = useState(42.35);
   const [zoom, setZoom] = useState(3);
+  const [place, setPlace] = useState("");
 
   //Get and store data from search result
   const [searchResult, setResult] = useState({});
@@ -28,7 +29,7 @@ export default function Map() {
   const mEventHandlers: { marker: HTMLElement; func: () => void }[] = [];
 
   // page stuff
-  const pageTokens = useRef<string[]>([]);  // array indices compared to page number are off by 2 (instead of 1 by default) because first page's token is never stored (it's always null)
+  const pageTokens = useRef<string[]>([]); // array indices compared to page number are off by 2 (instead of 1 by default) because first page's token is never stored (it's always null)
   const maxPageIndex = useRef(0);
   const currentPageIndex = useRef(0);
   const [currentPageToken, setPageToken] = useState<string | null>(null);
@@ -45,6 +46,36 @@ export default function Map() {
       style: "mapbox://styles/yenlei/cllepzpeh00ha01pwed4dhdh0", // map styling here; streets and other miscellaneous stuff were removed here
       center: [lng, lat],
       zoom: zoom,
+    });
+    const locMarker = new mapboxgl.Marker({ draggable: true });
+
+    // locator control: used for finding the user's location at the click of a
+    // button; located underneath the geocoder control/top right
+    const geolocate = new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true,
+      },
+      showUserLocation: false,
+    });
+    map.addControl(geolocate);
+
+    geolocate.on("geolocate", async (pos: any) => {
+      const placeName = reverseGeocode(
+        pos.coords.longitude,
+        pos.coords.latitude
+      );
+      setPlace(await placeName);
+      locMarker
+        .setLngLat([pos.coords.longitude, pos.coords.latitude])
+        .addTo(map);
+    });
+
+    // TRIGGER #3: user double clicks on a point on the map
+    map.on("dblclick", async (event) => {
+      console.log("her");
+      const placeName = reverseGeocode(event.lngLat.lng, event.lngLat.lat);
+      setPlace(await placeName);
+      locMarker.setLngLat([event.lngLat.lng, event.lngLat.lat]).addTo(map);
     });
 
     // add zoom control
@@ -102,22 +133,44 @@ export default function Map() {
     <>
       <div ref={mapContainer} className="map_container" />
       <div className="flex justify-between absolute m-5 gap-3">
-        <Search setResult={setResult} filterValue={filterValue} pageTokens={pageTokens} maxPageIndex={maxPageIndex} currentPageIndex={currentPageIndex} currentPageToken={currentPageToken} setLoader={setLoader} />
+        <Search
+          setResult={setResult}
+          filterValue={filterValue}
+          pageTokens={pageTokens}
+          maxPageIndex={maxPageIndex}
+          currentPageIndex={currentPageIndex}
+          currentPageToken={currentPageToken}
+          setLoader={setLoader}
+        />
 
         {/* Todo add location search bar here */}
       </div>
 
       <div className="absolute bottom-[43rem] m-5 text-white w-43">
-        <PageButton buttonName="Prev" pageTokens={pageTokens} maxPageIndex={maxPageIndex} currentPageIndex={currentPageIndex} setPageToken={setPageToken} pageDiff={-1} />
-        {(currentPageIndex.current > 0) ? (`Page ${currentPageIndex.current}`) : ("")}
-        <PageButton buttonName="Next" pageTokens={pageTokens} maxPageIndex={maxPageIndex} currentPageIndex={currentPageIndex} setPageToken={setPageToken} pageDiff={1} />
+        <PageButton
+          buttonName="Prev"
+          pageTokens={pageTokens}
+          maxPageIndex={maxPageIndex}
+          currentPageIndex={currentPageIndex}
+          setPageToken={setPageToken}
+          pageDiff={-1}
+        />
+        {currentPageIndex.current > 0 ? `Page ${currentPageIndex.current}` : ""}
+        <PageButton
+          buttonName="Next"
+          pageTokens={pageTokens}
+          maxPageIndex={maxPageIndex}
+          currentPageIndex={currentPageIndex}
+          setPageToken={setPageToken}
+          pageDiff={1}
+        />
       </div>
 
       <div className="absolute m-5 bottom-10 text-black bg-slate-200 w-96 h-[40rem] overflow-y-auto ">
         <Tabs searchResult={searchResult} setFilter={setFilter} />
       </div>
 
-      <Loader loader={loader}/>
+      <Loader loader={loader} />
     </>
   );
 }
@@ -156,4 +209,24 @@ function getRandomColor() {
     color += letters[Math.floor(Math.random() * 16)];
   }
   return color;
+}
+
+// params: coordinates on map (longitude and latitude as numbers)
+// returns: name of place (string)
+// ask the server for closest place in the given coordinates (since geolocate only gives users' coordinates)
+// be aware that the coordinates may not be accurate so the types are limited to cities/zipcodes and higher in terms of hierarchy (so specific addresses will not be considered)
+async function reverseGeocode(
+  longitude: number,
+  latitude: number
+): Promise<string> {
+  const ct_location_ep = "http://localhost:8080/api/ct/location";
+  let placeName = "";
+  await fetch(ct_location_ep + "/" + longitude + "," + latitude).then(
+    async (res) =>
+      await res.json().then((data) => {
+        // after the data is fetched then get the place name
+        placeName = data.locationResult;
+      })
+  );
+  return placeName;
 }

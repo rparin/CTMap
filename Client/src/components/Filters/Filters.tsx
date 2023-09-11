@@ -1,4 +1,5 @@
 import { useState } from "react";
+import LocationSearch from "../LocationSearch";
 
 export default function Filters({
   setFilter,
@@ -134,8 +135,13 @@ export default function Filters({
 
   return (
     <form id="filters">
-      <fieldset name="eligibility-criteria" className="p-3 bg-blue-400/20 rounded-md mb-2">
-        <h1 className="mb-2 mt-0 text-base uppercase font-medium leading-tight text-primary">Eligibility Criterion</h1>
+      <LocationSearch />
+      <fieldset
+        name="eligibility-criteria"
+        className="p-3 bg-blue-400/20 rounded-md mb-2">
+        <h1 className="mb-2 mt-0 text-base uppercase font-medium leading-tight text-primary">
+          Eligibility Criterion
+        </h1>
         <p className="text-sky-500 font-bold text-xs border-b-2 border-solid border-x-2 border-transparent border-b-sky-600/20">
           Sex
         </p>
@@ -226,8 +232,12 @@ export default function Filters({
         </p>
       </fieldset>
 
-      <fieldset name="study-phase" className="p-3 bg-blue-400/20 rounded-md mb-2">
-        <h1 className="mb-2 mt-0 text-base uppercase font-medium leading-tight text-primary">Study Phase</h1>
+      <fieldset
+        name="study-phase"
+        className="p-3 bg-blue-400/20 rounded-md mb-2">
+        <h1 className="mb-2 mt-0 text-base uppercase font-medium leading-tight text-primary">
+          Study Phase
+        </h1>
         <p>
           <input
             type="checkbox"
@@ -290,8 +300,12 @@ export default function Filters({
         </p>
       </fieldset>
 
-      <fieldset name="study-type" className="p-3 bg-blue-400/20 rounded-md mb-2">
-        <h1 className="mb-2 mt-0 text-base uppercase font-medium leading-tight text-primary">Study Type</h1>
+      <fieldset
+        name="study-type"
+        className="p-3 bg-blue-400/20 rounded-md mb-2">
+        <h1 className="mb-2 mt-0 text-base uppercase font-medium leading-tight text-primary">
+          Study Type
+        </h1>
         <p>
           <input
             type="checkbox"
@@ -332,8 +346,12 @@ export default function Filters({
         </p>
       </fieldset>
 
-      <fieldset name="study-results" className="p-3 bg-blue-400/20 rounded-md mb-2">
-        <h1 className="mb-2 mt-0 text-base uppercase font-medium leading-tight text-primary">Study Results</h1>
+      <fieldset
+        name="study-results"
+        className="p-3 bg-blue-400/20 rounded-md mb-2">
+        <h1 className="mb-2 mt-0 text-base uppercase font-medium leading-tight text-primary">
+          Study Results
+        </h1>
         <p>
           <input
             type="checkbox"
@@ -365,10 +383,10 @@ export default function Filters({
 
       <div id="filter-buttons" className="flex justify-end">
         <button
-            className="bg-none hover:text-blue-700 text-blue-500 font-bold py-2 px-4 rounded"
-            type="reset"
-            id="clear-button"
-            onClick={handleClear}>
+          className="bg-none hover:text-blue-700 text-blue-500 font-bold py-2 px-4 rounded"
+          type="reset"
+          id="clear-button"
+          onClick={handleClear}>
           Clear Filters
         </button>
         <button
