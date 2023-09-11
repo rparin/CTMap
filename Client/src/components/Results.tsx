@@ -24,6 +24,7 @@ export default function Results({ searchResult }: { searchResult: {} }) {
           healthy={study.healthy}
           sex={study.sex}
           ageRange={study.ageRange}
+          facility={study.facility}
         />
       );
     }
