@@ -34,6 +34,7 @@ export default function LocationSearch({
 
     geocoder.on("clear", (event: any) => {
       geocoder.setMinLength(1);
+      setPlace("");
     });
 
     return () => {
