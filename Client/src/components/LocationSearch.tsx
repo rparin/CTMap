@@ -38,7 +38,11 @@ export default function LocationSearch({
     // TRIGGER #1: user selects a location from the location searchbar dropdown
     geocoder.on("result", (event: any) => {
       // no need for reverse geocoding here since we searched for the place name directly
-      setPlace(event.result.place_name);
+      setPlace({
+        lng: event.result.center[0],
+        lat: event.result.center[1],
+        name: event.result.place_name,
+      });
     });
 
     geocoder.on("clear", (event: any) => {
