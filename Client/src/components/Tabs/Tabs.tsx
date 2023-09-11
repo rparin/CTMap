@@ -6,9 +6,13 @@ import Filters from "../Filters/Filters";
 export default function Tabs({
   searchResult,
   setFilter,
+  place,
+  setPlace,
 }: {
   searchResult: {};
   setFilter: React.Dispatch<React.SetStateAction<string>>;
+  place: string;
+  setPlace: React.Dispatch<React.SetStateAction<string>>;
 }) {
   useEffect(() => {
     const tabsContainer = document.querySelector("[role=tablist]");
@@ -117,7 +121,7 @@ export default function Tabs({
       </div>
       <div className="px-3 pb-2">
         <div id="tabPanel-1" role="tabpanel" aria-labelledby="tab-1">
-          <Filters setFilter={setFilter} />
+          <Filters setFilter={setFilter} place={place} setPlace={setPlace} />
         </div>
 
         <div id="tabPanel-2" hidden role="tabpanel" aria-labelledby="tab-2">
@@ -129,11 +133,18 @@ export default function Tabs({
             <a
               className="font-bold text-sky-500"
               href="https://clinicaltrials.gov"
-              title="Information on Clinical Trials and Human Research Studies">ClinicalTrials.gov</a> provides patients, their family members, and the public with easy and free access to information on clinical studies for a wide range of diseases and conditions.
+              title="Information on Clinical Trials and Human Research Studies">
+              ClinicalTrials.gov
+            </a>{" "}
+            provides patients, their family members, and the public with easy
+            and free access to information on clinical studies for a wide range
+            of diseases and conditions.
           </p>
           <br />
           <p className="text-xs italic">
-              ClinicalTrials.gov was developed by the National Library of Medicine. ClinicalTrials.gov is updated daily. You should check ClinicalTrials.gov frequently for updated information.
+            ClinicalTrials.gov was developed by the National Library of
+            Medicine. ClinicalTrials.gov is updated daily. You should check
+            ClinicalTrials.gov frequently for updated information.
           </p>
         </div>
       </div>

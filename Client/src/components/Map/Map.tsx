@@ -71,8 +71,7 @@ export default function Map() {
     });
 
     // TRIGGER #3: user double clicks on a point on the map
-    map.on("dblclick", async (event) => {
-      console.log("her");
+    map.on("dblclick", async (event: any) => {
       const placeName = reverseGeocode(event.lngLat.lng, event.lngLat.lat);
       setPlace(await placeName);
       locMarker.setLngLat([event.lngLat.lng, event.lngLat.lat]).addTo(map);
@@ -126,6 +125,10 @@ export default function Map() {
     };
   }, [searchResult]); // update map whenever searchResult changes
 
+  useEffect(() => {
+    console.log(place);
+  }, [place]);
+
   // Show loader when results have not finished fetching
   const [loader, setLoader] = useState(false);
 
@@ -167,7 +170,12 @@ export default function Map() {
       </div>
 
       <div className="absolute m-5 bottom-10 text-black bg-slate-200 w-96 h-[40rem] overflow-y-auto ">
-        <Tabs searchResult={searchResult} setFilter={setFilter} />
+        <Tabs
+          searchResult={searchResult}
+          setFilter={setFilter}
+          place={place}
+          setPlace={setPlace}
+        />
       </div>
 
       <Loader loader={loader} />
