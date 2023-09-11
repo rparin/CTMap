@@ -1,4 +1,4 @@
-import React, { useEffect, MutableRefObject, SetStateAction } from "react";
+import React, { useEffect, SetStateAction } from "react";
 
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -10,7 +10,7 @@ export default function LocationSearch({
   setPlace,
   place,
 }: {
-  setPlace: React.Dispatch<React.SetStateAction<string>>;
+  setPlace: React.Dispatch<SetStateAction<string>>;
   place: string;
 }) {
   useEffect(() => {
@@ -29,7 +29,6 @@ export default function LocationSearch({
     geocoder.on("result", (event: any) => {
       // no need for reverse geocoding here since we searched for the place name directly
       setPlace(event.result.place_name);
-      // locMarker.setLngLat(event.result.center).addTo(map);
     });
 
     geocoder.on("clear", (event: any) => {
