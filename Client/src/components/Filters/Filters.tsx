@@ -3,8 +3,12 @@ import LocationSearch from "../LocationSearch";
 
 export default function Filters({
   setFilter,
+  place,
+  setPlace,
 }: {
   setFilter: React.Dispatch<React.SetStateAction<string>>;
+  place: string;
+  setPlace: React.Dispatch<React.SetStateAction<string>>;
 }) {
   // ELIGIBILITY CRITERION
   const [sex, setSex] = useState(""); //blank = all
@@ -92,6 +96,7 @@ export default function Filters({
   };
   const handleApply = () => {
     console.log("Apply filters button clicked");
+    console.log(place);
     setFilter(compileFilters());
   };
 
@@ -135,7 +140,7 @@ export default function Filters({
 
   return (
     <form id="filters">
-      <LocationSearch />
+      <LocationSearch setPlace={setPlace} place={place} />
       <fieldset
         name="eligibility-criteria"
         className="p-3 bg-blue-400/20 rounded-md mb-2">
