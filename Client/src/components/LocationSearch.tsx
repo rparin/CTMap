@@ -56,7 +56,7 @@ export default function LocationSearch({
 
   return (
     <>
-      <div id="geocoder-container"></div>
+      <div id="geocoder-container" className="mb-2"></div>
     </>
   );
 }
