@@ -16,7 +16,10 @@ router.get(
     const postFilter = ctHelper.getPostFilterUrl(filter);
     const locFilter = ctHelper.getLocationFilter(filter);
     const pageFilter = ctHelper.getPageFilter(req.params.pageToken);
-    const apiUrl = `https://clinicaltrials.gov/api/v2/studies?query.cond=${req.params.search}&fields=${fields}${locFilter}&pageSize=${req.params.pageSize}${aggFilter}${postFilter}${pageFilter}`;
+    const apiUrl = `https://clinicaltrials.gov/api/v2/studies?query.cond=${
+      req.params.search
+    }&fields=${fields}${locFilter}&pageSize=${3}${aggFilter}${postFilter}${pageFilter}`;
+    // const apiUrl = `https://clinicaltrials.gov/api/v2/studies?query.cond=${req.params.search}&fields=${fields}${locFilter}&pageSize=${req.params.pageSize}${aggFilter}${postFilter}${pageFilter}`;
     try {
       let response = await fetch(apiUrl);
       response = await response.json();
