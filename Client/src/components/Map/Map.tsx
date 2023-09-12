@@ -140,6 +140,9 @@ export default function Map() {
   // Show loader when results have not finished fetching
   const [loader, setLoader] = useState(false);
 
+  // default to 50 results per page
+  const [pageSize, setPageSize] = useState("1");
+
   return (
     <>
       <div ref={mapContainer} className="map_container" />
@@ -152,6 +155,7 @@ export default function Map() {
           currentPageIndex={currentPageIndex}
           currentPageToken={currentPageToken}
           setLoader={setLoader}
+          pageSize={pageSize}
         />
 
         {/* Todo add location search bar here */}
@@ -183,6 +187,7 @@ export default function Map() {
           setFilter={setFilter}
           place={place}
           setPlace={setPlace}
+          setPageSize={setPageSize}
         />
       </div>
 

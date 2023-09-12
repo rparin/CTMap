@@ -14,6 +14,7 @@ export default function Search({
   currentPageIndex,
   currentPageToken,
   setLoader,
+  pageSize,
 }: {
   setResult: React.Dispatch<React.SetStateAction<string>>;
   filterValue: {} | null;
@@ -22,6 +23,7 @@ export default function Search({
   currentPageIndex: MutableRefObject<number>;
   currentPageToken: string | null;
   setLoader: React.Dispatch<React.SetStateAction<boolean>>;
+  pageSize: string;
 }) {
   //API Endpoints
   const ct_search_ep = "http://localhost:8080/api/ct/studies";
@@ -29,6 +31,7 @@ export default function Search({
   //Search Entry
   const [searchValue, setSearch] = useState("");
   const [prevValue, setPrev] = useState("");
+  const [prevPageSize, setPrevPageSize] = useState("1");
 
   const handleChange = (event: {
     target: { value: SetStateAction<string> };
@@ -39,7 +42,7 @@ export default function Search({
   // call ct-api to get search results on button click or enter key
   const handleClick = () => {
     if (searchValue == "") return;
-    if (prevValue != searchValue) {
+    if (prevValue != searchValue || prevPageSize != pageSize) {
       // reset page count and clear page tokens
       currentPageIndex.current = 1;
       maxPageIndex.current = 1;
@@ -48,6 +51,7 @@ export default function Search({
       callSearchAPI();
     }
     setPrev(searchValue);
+    setPrevPageSize(pageSize);
   };
 
   const handleKeyDown = (event: { key: string }) => {
@@ -83,9 +87,10 @@ export default function Search({
     currentPageIndex.current = 1;
     maxPageIndex.current = 1;
     pageTokens.current = [];
+    setPrevPageSize(pageSize);
 
     callSearchAPI();
-  }, [filterValue]);
+  }, [filterValue, pageSize]);
 
   // when currentPagetoken is changed, that means we are simply traversing thru pages
   useEffect(() => {
