@@ -63,7 +63,7 @@ export default function Search({
   const callSearchAPI = async () => {
     setLoader(true);
     fetch(
-      `${ct_search_ep}/${searchValue}/${filterValue}/${currentPageToken}`
+      `${ct_search_ep}/${searchValue}/${filterValue}/${currentPageToken}/${pageSize}`
     ).then((res) =>
       res.json().then((data) => {
         setResult(data.searchResult);
