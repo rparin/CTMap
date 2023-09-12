@@ -131,6 +131,37 @@ class ctHelper {
     var filter = `&postFilter.advanced=AREA[MinimumAge]RANGE[${min1}, ${min2}] AND AREA[MaximumAge]RANGE[${max1}, ${max2}]`;
     return filter;
   }
+
+  getLocationFilter(filterJson) {
+    const lat = filterJson?.location?.lat;
+    const lng = filterJson?.location?.lng;
+    const zip = filterJson?.location?.zip;
+    const city = filterJson?.location?.city;
+    var dist = filterJson?.location?.dist;
+    var locField = "";
+
+    if (city) {
+      locField = ",LocationCity";
+    }
+
+    if (zip) {
+      locField = `,LocationZip${locField}`;
+    }
+
+    if (lat && lng) {
+      if (!dist) dist = "5";
+      locField = `${locField}&filter.geo=distance(${lat},${lng},${dist}mi)`;
+    }
+
+    return locField;
+  }
+
+  getPageFilter(pageToken) {
+    if (pageToken != null && pageToken != "" && pageToken != "null") {
+      return `&pageToken=${pageToken}`;
+    }
+    return "";
+  }
 }
 
 module.exports = ctHelper;

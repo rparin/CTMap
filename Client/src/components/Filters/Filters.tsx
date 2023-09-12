@@ -1,5 +1,6 @@
 import { useState } from "react";
 import LocationSearch from "../LocationSearch";
+import Dropdown from "../Dropdown";
 
 export default function Filters({
   setFilter,
@@ -20,6 +21,11 @@ export default function Filters({
   });
   const [customRange, setCustomAgeRange] = useState({ min: null, max: null });
   const [acceptsVolunteers, setAcceptsVolunteers] = useState("");
+  const [location, setLocation] = useState({
+    city: false,
+    zip: false,
+  });
+  const [distance, setDis] = useState<string | null>(null);
 
   const toggleIsCustom = (isCustom: boolean) => {
     setIsCustom(isCustom);
@@ -91,12 +97,14 @@ export default function Filters({
       observational: "",
       expanded_access: "",
     });
+    setLocation({
+      city: false,
+      zip: false,
+    });
     setStudyResults({ with: true, without: true });
     setPlace(null);
-    console.log("Clear filters button clicked.");
   };
   const handleApply = () => {
-    console.log("Apply filters button clicked");
     setFilter(compileFilters());
   };
 
@@ -129,19 +137,74 @@ export default function Filters({
       with: studyResults.with,
       without: studyResults.without,
     };
+    var loc = {
+      ...place,
+      city: location.city,
+      zip: location.zip,
+      dist: distance,
+    };
 
     return JSON.stringify({
       eligibility: eligibility,
       phase: phase,
       type: type,
       results: results,
-      location: place,
+      location: loc,
     });
   };
 
   return (
     <form id="filters">
-      <LocationSearch setPlace={setPlace} place={place} />
+      <fieldset
+        name="study-phase"
+        className="p-3 bg-blue-400/20 rounded-md mb-2">
+        <h1 className="mb-2 mt-0 text-base uppercase font-medium leading-tight text-primary">
+          Location
+        </h1>
+        <LocationSearch setPlace={setPlace} place={place} />
+        <p className="text-sky-500 font-bold text-xs border-b-2 border-solid border-x-2 border-transparent border-b-sky-600/20">
+          Marker Area
+        </p>
+        <p>
+          <input
+            type="checkbox"
+            name="loc-city"
+            id="loc-city"
+            value="loc-city"
+            onClick={() => {
+              setLocation({
+                ...location,
+                city: !location.city,
+              });
+            }}
+          />{" "}
+          <label htmlFor="loc-city">City</label>
+        </p>
+        <p>
+          <input
+            type="checkbox"
+            name="loc-zip"
+            id="loc-zip"
+            value="loc-zip"
+            onClick={() => {
+              setLocation({
+                ...location,
+                zip: !location.zip,
+              });
+            }}
+          />{" "}
+          <label htmlFor="loc-zip">Zip</label>
+        </p>
+        <p className="text-sky-500 font-bold text-xs border-b-2 border-solid border-x-2 border-transparent border-b-sky-600/20">
+          Proximity
+        </p>
+        <Dropdown
+          items={[5, 10, 20, 50, 80, 100]}
+          label={"Select max distance (miles)"}
+          setStatus={setDis}
+        />
+      </fieldset>
+
       <fieldset
         name="eligibility-criteria"
         className="p-3 bg-blue-400/20 rounded-md mb-2">

@@ -59,13 +59,7 @@ export default function Search({
   const callSearchAPI = async () => {
     setLoader(true);
     fetch(
-      ct_search_ep +
-        "/" +
-        searchValue +
-        "/" +
-        filterValue +
-        "/" +
-        currentPageToken
+      `${ct_search_ep}/${searchValue}/${filterValue}/${currentPageToken}`
     ).then((res) =>
       res.json().then((data) => {
         setResult(data.searchResult);
@@ -109,8 +103,6 @@ export default function Search({
         value={searchValue}
         onKeyDown={handleKeyDown}
       />
-
-      {/* Todo Location search: Search by address, city, state, or country */}
 
       <button
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
