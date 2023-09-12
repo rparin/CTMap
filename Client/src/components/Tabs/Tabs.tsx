@@ -128,7 +128,11 @@ export default function Tabs({
         </div>
 
         <div id="tabPanel-2" hidden role="tabpanel" aria-labelledby="tab-2">
-          <Dropdown setPageSize={setPageSize} />
+          <Dropdown
+            items={[1, 2, 5, 10]}
+            label={"Page Size"}
+            setStatus={setPageSize}
+          />
           <Results searchResult={searchResult} />
         </div>
 
