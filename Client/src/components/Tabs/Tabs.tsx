@@ -2,17 +2,20 @@ import React, { useEffect } from "react";
 import Results from "../Results";
 import "./Tabs.css";
 import Filters from "../Filters/Filters";
+import Dropdown from "../Dropdown";
 
 export default function Tabs({
   searchResult,
   setFilter,
   place,
   setPlace,
+  setPageSize,
 }: {
   searchResult: {};
   setFilter: React.Dispatch<React.SetStateAction<string>>;
   place: {} | null;
   setPlace: React.Dispatch<React.SetStateAction<{} | null>>;
+  setPageSize: React.Dispatch<React.SetStateAction<string>>;
 }) {
   useEffect(() => {
     const tabsContainer = document.querySelector("[role=tablist]");
@@ -125,6 +128,7 @@ export default function Tabs({
         </div>
 
         <div id="tabPanel-2" hidden role="tabpanel" aria-labelledby="tab-2">
+          <Dropdown setPageSize={setPageSize} />
           <Results searchResult={searchResult} />
         </div>
 
