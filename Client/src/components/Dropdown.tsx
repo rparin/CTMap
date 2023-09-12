@@ -7,7 +7,7 @@ export default function Dropdown({
 }: {
   items: Array<any>;
   label: string;
-  setStatus: React.Dispatch<SetStateAction<string | null>>;
+  setStatus: React.Dispatch<SetStateAction<any>>;
 }) {
   var options = [];
   function changeStatus(e: any) {
