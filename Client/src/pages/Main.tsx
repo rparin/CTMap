@@ -1,4 +1,3 @@
-import "./Main.css";
 import Map from "@/components/Map/Map";
 
 export default function Main() {
