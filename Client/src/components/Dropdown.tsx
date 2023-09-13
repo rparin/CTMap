@@ -4,10 +4,14 @@ export default function Dropdown({
   items,
   label,
   setStatus,
+  outerStyle,
+  innerStyle,
 }: {
   items: Array<any>;
   label: string;
   setStatus: React.Dispatch<SetStateAction<any>>;
+  outerStyle?: string;
+  innerStyle?: string;
 }) {
   var options = [];
   function changeStatus(e: any) {
@@ -24,10 +28,12 @@ export default function Dropdown({
 
   return (
     <>
-      <label className="mr-1">{label}</label>
-      <select name="dropdown" className=" text-center" onChange={changeStatus}>
-        {options}
-      </select>
+      <section className={outerStyle}>
+        <label>{label}</label>
+        <select name="dropdown" className={innerStyle} onChange={changeStatus}>
+          {options}
+        </select>
+      </section>
     </>
   );
 }
