@@ -9,9 +9,6 @@ import Tabs from "../Tabs/Tabs";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
-import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
-
 import React, { useRef, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import Loader from "../Loader";
@@ -23,14 +20,8 @@ export default function Map() {
   const mapContainer = useRef(null);
   const [lng, setLng] = useState(-70.9);
   const [lat, setLat] = useState(42.35);
-<<<<<<< HEAD
-  const [zoom, setZoom] = useState(5);
-  const [place, setPlace] = useState(null);
-  const [cr, setCR] = useState('');
-=======
   const [zoom, setZoom] = useState(3);
   const [place, setPlace] = useState<{} | null>(null);
->>>>>>> main
 
   //Get and store data from search result
   const [searchResult, setResult] = useState({});
@@ -49,29 +40,12 @@ export default function Map() {
     });
   };
 
-  // set initial settings and location
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapContainer.current!,
       style: "MAP_STYLE", // map styling here; streets and other miscellaneous stuff were removed here
       center: [lng, lat],
       zoom: zoom,
-      maxZoom: 15
-    });
-
-    // add geocoder control
-    const geocoder = new MapboxGeocoder({
-      accessToken: mapboxgl.accessToken,
-      mapboxgl: mapboxgl,
-      marker: false,    // do not display a marker on location so that results markers can be seen
-      placeholder: "Search location"
-    });
-    map.addControl(geocoder);
-
-    // result event is triggered when the user selects a result from the location search bar's dropdown menu
-    // when the user searches a location via the location searchbox, set the place
-    geocoder.on('result', (event) => {
-      setPlace(event.result.place_name);
     });
     const locMarker = new mapboxgl.Marker({ draggable: false });
 
@@ -118,31 +92,7 @@ export default function Map() {
     const nav = new mapboxgl.NavigationControl({
       showCompass: false, // do not show compass controls so rotation of the map is not allowed (not neeeded anyway)
     });
-    map.addControl(nav, "bottom-right");
-
-    // create and add user locator control
-    const geolocate = new mapboxgl.GeolocateControl({
-      positionOptions: {
-      enableHighAccuracy: true
-      },
-      trackUserLocation: true,
-      fitBoundsOptions: {maxZoom: 5}
-      });
-    map.addControl(geolocate);
-
-    // geolocate event is triggered when user click on the "use my location button"
-    geolocate.on('geolocate', (pos) => {
-      // ask the mapbox geocoding api for places in the given coordinates (since geolocate only gives users' coordinates)
-      // be aware that the coordinates may not be accurate so i just limited the types to be cities/zipcodes and higher in terms of hierarchy (so specific addresses will not be considered)
-      const reverseGeocode = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + pos.coords.longitude + ',' + pos.coords.latitude + '.json?types=country,region,postcode,district,place&access_token=' + mapboxgl.accessToken;
-
-      fetch(reverseGeocode).then((res) =>
-        res.json().then((data) => {
-          // after the data is fetched then set the place to the first place in the results
-          setPlace(data.features[0].place_name);
-        })
-      );
-    });
+    map.addControl(nav, "top-right");
 
     //Fill map with result pins
     if (!isEmpty(searchResult)) {
@@ -208,8 +158,7 @@ export default function Map() {
           pageSize={pageSize}
         />
 
-        {/* temporarily print coordinates here for reference */}
-        Place: {place}
+        {/* Todo add location search bar here */}
       </div>
 
       <div className="absolute bottom-[43rem] m-5 text-white w-43">
@@ -239,6 +188,7 @@ export default function Map() {
           place={place}
           setPlace={setPlace}
           setPageSize={setPageSize}
+          // itemList={itemList}
         />
       </div>
 

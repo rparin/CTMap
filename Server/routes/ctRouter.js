@@ -64,4 +64,6 @@ router.get("/addct/:item", async (req, res) => {
   }
 });
 
+
+router.get()
 module.exports = router;

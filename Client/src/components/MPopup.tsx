@@ -32,7 +32,7 @@ export default function MPopup(info: pInfo)
     fetch(ct_pdf + "/" + info.id)
     .then((res) => res.json())
     .then((data) => {
-      test = data.itemList;
+      test = data.itemList; // Send to PDF class to generate PDF.
     })
     .catch((error) => {
       console.error("Error fetching data:", error);

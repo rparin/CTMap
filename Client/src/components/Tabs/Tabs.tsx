@@ -1,12 +1,9 @@
 import React, { useEffect } from "react";
 import Results from "../Results";
 import Filters from "../Filters/Filters";
-<<<<<<< HEAD
 import Lists from "../Lists";
 import "./Tabs.css";
-=======
 import Dropdown from "../Dropdown";
->>>>>>> main
 
 export default function Tabs({
   searchResult,
