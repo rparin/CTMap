@@ -131,7 +131,7 @@ export default function Tabs({
           <div className="container">
             <div className="item1">
               <Dropdown
-                items={[1, 2, 5, 10]}
+                items={[1, 2, 5, 10, 50]}
                 label={"Page Size"}
                 setStatus={setPageSize}
                 outerStyle="item1 flex items-center p-3 gap-2 bg-blue-400/20 rounded-md mb-2"
