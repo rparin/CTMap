@@ -144,7 +144,7 @@ export default function Map() {
 
   return (
     <>
-      <div ref={mapContainer} className="map_container" />
+      <div ref={mapContainer} className="min-h-screen w-auto bg-black relative" />
       <div className="flex justify-between absolute m-5 gap-3">
         <Search
           setResult={setResult}
