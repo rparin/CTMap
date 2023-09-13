@@ -98,7 +98,7 @@ export default function Tabs({
     };
   }, []);
   return (
-    <section className="overflow-x-hidden">
+    <section>
       <div role="tablist" aria-labelledby="channel-name">
         <button
           id="tab-1"
