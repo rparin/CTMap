@@ -2,7 +2,6 @@
 
 import "./Map.css";
 import MPopup, { pInfo } from "../MPopup";
-import PageButton from "@/components/PageButton";
 import Search from "@/components/Search";
 import Tabs from "../Tabs/Tabs";
 
@@ -157,28 +156,6 @@ export default function Map() {
           setLoader={setLoader}
           pageSize={pageSize}
         />
-
-        {/* Todo add location search bar here */}
-      </div>
-
-      <div className="absolute bottom-[43rem] m-5 text-white w-43">
-        <PageButton
-          buttonName="Prev"
-          pageTokens={pageTokens}
-          maxPageIndex={maxPageIndex}
-          currentPageIndex={currentPageIndex}
-          setPageToken={setPageToken}
-          pageDiff={-1}
-        />
-        {currentPageIndex.current > 0 ? `Page ${currentPageIndex.current}` : ""}
-        <PageButton
-          buttonName="Next"
-          pageTokens={pageTokens}
-          maxPageIndex={maxPageIndex}
-          currentPageIndex={currentPageIndex}
-          setPageToken={setPageToken}
-          pageDiff={1}
-        />
       </div>
 
       <div className="absolute m-5 bottom-10 text-black bg-slate-200 w-96 h-[40rem] overflow-y-auto ">
@@ -188,6 +165,10 @@ export default function Map() {
           place={place}
           setPlace={setPlace}
           setPageSize={setPageSize}
+          pageTokens={pageTokens}
+          maxPageIndex={maxPageIndex}
+          currentPageIndex={currentPageIndex}
+          setPageToken={setPageToken}
         />
       </div>
 
