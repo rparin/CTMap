@@ -38,3 +38,16 @@
   border-bottom: 0.2rem solid hsla(0, 0%, 0%, 0.5);
   opacity: 1;
 }
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+  grid-template-rows: 0.9fr;
+  gap: 0px 0px;
+  grid-template-areas: ". myArea";
+  order: -1;
+}
+
+.item1 {
+  grid-area: myArea;
+}

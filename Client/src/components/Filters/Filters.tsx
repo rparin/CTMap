@@ -1,9 +1,15 @@
 import { useState } from "react";
+import LocationSearch from "../LocationSearch";
+import Dropdown from "../Dropdown";
 
 export default function Filters({
   setFilter,
+  place,
+  setPlace,
 }: {
   setFilter: React.Dispatch<React.SetStateAction<string>>;
+  place: {} | null;
+  setPlace: React.Dispatch<React.SetStateAction<{} | null>>;
 }) {
   // ELIGIBILITY CRITERION
   const [sex, setSex] = useState(""); //blank = all
@@ -15,6 +21,11 @@ export default function Filters({
   });
   const [customRange, setCustomAgeRange] = useState({ min: null, max: null });
   const [acceptsVolunteers, setAcceptsVolunteers] = useState("");
+  const [location, setLocation] = useState({
+    city: false,
+    zip: false,
+  });
+  const [distance, setDis] = useState<string | null>(null);
 
   const toggleIsCustom = (isCustom: boolean) => {
     setIsCustom(isCustom);
@@ -86,11 +97,14 @@ export default function Filters({
       observational: "",
       expanded_access: "",
     });
+    setLocation({
+      city: false,
+      zip: false,
+    });
     setStudyResults({ with: true, without: true });
-    console.log("Clear filters button clicked.");
+    setPlace(null);
   };
   const handleApply = () => {
-    console.log("Apply filters button clicked");
     setFilter(compileFilters());
   };
 
@@ -123,19 +137,82 @@ export default function Filters({
       with: studyResults.with,
       without: studyResults.without,
     };
+    var loc = {
+      ...place,
+      city: location.city,
+      zip: location.zip,
+      dist: distance,
+    };
 
     return JSON.stringify({
       eligibility: eligibility,
       phase: phase,
       type: type,
       results: results,
+      location: loc,
     });
   };
 
   return (
     <form id="filters">
-      <fieldset name="eligibility-criteria" className="p-3 bg-blue-400/20 rounded-md mb-2">
-        <h1 className="mb-2 mt-0 text-base uppercase font-medium leading-tight text-primary">Eligibility Criterion</h1>
+      <fieldset
+        name="study-phase"
+        className="p-3 bg-blue-400/20 rounded-md mb-2">
+        <h1 className="mb-2 mt-0 text-base uppercase font-medium leading-tight text-primary">
+          Location
+        </h1>
+        <LocationSearch setPlace={setPlace} place={place} />
+        <p className="text-sky-500 font-bold text-xs border-b-2 border-solid border-x-2 border-transparent border-b-sky-600/20">
+          Marker Area
+        </p>
+        <p>
+          <input
+            type="checkbox"
+            name="loc-city"
+            id="loc-city"
+            value="loc-city"
+            onClick={() => {
+              setLocation({
+                ...location,
+                city: !location.city,
+              });
+            }}
+          />{" "}
+          <label htmlFor="loc-city">City</label>
+        </p>
+        <p>
+          <input
+            type="checkbox"
+            name="loc-zip"
+            id="loc-zip"
+            value="loc-zip"
+            onClick={() => {
+              setLocation({
+                ...location,
+                zip: !location.zip,
+              });
+            }}
+          />{" "}
+          <label htmlFor="loc-zip">Zip</label>
+        </p>
+        <p className="text-sky-500 font-bold text-xs border-b-2 border-solid border-x-2 border-transparent border-b-sky-600/20">
+          Proximity
+        </p>
+        <Dropdown
+          items={[5, 10, 20, 50, 80, 100]}
+          label={"Select max distance (miles)"}
+          setStatus={setDis}
+          outerStyle="flex items-center rounded-md mb-2 gap-2"
+          innerStyle="w-auto bg-slate-200 border border-slate-200 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+        />
+      </fieldset>
+
+      <fieldset
+        name="eligibility-criteria"
+        className="p-3 bg-blue-400/20 rounded-md mb-2">
+        <h1 className="mb-2 mt-0 text-base uppercase font-medium leading-tight text-primary">
+          Eligibility Criterion
+        </h1>
         <p className="text-sky-500 font-bold text-xs border-b-2 border-solid border-x-2 border-transparent border-b-sky-600/20">
           Sex
         </p>
@@ -226,8 +303,12 @@ export default function Filters({
         </p>
       </fieldset>
 
-      <fieldset name="study-phase" className="p-3 bg-blue-400/20 rounded-md mb-2">
-        <h1 className="mb-2 mt-0 text-base uppercase font-medium leading-tight text-primary">Study Phase</h1>
+      <fieldset
+        name="study-phase"
+        className="p-3 bg-blue-400/20 rounded-md mb-2">
+        <h1 className="mb-2 mt-0 text-base uppercase font-medium leading-tight text-primary">
+          Study Phase
+        </h1>
         <p>
           <input
             type="checkbox"
@@ -290,8 +371,12 @@ export default function Filters({
         </p>
       </fieldset>
 
-      <fieldset name="study-type" className="p-3 bg-blue-400/20 rounded-md mb-2">
-        <h1 className="mb-2 mt-0 text-base uppercase font-medium leading-tight text-primary">Study Type</h1>
+      <fieldset
+        name="study-type"
+        className="p-3 bg-blue-400/20 rounded-md mb-2">
+        <h1 className="mb-2 mt-0 text-base uppercase font-medium leading-tight text-primary">
+          Study Type
+        </h1>
         <p>
           <input
             type="checkbox"
@@ -332,8 +417,12 @@ export default function Filters({
         </p>
       </fieldset>
 
-      <fieldset name="study-results" className="p-3 bg-blue-400/20 rounded-md mb-2">
-        <h1 className="mb-2 mt-0 text-base uppercase font-medium leading-tight text-primary">Study Results</h1>
+      <fieldset
+        name="study-results"
+        className="p-3 bg-blue-400/20 rounded-md mb-2">
+        <h1 className="mb-2 mt-0 text-base uppercase font-medium leading-tight text-primary">
+          Study Results
+        </h1>
         <p>
           <input
             type="checkbox"
@@ -365,10 +454,10 @@ export default function Filters({
 
       <div id="filter-buttons" className="flex justify-end">
         <button
-            className="bg-none hover:text-blue-700 text-blue-500 font-bold py-2 px-4 rounded"
-            type="reset"
-            id="clear-button"
-            onClick={handleClear}>
+          className="bg-none hover:text-blue-700 text-blue-500 font-bold py-2 px-4 rounded"
+          type="reset"
+          id="clear-button"
+          onClick={handleClear}>
           Clear Filters
         </button>
         <button

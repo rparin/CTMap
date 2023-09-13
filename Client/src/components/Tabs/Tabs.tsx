@@ -1,17 +1,27 @@
 import React, { useEffect } from "react";
 import Results from "../Results";
 import Filters from "../Filters/Filters";
+<<<<<<< HEAD
 import Lists from "../Lists";
 import "./Tabs.css";
+=======
+import Dropdown from "../Dropdown";
+>>>>>>> main
 
 export default function Tabs({
   searchResult,
   itemList,
   setFilter,
+  place,
+  setPlace,
+  setPageSize,
 }: {
   searchResult: {};
   itemList: {};
   setFilter: React.Dispatch<React.SetStateAction<string>>;
+  place: {} | null;
+  setPlace: React.Dispatch<React.SetStateAction<{} | null>>;
+  setPageSize: React.Dispatch<React.SetStateAction<string>>;
 }) {
   useEffect(() => {
     const tabsContainer = document.querySelector("[role=tablist]");
@@ -127,10 +137,21 @@ export default function Tabs({
       </div>
       <div className="px-3 pb-2">
         <div id="tabPanel-1" role="tabpanel" aria-labelledby="tab-1">
-          <Filters setFilter={setFilter} />
+          <Filters setFilter={setFilter} place={place} setPlace={setPlace} />
         </div>
 
         <div id="tabPanel-2" hidden role="tabpanel" aria-labelledby="tab-2">
+          <div className="container">
+            <div className="item1">
+              <Dropdown
+                items={[1, 2, 5, 10, 50]}
+                label={"Page Size"}
+                setStatus={setPageSize}
+                outerStyle="item1 flex items-center p-3 gap-2 bg-blue-400/20 rounded-md mb-2"
+                innerStyle="w-auto bg-slate-200 border border-slate-200 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+              />
+            </div>
+          </div>
           <Results searchResult={searchResult} />
         </div>
 
@@ -143,11 +164,18 @@ export default function Tabs({
             <a
               className="font-bold text-sky-500"
               href="https://clinicaltrials.gov"
-              title="Information on Clinical Trials and Human Research Studies">ClinicalTrials.gov</a> provides patients, their family members, and the public with easy and free access to information on clinical studies for a wide range of diseases and conditions.
+              title="Information on Clinical Trials and Human Research Studies">
+              ClinicalTrials.gov
+            </a>{" "}
+            provides patients, their family members, and the public with easy
+            and free access to information on clinical studies for a wide range
+            of diseases and conditions.
           </p>
           <br />
           <p className="text-xs italic">
-              ClinicalTrials.gov was developed by the National Library of Medicine. ClinicalTrials.gov is updated daily. You should check ClinicalTrials.gov frequently for updated information.
+            ClinicalTrials.gov was developed by the National Library of
+            Medicine. ClinicalTrials.gov is updated daily. You should check
+            ClinicalTrials.gov frequently for updated information.
           </p>
         </div>
       </div>

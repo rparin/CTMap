@@ -21,6 +21,7 @@ class CTRes {
       ageRange: this.getAgeRange(index),
       sex: this.getSex(index),
       healthy: this.getAcceptsHealthy(index),
+      facility: this.getFacility(index),
     };
   }
 
@@ -172,6 +173,35 @@ class CTRes {
     return undefined;
   }
 
+  getFacility(index) {
+    if (this._validIndex(index)) {
+      if (
+        this.ctRes.studies[index].protocolSection?.contactsLocationsModule
+          ?.locations
+      ) {
+        const location = new Set();
+
+        for (
+          let i = 0;
+          i <
+          this.ctRes.studies[index].protocolSection.contactsLocationsModule
+            .locations.length;
+          i++
+        ) {
+          let facility =
+            this.ctRes.studies[index].protocolSection.contactsLocationsModule
+              .locations[i].facility;
+
+          location.add(facility);
+        }
+
+        return Array.from(location).toString();
+      }
+      return undefined;
+    }
+    return undefined;
+  }
+
   getLocations(index) {
     if (this._validIndex(index)) {
       if (
@@ -187,19 +217,32 @@ class CTRes {
             .locations.length;
           i++
         ) {
-          let loc =
+          let country =
             this.ctRes.studies[index].protocolSection.contactsLocationsModule
               .locations[i].country;
-          if (
+
+          let state =
             this.ctRes.studies[index].protocolSection.contactsLocationsModule
-              .locations[i].state
-          ) {
-            loc =
-              this.ctRes.studies[index].protocolSection.contactsLocationsModule
-                .locations[i].state +
-              ", " +
-              this.ctRes.studies[index].protocolSection.contactsLocationsModule
-                .locations[i].country;
+              .locations[i].state;
+
+          let city =
+            this.ctRes.studies[index].protocolSection.contactsLocationsModule
+              .locations[i].city;
+
+          let zip =
+            this.ctRes.studies[index].protocolSection.contactsLocationsModule
+              .locations[i].zip;
+
+          let loc = country;
+
+          if (state) {
+            loc = `${state},${loc}`;
+          }
+          if (city) {
+            loc = `${city},${loc}`;
+          }
+          if (zip) {
+            loc = `${zip},${loc}`;
           }
           location.add(loc);
         }
