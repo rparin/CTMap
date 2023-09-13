@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { MutableRefObject, useEffect } from "react";
 import Results from "../Results";
 import "./Tabs.css";
 import Filters from "../Filters/Filters";
 import Dropdown from "../Dropdown";
+import PageButton from "@/components/PageButton";
 
 export default function Tabs({
   searchResult,
@@ -10,12 +11,20 @@ export default function Tabs({
   place,
   setPlace,
   setPageSize,
+  pageTokens, // is only read here
+  maxPageIndex,
+  currentPageIndex,
+  setPageToken,
 }: {
   searchResult: {};
   setFilter: React.Dispatch<React.SetStateAction<string>>;
   place: {} | null;
   setPlace: React.Dispatch<React.SetStateAction<{} | null>>;
   setPageSize: React.Dispatch<React.SetStateAction<string>>;
+  pageTokens: MutableRefObject<string[]>;
+  maxPageIndex: MutableRefObject<number>;
+  currentPageIndex: MutableRefObject<number>;
+  setPageToken: React.Dispatch<React.SetStateAction<string | null>>;
 }) {
   useEffect(() => {
     const tabsContainer = document.querySelector("[role=tablist]");
@@ -128,18 +137,40 @@ export default function Tabs({
         </div>
 
         <div id="tabPanel-2" hidden role="tabpanel" aria-labelledby="tab-2">
-          <div className="container">
-            <div className="item1">
-              <Dropdown
-                items={[1, 2, 5, 10, 50]}
-                label={"Page Size"}
-                setStatus={setPageSize}
-                outerStyle="backdrop-blur-md item1 flex items-center p-3 gap-2 bg-blue-400/20 rounded-md mb-2"
-                innerStyle="bg-slate-200 border border-slate-200 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block p-1"
-              />
-            </div>
-          </div>
           <Results searchResult={searchResult} />
+          <div className=" mt-20"></div>
+          <div className="flex gap-1 fixed bottom-20">
+            <Dropdown
+              items={[1, 2, 5, 10, 50]}
+              label={"Page Size"}
+              setStatus={setPageSize}
+              outerStyle="backdrop-blur-md flex items-center p-3 gap-2 bg-blue-400/20 rounded-md mb-2"
+              innerStyle="bg-slate-200 border border-slate-200 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+          <div className="flex gap-2 fixed bottom-16 left-56 z-50 mb-1">
+            <PageButton
+              buttonName="Prev"
+              pageTokens={pageTokens}
+              maxPageIndex={maxPageIndex}
+              currentPageIndex={currentPageIndex}
+              setPageToken={setPageToken}
+              pageDiff={-1}
+            />
+            <PageButton
+              buttonName="Next"
+              pageTokens={pageTokens}
+              maxPageIndex={maxPageIndex}
+              currentPageIndex={currentPageIndex}
+              setPageToken={setPageToken}
+              pageDiff={1}
+            />
+          </div>
+          <p className="flex fixed bottom-16 left-64 text-black z-50 bg-blue-400/20 rounded-md backdrop-blur-md px-3">
+            {currentPageIndex.current > 0
+              ? `Page ${currentPageIndex.current}`
+              : ""}
+          </p>
         </div>
 
         <div id="tabPanel-3" hidden role="tabpanel" aria-labelledby="tab-3">

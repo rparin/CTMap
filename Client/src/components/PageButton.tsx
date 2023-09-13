@@ -2,7 +2,7 @@ import { MutableRefObject, SetStateAction, useEffect, useState } from "react";
 
 export default function PageButton({
   buttonName,
-  pageTokens,       // is only read here
+  pageTokens, // is only read here
   maxPageIndex,
   currentPageIndex,
   setPageToken,
@@ -15,9 +15,7 @@ export default function PageButton({
   setPageToken: React.Dispatch<React.SetStateAction<string | null>>;
   pageDiff: number;
 }) {
-    
-  const handleClick = async (
-    num: number) => {
+  const handleClick = async (num: number) => {
     if (num == 1) {
       currentPageIndex.current = 1;
       setPageToken(null);
@@ -35,8 +33,11 @@ export default function PageButton({
   return (
     <>
       <button
-        className="bg-blue-500 m-1 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
-        disabled={currentPageIndex.current + pageDiff == 0 || currentPageIndex.current == maxPageIndex.current}
+        className="bg-blue-500 m-6 mx-0 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
+        disabled={
+          currentPageIndex.current + pageDiff == 0 ||
+          currentPageIndex.current == maxPageIndex.current
+        }
         onClick={() => handleClick(currentPageIndex.current + pageDiff)}>
         {buttonName}
       </button>
