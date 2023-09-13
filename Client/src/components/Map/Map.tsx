@@ -1,6 +1,5 @@
 "use client";
 
-import "./Map.css";
 import MPopup, { pInfo } from "../MPopup";
 import Search from "@/components/Search";
 import Tabs from "../Tabs/Tabs";
@@ -144,8 +143,8 @@ export default function Map() {
 
   return (
     <>
-      <div ref={mapContainer} className="min-h-screen w-auto bg-black relative" />
-      <div className="flex justify-between absolute m-5 gap-3">
+      <div ref={mapContainer} className="relative w-auto min-h-screen bg-black" />
+      <div className="absolute flex justify-between gap-3 m-5">
         <Search
           setResult={setResult}
           filterValue={filterValue}
