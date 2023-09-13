@@ -1,0 +1,14 @@
+{
+  "projectName": "CTMap",
+  "application": {
+    "id": "b517ccb9-9fa4-4c4b-8be6-3d0fca743864",
+    "name": "",
+    "displayName": "",
+    "description": "",
+    "version": "1.0",
+    "vendor": ""
+  },
+  "modelFolders": [
+    "./otresources"
+  ]
+}
