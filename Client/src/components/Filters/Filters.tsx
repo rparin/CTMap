@@ -203,7 +203,7 @@ export default function Filters({
           label={"Select max distance (miles)"}
           setStatus={setDis}
           outerStyle="flex items-center rounded-md mb-2 gap-2"
-          innerStyle="w-auto bg-slate-200 border border-slate-200 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+          innerStyle=" bg-slate-200 border border-slate-200 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block p-1"
         />
       </fieldset>
 
