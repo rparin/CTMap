@@ -1,6 +1,5 @@
 [role="tablist"] {
   display: flex;
-  width: fit-content;
   position: sticky;
   top: 0;
   background-color: white;
@@ -24,7 +23,7 @@
 
 [role="tab"] {
   background: transparent;
-  padding: 1em 2em;
+  padding: 1em 1.88em;
   border: 0;
   font: inherit;
   text-transform: uppercase;
