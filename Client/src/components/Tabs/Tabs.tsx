@@ -134,7 +134,7 @@ export default function Tabs({
                 items={[1, 2, 5, 10, 50]}
                 label={"Page Size"}
                 setStatus={setPageSize}
-                outerStyle="item1 flex items-center p-3 gap-2 bg-blue-400/20 rounded-md mb-2"
+                outerStyle="backdrop-blur-md item1 flex items-center p-3 gap-2 bg-blue-400/20 rounded-md mb-2"
                 innerStyle="bg-slate-200 border border-slate-200 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block p-1"
               />
             </div>

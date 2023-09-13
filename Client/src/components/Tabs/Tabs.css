@@ -47,7 +47,8 @@
   grid-template-rows: 0.9fr;
   gap: 0px 0px;
   grid-template-areas: ". myArea";
-  order: -1;
+  position: sticky;
+  top: 4rem;
 }
 
 .item1 {
