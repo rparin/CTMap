@@ -1,13 +1,5 @@
 import RHeader from "./RHeader";
-
-export type pInfo = {
-  id: string;
-  title: string;
-  studyStart: string;
-  studyType: string;
-  phase: string;
-  facility: string;
-};
+import { pInfo } from "./MPopupMenu";
 
 export default function MPopup(info: pInfo) {
   return (

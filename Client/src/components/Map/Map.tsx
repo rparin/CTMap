@@ -1,7 +1,7 @@
 "use client";
 
 import "./Map.css";
-import MPopup, { pInfo } from "../MPopup";
+import { MPopupMenu, pInfo } from "../MPopupMenu";
 import Search from "@/components/Search";
 import Tabs from "../Tabs/Tabs";
 
@@ -95,37 +95,69 @@ export default function Map() {
 
     //Fill map with result pins
     if (!isEmpty(searchResult)) {
+      const studiesLoc: { marker: mapboxgl.Marker, location: number[], studies: pInfo[] }[] = [];
       let colors = new Set();
+      
       for (var key in searchResult) {
         let curColor = getRandomColor();
         while (colors.has(curColor)) {
           curColor = getRandomColor();
         }
         const study: any = searchResult[key as keyof {}];
+
+        // first fill in studiesLoc (this will group together studies in similar facilities)
         for (let i = 0; i < study.geolocations.length; i++) {
-          const marker = new mapboxgl.Marker({ color: curColor })
+          const num = findLocIndex(studiesLoc, study.geolocations[i]);
+          if (num == -1) {
+            const marker = new mapboxgl.Marker({ color: curColor })
             .setLngLat(study.geolocations[i])
             .addTo(map);
-          const mElement = marker.getElement();
-
-          //Create Popup on marker click
-          const mHandler = () => {
-            const popup = createPopup(
-              {
+            studiesLoc.push({
+              marker: marker,
+              location: study.geolocations[i],
+              studies: [{
                 id: study.nctId,
                 title: study.title,
                 studyStart: study.studyStart,
                 studyType: study.studyType,
                 phase: study.phase,
                 facility: study.facility,
-              },
-              { offset: 25 }
-            );
-            marker.setPopup(popup).togglePopup();
-          };
-          mElement.addEventListener("click", mHandler);
-          mEventHandlers.push({ marker: mElement, func: mHandler });
+              }]
+            });
+          } else {
+            const studies = studiesLoc[num].studies;
+            studies.push({
+                id: study.nctId,
+                title: study.title,
+                studyStart: study.studyStart,
+                studyType: study.studyType,
+                phase: study.phase,
+                facility: study.facility,
+            });
+            studiesLoc[num].studies = studies;
+          }
         }
+      }
+
+      // then create popups for all of the locations
+      // since we previously grouped together same-facility-studies,
+      // only one marker and popup will be used per location
+      // and the popup will be adjusted according to how many studies
+      // are done at the specific location
+      for (let i = 0; i < studiesLoc.length; i++) {
+        const marker = studiesLoc[i].marker;
+        const mElement = marker.getElement();
+
+        //Create Popup on marker click
+        const mHandler = () => {
+          const popup = createPopup(
+            studiesLoc[i].studies,
+            { offset: 25 }
+          );
+          marker.setPopup(popup).togglePopup();
+        };
+        mElement.addEventListener("click", mHandler);
+        mEventHandlers.push({ marker: mElement, func: mHandler });
       }
     }
 
@@ -177,21 +209,27 @@ export default function Map() {
   );
 }
 
+function findLocIndex(
+  studiesLoc: { marker: mapboxgl.Marker, location: number[], studies: pInfo[] }[],
+  location: number[]
+  ) {
+  for (let i = 0; i < studiesLoc.length; i++) {
+    if (studiesLoc[i].location[0] == location[0] &&
+      studiesLoc[i].location[1] == location[1]) {
+      return i;
+    }
+  }
+  return -1;
+}
+
 function createPopup(
-  popupInfo: pInfo,
+  popupInfo: pInfo[],
   pOptions?: mapboxgl.PopupOptions | undefined
 ) {
   const popup = new mapboxgl.Popup(pOptions);
   const pContainer = document.createElement("div");
   createRoot(pContainer).render(
-    <MPopup
-      id={popupInfo.id}
-      title={popupInfo.title}
-      studyStart={popupInfo.studyStart}
-      studyType={popupInfo.studyType}
-      phase={popupInfo.phase}
-      facility={popupInfo.facility}
-    />
+    <MPopupMenu studies={popupInfo}/>
   );
   popup.setDOMContent(pContainer);
   return popup;
