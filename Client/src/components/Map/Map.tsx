@@ -95,9 +95,13 @@ export default function Map() {
 
     //Fill map with result pins
     if (!isEmpty(searchResult)) {
-      const studiesLoc: { marker: mapboxgl.Marker, location: number[], studies: pInfo[] }[] = [];
+      const studiesLoc: {
+        marker: mapboxgl.Marker;
+        location: number[];
+        studies: pInfo[];
+      }[] = [];
       let colors = new Set();
-      
+
       for (var key in searchResult) {
         let curColor = getRandomColor();
         while (colors.has(curColor)) {
@@ -110,29 +114,31 @@ export default function Map() {
           const num = findLocIndex(studiesLoc, study.geolocations[i]);
           if (num == -1) {
             const marker = new mapboxgl.Marker({ color: curColor })
-            .setLngLat(study.geolocations[i])
-            .addTo(map);
+              .setLngLat(study.geolocations[i])
+              .addTo(map);
             studiesLoc.push({
               marker: marker,
               location: study.geolocations[i],
-              studies: [{
-                id: study.nctId,
-                title: study.title,
-                studyStart: study.studyStart,
-                studyType: study.studyType,
-                phase: study.phase,
-                facility: study.facility,
-              }]
+              studies: [
+                {
+                  id: study.nctId,
+                  title: study.title,
+                  studyStart: study.studyStart,
+                  studyType: study.studyType,
+                  phase: study.phase,
+                  facility: study.facility,
+                },
+              ],
             });
           } else {
             const studies = studiesLoc[num].studies;
             studies.push({
-                id: study.nctId,
-                title: study.title,
-                studyStart: study.studyStart,
-                studyType: study.studyType,
-                phase: study.phase,
-                facility: study.facility,
+              id: study.nctId,
+              title: study.title,
+              studyStart: study.studyStart,
+              studyType: study.studyType,
+              phase: study.phase,
+              facility: study.facility,
             });
             studiesLoc[num].studies = studies;
           }
@@ -150,10 +156,7 @@ export default function Map() {
 
         //Create Popup on marker click
         const mHandler = () => {
-          const popup = createPopup(
-            studiesLoc[i].studies,
-            { offset: 25 }
-          );
+          const popup = createPopup(studiesLoc[i].studies, { offset: 25 });
           marker.setPopup(popup).togglePopup();
         };
         mElement.addEventListener("click", mHandler);
@@ -210,12 +213,18 @@ export default function Map() {
 }
 
 function findLocIndex(
-  studiesLoc: { marker: mapboxgl.Marker, location: number[], studies: pInfo[] }[],
+  studiesLoc: {
+    marker: mapboxgl.Marker;
+    location: number[];
+    studies: pInfo[];
+  }[],
   location: number[]
-  ) {
+) {
   for (let i = 0; i < studiesLoc.length; i++) {
-    if (studiesLoc[i].location[0] == location[0] &&
-      studiesLoc[i].location[1] == location[1]) {
+    if (
+      studiesLoc[i].location[0] == location[0] &&
+      studiesLoc[i].location[1] == location[1]
+    ) {
       return i;
     }
   }
@@ -228,9 +237,7 @@ function createPopup(
 ) {
   const popup = new mapboxgl.Popup(pOptions);
   const pContainer = document.createElement("div");
-  createRoot(pContainer).render(
-    <MPopupMenu studies={popupInfo}/>
-  );
+  createRoot(pContainer).render(<MPopupMenu studies={popupInfo} />);
   popup.setDOMContent(pContainer);
   return popup;
 }

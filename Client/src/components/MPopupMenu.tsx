@@ -50,21 +50,29 @@ export const MPopupMenu: React.FC<{ studies: pInfo[] }> = ({ studies }) => {
     // show menu
     const btns = [];
     for (let i = 0; i < getStudiesLength(); i++) {
-        btns.push(<button
-            key={i}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded my-1"
-            onClick={() => handleClick(i)}>
-            {getStudyTitle(i)}
-          </button>);
+      btns.push(
+        <button
+          key={i}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded my-1"
+          onClick={() => handleClick(i)}
+        >
+          {getStudyTitle(i)}
+        </button>
+      );
     }
     return <>{btns}</>;
-  } else if (studies.length > 1){
-    return <><button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mb-1"
-        onClick={() => handleClick(-1)}>
-        back
-      </button>
-    {getStudyPopup(index)}</>;
+  } else if (studies.length > 1) {
+    return (
+      <>
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mb-1"
+          onClick={() => handleClick(-1)}
+        >
+          back
+        </button>
+        {getStudyPopup(index)}
+      </>
+    );
   } else {
     return <>{getStudyPopup(0)}</>;
   }
