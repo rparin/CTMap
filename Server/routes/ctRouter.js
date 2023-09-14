@@ -9,7 +9,7 @@ const ctHelper = new CTHelper();
 const fields =
   "NCTId,LocationState,LocationCountry,LocationFacility,BriefTitle,Condition,LeadSponsorName,StudyType,Phase,EnrollmentInfo,PrimaryCompletionDate,StartDate,CompletionDate,MinimumAge,MaximumAge,Sex,StdAge,HealthyVolunteers";
 const ctPdfInfo = new CTPdfInfo();
-const pdfFields = 
+const pdfFields =
   "NCTId,OfficialTitle,DescriptionModule,Condition,LeadSponsorName,StudyType,Phase,EnrollmentInfo,PrimaryCompletionDate,StartDate,CompletionDate,ReferencesModule,ParticipantFlowModule";
 
 router.get(
@@ -49,12 +49,11 @@ router.get("/location/:coords", async (req, res) => {
   }
 });
 
-
 router.get("/addct/:item", async (req, res) => {
   var apiUrl = `https://clinicaltrials.gov/api/v2/studies/${req.params.item}?fields=${pdfFields}`;
   try {
     let response = await fetch(apiUrl);
-    response = await response.json()
+    response = await response.json();
     pdf = await ctPdfInfo.getInfo(response);
     // res.json({ itemList: item });
     res.status(200);
@@ -64,6 +63,4 @@ router.get("/addct/:item", async (req, res) => {
   }
 });
 
-
-router.get()
 module.exports = router;

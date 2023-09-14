@@ -1,8 +1,10 @@
 [role="tablist"] {
   display: flex;
-  width: fit-content;
-  position: relative;
-  margin-block: 0.5rem;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  margin-bottom: 0.5rem;
+  z-index: 50;
 }
 
 [role="tablist"]::after {
@@ -21,7 +23,7 @@
 
 [role="tab"] {
   background: transparent;
-  padding: 1em 2em;
+  padding: 1em 1.88em;
   border: 0;
   font: inherit;
   text-transform: uppercase;
@@ -37,17 +39,4 @@
 [role="tab"][aria-selected="true"] {
   border-bottom: 0.2rem solid hsla(0, 0%, 0%, 0.5);
   opacity: 1;
-}
-
-.container {
-  display: grid;
-  grid-template-columns: 1fr 0.9fr;
-  grid-template-rows: 0.9fr;
-  gap: 0px 0px;
-  grid-template-areas: ". myArea";
-  order: -1;
-}
-
-.item1 {
-  grid-area: myArea;
 }
