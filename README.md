@@ -17,6 +17,7 @@ img here
 </div>
 
 ### Features
+
 - Browse through clinical trials available around the world pulled.
 - Use of Mapbox API to view clinical trial locations on the map.
 - Export 1-5 clinical trial information into a PDF.
@@ -53,7 +54,11 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 ## Technologies
 
-![React][react-url]![NodeJS][nodejs-url][![OpenAi][openai.io]][openai-url]![TailwindCSS][tailwind-url]
+<div align="center">
+
+![React][react-url] ![NodeJS][nodejs-url] [![OpenAi][openai.io]][openai-url] ![TailwindCSS][tailwind-url]
+
+<div/>
 
 ## Credits
 
@@ -61,19 +66,13 @@ Clinical Trials Map was made in collaboration of me, Ralph Parin, and my team, [
 
 ## License
 
-
-
-
-
 <!-- MARKDOWN LINKS & IMAGES -->
 
-[react-url]:https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB
+[react-url]: https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB
 [nodejs-url]: https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white
 [openai.io]: https://img.shields.io/badge/OpenAi-000000?style=for-the-badge&logo=openai&logoColor=white
 [openai-url]: https://platform.openai.com/
 [tailwind-url]: https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white
-
-
 [tenzo-url]: https://github.com/Alfendi
 [maxine-url]: https://github.com/mgjypil
 [yen-url]: https://github.com/yen-lei
