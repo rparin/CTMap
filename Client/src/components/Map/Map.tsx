@@ -32,6 +32,7 @@ export default function Map() {
   const maxPageIndex = useRef(0);
   const currentPageIndex = useRef(0);
   const [currentPageToken, setPageToken] = useState<string | null>(null);
+  const [itemList, setItemList] = useState<{}>({});
 
   const removeMarkerEvents = async () => {
     mEventHandlers.forEach(function (item, index) {
@@ -112,10 +113,31 @@ export default function Map() {
         // first fill in studiesLoc (this will group together studies in similar facilities)
         for (let i = 0; i < study.geolocations.length; i++) {
           const num = findLocIndex(studiesLoc, study.geolocations[i]);
+
+          const addItem = () => {
+            setItemList((prev) => ({
+              ...prev,
+              [study.nctId]: {
+                nctId: study.nctId,
+                title: study.title,
+                sponsor: study.sponsor,
+                conditions: study.conditions,
+              },
+            }));
+          };
+
+          const remItem = () => {
+            setItemList((prev) => ({
+              ...prev,
+              [study.nctId]: null,
+            }));
+          };
+
           if (num == -1) {
             const marker = new mapboxgl.Marker({ color: curColor })
               .setLngLat(study.geolocations[i])
               .addTo(map);
+
             studiesLoc.push({
               marker: marker,
               location: study.geolocations[i],
@@ -127,6 +149,8 @@ export default function Map() {
                   studyType: study.studyType,
                   phase: study.phase,
                   facility: study.facility,
+                  removeItem: remItem,
+                  addItem: addItem,
                 },
               ],
             });
@@ -139,6 +163,8 @@ export default function Map() {
               studyType: study.studyType,
               phase: study.phase,
               facility: study.facility,
+              removeItem: remItem,
+              addItem: addItem,
             });
             studiesLoc[num].studies = studies;
           }
@@ -204,6 +230,7 @@ export default function Map() {
           maxPageIndex={maxPageIndex}
           currentPageIndex={currentPageIndex}
           setPageToken={setPageToken}
+          itemList={itemList}
         />
       </div>
 
