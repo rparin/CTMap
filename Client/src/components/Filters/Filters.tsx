@@ -160,39 +160,6 @@ export default function Filters({
   function locationFilters(locMarker: mapboxgl.Marker | null) {
     if (locMarker?.getLngLat() != undefined) {
       return (<><p className="text-sky-500 font-bold text-xs border-b-2 border-solid border-x-2 border-transparent border-b-sky-600/20">
-      Marker Area
-    </p>
-    <p>
-      <input
-        type="checkbox"
-        name="loc-city"
-        id="loc-city"
-        value="loc-city"
-        onClick={() => {
-          setLocation({
-            ...location,
-            city: !location.city,
-          });
-        }}
-      />{" "}
-      <label htmlFor="loc-city">City</label>
-    </p>
-    <p>
-      <input
-        type="checkbox"
-        name="loc-zip"
-        id="loc-zip"
-        value="loc-zip"
-        onClick={() => {
-          setLocation({
-            ...location,
-            zip: !location.zip,
-          });
-        }}
-      />{" "}
-      <label htmlFor="loc-zip">Zip</label>
-    </p>
-    <p className="text-sky-500 font-bold text-xs border-b-2 border-solid border-x-2 border-transparent border-b-sky-600/20">
       Proximity
     </p>
     <Dropdown
@@ -211,13 +178,53 @@ export default function Filters({
   return (
     <form id="filters">
       <fieldset
-        name="study-phase"
+        name="select location"
         className="p-3 bg-blue-400/20 rounded-md mb-2">
         <h1 className="mb-2 mt-0 text-base uppercase font-medium leading-tight text-primary">
           Location
         </h1>
         <LocationSearch setPlace={setPlace} place={place} locMarker={locMarker} map={map} />
         {locationFilters(locMarker.current)}
+      </fieldset>
+
+      <fieldset
+      name="result-markers"
+      className="p-3 bg-blue-400/20 rounded-md mb-2">
+        <h1 className="mb-2 mt-0 text-base uppercase font-medium leading-tight text-primary">
+          Result Location Markers
+        </h1>
+      <p className="text-sky-500 font-bold text-xs border-b-2 border-solid border-x-2 border-transparent border-b-sky-600/20">
+      Marker Area
+    </p>
+    <p>
+      <input
+        type="radio"
+        id="loc-state"
+        value="loc-state"
+        onClick={() => {
+          setLocation({
+            ...location,
+            city: false,
+          });
+        }}
+        checked={location.city == false} />{" "}
+      <label htmlFor="loc-state">State/Region</label>
+    </p>
+    <p>
+      <input
+        type="radio"
+        id="loc-city"
+        value="loc-city"
+        onClick={() => {
+          setLocation({
+            ...location,
+            city: true,
+          });
+        }}
+        checked={location.city == true}
+      />{" "}
+      <label htmlFor="loc-city">City</label>
+    </p>
       </fieldset>
 
       <fieldset

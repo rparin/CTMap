@@ -51,7 +51,7 @@ export default function LocationSearch({
       if (locMarker.current == null)
         locMarker.current = new mapboxgl.Marker({ draggable: false });
       if (map.current)
-        locMarker.current.setLngLat([event.lngLat.lng, event.lngLat.lat]).addTo(map.current);
+        locMarker.current.setLngLat([event.result.center[0], event.result.center[1]]).addTo(map.current);
     });
 
     geocoder.on("clear", (event: any) => {
