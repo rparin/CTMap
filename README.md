@@ -58,13 +58,15 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 ![React][react-url] ![NodeJS][nodejs-url] [![OpenAi][openai.io]][openai-url] ![TailwindCSS][tailwind-url]
 
-<div/>
+</div>
 
 ## Credits
 
 Clinical Trials Map was made in collaboration of me, Ralph Parin, and my team, [Tenzo][tenzo-url], [Maxine][maxine-url], and [Yenina][yen-url].
 
 ## License
+
+This project is licensed under the MIT License - see the [LICENSE][git-license-url] file for details.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
@@ -76,3 +78,4 @@ Clinical Trials Map was made in collaboration of me, Ralph Parin, and my team, [
 [tenzo-url]: https://github.com/Alfendi
 [maxine-url]: https://github.com/mgjypil
 [yen-url]: https://github.com/yen-lei
+[git-license-url]: https://github.com/rparin/CTMap/blob/main/LICENSE
