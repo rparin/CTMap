@@ -9,6 +9,8 @@ export default function Tabs({
   searchResult,
   setFilter,
   place,
+  locMarker,
+  map,
   setPlace,
   setPageSize,
   pageTokens, // is only read here
@@ -19,6 +21,8 @@ export default function Tabs({
   searchResult: {};
   setFilter: React.Dispatch<React.SetStateAction<string>>;
   place: {} | null;
+  locMarker: MutableRefObject<mapboxgl.Marker | null>;
+  map: MutableRefObject<mapboxgl.Map | null>;
   setPlace: React.Dispatch<React.SetStateAction<{} | null>>;
   setPageSize: React.Dispatch<React.SetStateAction<string>>;
   pageTokens: MutableRefObject<string[]>;
@@ -133,7 +137,7 @@ export default function Tabs({
       </div>
       <div className="px-3 pb-2">
         <div id="tabPanel-1" role="tabpanel" aria-labelledby="tab-1">
-          <Filters setFilter={setFilter} place={place} setPlace={setPlace} />
+          <Filters setFilter={setFilter} place={place} setPlace={setPlace} locMarker={locMarker} map={map}/>
         </div>
 
         <div id="tabPanel-2" hidden role="tabpanel" aria-labelledby="tab-2">

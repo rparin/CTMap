@@ -38,15 +38,16 @@ export default function Map() {
       item.marker.removeEventListener("click", item.func);
     });
   };
+  const locMarker = useRef<mapboxgl.Marker | null>(null);
+  const map = useRef<mapboxgl.Map | null>(null);
 
   useEffect(() => {
-    const map = new mapboxgl.Map({
+    map.current = new mapboxgl.Map({
       container: mapContainer.current!,
       style: "MAP_STYLE", // map styling here; streets and other miscellaneous stuff were removed here
       center: [lng, lat],
       zoom: zoom,
     });
-    const locMarker = new mapboxgl.Marker({ draggable: false });
 
     // locator control: used for finding the user's location at the click of a
     // button; located underneath the geocoder control/top right
@@ -56,7 +57,7 @@ export default function Map() {
       },
       showUserLocation: false,
     });
-    map.addControl(geolocate);
+    map.current.addControl(geolocate);
 
     geolocate.on("geolocate", async (pos: any) => {
       const placeName = await reverseGeocode(
@@ -68,13 +69,14 @@ export default function Map() {
         lat: pos.coords.latitude,
         name: placeName,
       });
-      locMarker
-        .setLngLat([pos.coords.longitude, pos.coords.latitude])
-        .addTo(map);
+      if (locMarker.current == null)
+        locMarker.current = new mapboxgl.Marker({ draggable: false });
+      if (map.current)
+        locMarker.current.setLngLat([pos.coords.longitude, pos.coords.latitude]).addTo(map.current);
     });
 
     // TRIGGER #3: user double clicks on a point on the map
-    map.on("dblclick", async (event: any) => {
+    map.current.on("dblclick", async (event: any) => {
       const placeName = await reverseGeocode(
         event.lngLat.lng,
         event.lngLat.lat
@@ -84,14 +86,17 @@ export default function Map() {
         lat: event.lngLat.lat,
         name: placeName,
       });
-      locMarker.setLngLat([event.lngLat.lng, event.lngLat.lat]).addTo(map);
+      if (locMarker.current == null)
+        locMarker.current = new mapboxgl.Marker({ draggable: false });
+      if (map.current)
+        locMarker.current.setLngLat([event.lngLat.lng, event.lngLat.lat]).addTo(map.current);
     });
 
     // add zoom control
     const nav = new mapboxgl.NavigationControl({
       showCompass: false, // do not show compass controls so rotation of the map is not allowed (not neeeded anyway)
     });
-    map.addControl(nav, "top-right");
+    map.current.addControl(nav, "top-right");
 
     //Fill map with result pins
     if (!isEmpty(searchResult)) {
@@ -105,7 +110,7 @@ export default function Map() {
         for (let i = 0; i < study.geolocations.length; i++) {
           const marker = new mapboxgl.Marker({ color: curColor })
             .setLngLat(study.geolocations[i])
-            .addTo(map);
+            .addTo(map.current);
           const mElement = marker.getElement();
 
           //Create Popup on marker click
@@ -131,7 +136,8 @@ export default function Map() {
 
     // cleanup function to remove map on unmount
     return () => {
-      map.remove();
+      if (map.current)
+        map.current.remove();
       removeMarkerEvents();
     };
   }, [searchResult]); // update map whenever searchResult changes
@@ -163,6 +169,8 @@ export default function Map() {
           searchResult={searchResult}
           setFilter={setFilter}
           place={place}
+          locMarker={locMarker}
+          map={map}
           setPlace={setPlace}
           setPageSize={setPageSize}
           pageTokens={pageTokens}
