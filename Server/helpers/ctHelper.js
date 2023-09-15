@@ -1,4 +1,4 @@
-const CTRes = require("./CTRes");
+const CTRes = require("./ctRes")
 
 class ctHelper {
   constructor() {}

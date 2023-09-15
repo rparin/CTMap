@@ -8,6 +8,8 @@ export type pInfo = {
   studyType: string;
   phase: string;
   facility: string;
+  removeItem: any;
+  addItem: any;
 };
 
 export const MPopupMenu: React.FC<{ studies: pInfo[] }> = ({ studies }) => {
@@ -33,6 +35,8 @@ export const MPopupMenu: React.FC<{ studies: pInfo[] }> = ({ studies }) => {
           studyType={studyType}
           phase={phase}
           facility={facility}
+          removeItem={study.removeItem}
+          addItem={study.addItem}
         />
       );
     }
@@ -54,8 +58,7 @@ export const MPopupMenu: React.FC<{ studies: pInfo[] }> = ({ studies }) => {
         <button
           key={i}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded my-1"
-          onClick={() => handleClick(i)}
-        >
+          onClick={() => handleClick(i)}>
           {getStudyTitle(i)}
         </button>
       );
@@ -66,8 +69,7 @@ export const MPopupMenu: React.FC<{ studies: pInfo[] }> = ({ studies }) => {
       <>
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mb-1"
-          onClick={() => handleClick(-1)}
-        >
+          onClick={() => handleClick(-1)}>
           back
         </button>
         {getStudyPopup(index)}
