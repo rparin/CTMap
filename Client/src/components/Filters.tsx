@@ -107,6 +107,8 @@ export default function Filters({
     });
     setStudyResults({ with: true, without: true });
     setPlace(null);
+    locMarker.current?.remove();
+    locMarker.current = null;
   };
   const handleApply = () => {
     setFilter(compileFilters());
