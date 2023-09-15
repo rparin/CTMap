@@ -33,7 +33,7 @@ export default function PageButton({
   return (
     <>
       <button
-        className="bg-blue-500 m-6 mx-0 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
+        className="bg-blue-500 m-6 mx-0 enabled:hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
         disabled={
           currentPageIndex.current + pageDiff == 0 ||
           currentPageIndex.current == maxPageIndex.current
