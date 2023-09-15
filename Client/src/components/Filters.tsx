@@ -1,6 +1,6 @@
 import { useState } from "react";
-import LocationSearch from "../LocationSearch";
-import Dropdown from "../Dropdown";
+import LocationSearch from "./LocationSearch";
+import Dropdown from "./Dropdown";
 
 export default function Filters({
   setFilter,

@@ -1,6 +1,6 @@
 import React, { MutableRefObject, useEffect } from "react";
 import Results from "../Results";
-import Filters from "../Filters/Filters";
+import Filters from "../Filters";
 import Lists from "../Lists";
 import "./Tabs.css";
 import Dropdown from "../Dropdown";

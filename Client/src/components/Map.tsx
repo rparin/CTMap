@@ -1,15 +1,15 @@
 "use client";
 
-import { MPopupMenu, pInfo } from "../MPopupMenu";
+import { MPopupMenu, pInfo } from "./MPopupMenu";
 import Search from "@/components/Search";
-import Tabs from "../Tabs/Tabs";
+import Tabs from "./Tabs/Tabs";
 
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 import React, { useRef, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
-import Loader from "../Loader";
+import Loader from "./Loader";
 
 mapboxgl.accessToken =
   "MAP_TOKEN";
