@@ -186,7 +186,7 @@ export default function Filters({
           Location
         </h1>
         <LocationSearch setPlace={setPlace} place={place} locMarker={locMarker} map={map} />
-        {locationFilters(locMarker.current)}
+        {locationFilters(locMarker?.current)}
       </fieldset>
 
       <fieldset
@@ -203,13 +203,13 @@ export default function Filters({
         type="radio"
         id="loc-state"
         value="loc-state"
-        onClick={() => {
+        onChange={() => {
           setLocation({
             ...location,
             city: false,
           });
         }}
-        checked={location.city == false} />{" "}
+        checked={!location.city} />{" "}
       <label htmlFor="loc-state">State/Region</label>
     </p>
     <p>
@@ -217,13 +217,13 @@ export default function Filters({
         type="radio"
         id="loc-city"
         value="loc-city"
-        onClick={() => {
+        onChange={() => {
           setLocation({
             ...location,
             city: true,
           });
         }}
-        checked={location.city == true}
+        checked={location.city}
       />{" "}
       <label htmlFor="loc-city">City</label>
     </p>
