@@ -50,8 +50,12 @@ export default function LocationSearch({
 
       if (locMarker.current == null)
         locMarker.current = new mapboxgl.Marker({ draggable: false });
-      if (map.current)
+      if (map.current) {
         locMarker.current.setLngLat([event.result.center[0], event.result.center[1]]).addTo(map.current);
+        map.current.flyTo({
+          center: event.result.center,
+        });
+      }
     });
 
     geocoder.on("clear", (event: any) => {
