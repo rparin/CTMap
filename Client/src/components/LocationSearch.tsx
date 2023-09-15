@@ -1,4 +1,4 @@
-import React, { useEffect, SetStateAction } from "react";
+import React, { useEffect, SetStateAction, MutableRefObject } from "react";
 
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -9,9 +9,13 @@ import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 export default function LocationSearch({
   setPlace,
   place,
+  locMarker,
+  map,
 }: {
   setPlace: React.Dispatch<SetStateAction<{} | null>>;
   place: {} | null;
+  locMarker: MutableRefObject<mapboxgl.Marker | null>;
+  map: MutableRefObject<mapboxgl.Map | null>;
 }) {
   useEffect(() => {
     const geocoder = new MapboxGeocoder({
@@ -43,6 +47,11 @@ export default function LocationSearch({
         lat: event.result.center[1],
         name: event.result.place_name,
       });
+
+      if (locMarker.current == null)
+        locMarker.current = new mapboxgl.Marker({ draggable: false });
+      if (map.current)
+        locMarker.current.setLngLat([event.lngLat.lng, event.lngLat.lat]).addTo(map.current);
     });
 
     geocoder.on("clear", (event: any) => {

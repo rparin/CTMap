@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { MutableRefObject, useState } from "react";
 import LocationSearch from "../LocationSearch";
 import Dropdown from "../Dropdown";
 
@@ -6,10 +6,14 @@ export default function Filters({
   setFilter,
   place,
   setPlace,
+  locMarker,
+  map,
 }: {
   setFilter: React.Dispatch<React.SetStateAction<string>>;
   place: {} | null;
   setPlace: React.Dispatch<React.SetStateAction<{} | null>>;
+  locMarker: MutableRefObject<mapboxgl.Marker | null>;
+  map: MutableRefObject<mapboxgl.Map  | null>;
 }) {
   // ELIGIBILITY CRITERION
   const [sex, setSex] = useState(""); //blank = all
@@ -153,6 +157,57 @@ export default function Filters({
     });
   };
 
+  function locationFilters(locMarker: mapboxgl.Marker | null) {
+    if (locMarker?.getLngLat() != undefined) {
+      return (<><p className="text-sky-500 font-bold text-xs border-b-2 border-solid border-x-2 border-transparent border-b-sky-600/20">
+      Marker Area
+    </p>
+    <p>
+      <input
+        type="checkbox"
+        name="loc-city"
+        id="loc-city"
+        value="loc-city"
+        onClick={() => {
+          setLocation({
+            ...location,
+            city: !location.city,
+          });
+        }}
+      />{" "}
+      <label htmlFor="loc-city">City</label>
+    </p>
+    <p>
+      <input
+        type="checkbox"
+        name="loc-zip"
+        id="loc-zip"
+        value="loc-zip"
+        onClick={() => {
+          setLocation({
+            ...location,
+            zip: !location.zip,
+          });
+        }}
+      />{" "}
+      <label htmlFor="loc-zip">Zip</label>
+    </p>
+    <p className="text-sky-500 font-bold text-xs border-b-2 border-solid border-x-2 border-transparent border-b-sky-600/20">
+      Proximity
+    </p>
+    <Dropdown
+      items={[5, 10, 20, 50, 80, 100]}
+      label={"Select max distance (miles)"}
+      setStatus={setDis}
+      outerStyle="flex items-center rounded-md mb-2 gap-2"
+      innerStyle=" bg-slate-200 border border-slate-200 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block p-1"
+    /></>);
+    }
+    else return "";
+  }
+
+
+
   return (
     <form id="filters">
       <fieldset
@@ -161,50 +216,8 @@ export default function Filters({
         <h1 className="mb-2 mt-0 text-base uppercase font-medium leading-tight text-primary">
           Location
         </h1>
-        <LocationSearch setPlace={setPlace} place={place} />
-        <p className="text-sky-500 font-bold text-xs border-b-2 border-solid border-x-2 border-transparent border-b-sky-600/20">
-          Marker Area
-        </p>
-        <p>
-          <input
-            type="checkbox"
-            name="loc-city"
-            id="loc-city"
-            value="loc-city"
-            onClick={() => {
-              setLocation({
-                ...location,
-                city: !location.city,
-              });
-            }}
-          />{" "}
-          <label htmlFor="loc-city">City</label>
-        </p>
-        <p>
-          <input
-            type="checkbox"
-            name="loc-zip"
-            id="loc-zip"
-            value="loc-zip"
-            onClick={() => {
-              setLocation({
-                ...location,
-                zip: !location.zip,
-              });
-            }}
-          />{" "}
-          <label htmlFor="loc-zip">Zip</label>
-        </p>
-        <p className="text-sky-500 font-bold text-xs border-b-2 border-solid border-x-2 border-transparent border-b-sky-600/20">
-          Proximity
-        </p>
-        <Dropdown
-          items={[5, 10, 20, 50, 80, 100]}
-          label={"Select max distance (miles)"}
-          setStatus={setDis}
-          outerStyle="flex items-center rounded-md mb-2 gap-2"
-          innerStyle=" bg-slate-200 border border-slate-200 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block p-1"
-        />
+        <LocationSearch setPlace={setPlace} place={place} locMarker={locMarker} map={map} />
+        {locationFilters(locMarker.current)}
       </fieldset>
 
       <fieldset
