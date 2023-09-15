@@ -137,13 +137,6 @@ export default function Tabs({
           aria-selected="false">
           List
         </button>
-        <button
-          id="tab-4"
-          role="tab"
-          aria-controls="tabPanel-4"
-          aria-selected="false">
-          About
-        </button>
       </div>
       <div className="px-3 pb-2">
         <div id="tabPanel-1" role="tabpanel" aria-labelledby="tab-1">
@@ -152,8 +145,8 @@ export default function Tabs({
 
         <div id="tabPanel-2" hidden role="tabpanel" aria-labelledby="tab-2">
           <Results searchResult={searchResult} />
-          <div className=" mt-20"></div>
-          <div className="flex gap-1 fixed bottom-20">
+          <div className="mt-20 "></div>
+          <div className="fixed flex gap-1 bottom-20">
             <Dropdown
               items={[1, 2, 5, 10, 50]}
               label={"Page Size"}
@@ -162,7 +155,7 @@ export default function Tabs({
               innerStyle="bg-slate-200 border border-slate-200 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
-          <div className="flex gap-2 fixed bottom-16 left-56 z-50 mb-1">
+          <div className="fixed z-50 flex gap-2 mb-1 bottom-16 left-56">
             <PageButton
               buttonName="Prev"
               pageTokens={pageTokens}
@@ -180,7 +173,7 @@ export default function Tabs({
               pageDiff={1}
             />
           </div>
-          <p className="flex fixed bottom-16 left-64 text-black z-50 bg-blue-400/20 rounded-md backdrop-blur-md px-3">
+          <p className="fixed z-50 flex px-3 text-black rounded-md bottom-16 left-64 bg-blue-400/20 backdrop-blur-md">
             {currentPageIndex.current > 0
               ? `Page ${currentPageIndex.current}`
               : ""}
@@ -190,26 +183,7 @@ export default function Tabs({
         <div id="tabPanel-3" hidden role="tabpanel" aria-labelledby="tab-3">
           <Lists itemList={itemList} />
         </div>
-
-        <div id="tabPanel-4" hidden role="tabpanel" aria-labelledby="tab-4">
-          <p className="text-xs italic">
-            <a
-              className="font-bold text-sky-500"
-              href="https://clinicaltrials.gov"
-              title="Information on Clinical Trials and Human Research Studies">
-              ClinicalTrials.gov
-            </a>{" "}
-            provides patients, their family members, and the public with easy
-            and free access to information on clinical studies for a wide range
-            of diseases and conditions.
-          </p>
-          <br />
-          <p className="text-xs italic">
-            ClinicalTrials.gov was developed by the National Library of
-            Medicine. ClinicalTrials.gov is updated daily. You should check
-            ClinicalTrials.gov frequently for updated information.
-          </p>
-        </div>
+        
       </div>
     </section>
   );
