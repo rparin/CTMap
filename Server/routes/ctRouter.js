@@ -15,7 +15,10 @@ const pdfFields =
 router.get(
   "/studies/:search/:filter/:pageToken/:pageSize",
   async (req, res) => {
-    const filter = JSON.parse(req.params.filter);
+    var filter = "null";
+    if (req.params.filter && req.params.filter != "null") {
+      filter = req.params.filter;
+    }
     const aggFilter = ctHelper.getAggFilterUrl(filter);
     const postFilter = ctHelper.getPostFilterUrl(filter);
     const locFilter = ctHelper.getLocationFilter(filter);

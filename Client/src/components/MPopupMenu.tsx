@@ -59,7 +59,7 @@ export const MPopupMenu: React.FC<{ studies: pInfo[] }> = ({ studies }) => {
           key={i}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded my-1"
           onClick={() => handleClick(i)}>
-          {getStudyTitle(i)}
+          <p className="line-clamp-2 text-left">{getStudyTitle(i)}</p>
         </button>
       );
     }
@@ -68,7 +68,8 @@ export const MPopupMenu: React.FC<{ studies: pInfo[] }> = ({ studies }) => {
     return (
       <>
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mb-1"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mb-1
+          "
           onClick={() => handleClick(-1)}>
           back
         </button>
