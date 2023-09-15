@@ -193,7 +193,7 @@ export default function Filters({
       name="result-markers"
       className="p-3 bg-blue-400/20 rounded-md mb-2">
         <h1 className="mb-2 mt-0 text-base uppercase font-medium leading-tight text-primary">
-          Result Location Markers
+          Result Locations
         </h1>
       <p className="text-sky-500 font-bold text-xs border-b-2 border-solid border-x-2 border-transparent border-b-sky-600/20">
       Marker Area
