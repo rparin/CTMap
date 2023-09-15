@@ -1,12 +1,14 @@
 import React, { MutableRefObject, useEffect } from "react";
 import Results from "../Results";
+import Filters from "../Filters";
+import Lists from "../Lists";
 import "./Tabs.css";
-import Filters from "../Filters/Filters";
 import Dropdown from "../Dropdown";
 import PageButton from "@/components/PageButton";
 
 export default function Tabs({
   searchResult,
+  itemList,
   setFilter,
   place,
   locMarker,
@@ -19,6 +21,7 @@ export default function Tabs({
   setPageToken,
 }: {
   searchResult: {};
+  itemList: {};
   setFilter: React.Dispatch<React.SetStateAction<string>>;
   place: {} | null;
   locMarker: MutableRefObject<mapboxgl.Marker | null>;
@@ -132,6 +135,13 @@ export default function Tabs({
           role="tab"
           aria-controls="tabPanel-3"
           aria-selected="false">
+          List
+        </button>
+        <button
+          id="tab-4"
+          role="tab"
+          aria-controls="tabPanel-4"
+          aria-selected="false">
           About
         </button>
       </div>
@@ -178,6 +188,10 @@ export default function Tabs({
         </div>
 
         <div id="tabPanel-3" hidden role="tabpanel" aria-labelledby="tab-3">
+          <Lists itemList={itemList} />
+        </div>
+
+        <div id="tabPanel-4" hidden role="tabpanel" aria-labelledby="tab-4">
           <p className="text-xs italic">
             <a
               className="font-bold text-sky-500"

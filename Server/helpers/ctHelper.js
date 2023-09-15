@@ -1,17 +1,18 @@
-const CTRes = require("./CTRes");
+const CTRes = require("./ctRes");
 
 class ctHelper {
   constructor() {}
 
   async getLatLong(place, accessToken) {
-    if (!place) {
-      console.log(place);
+    try {
+      const response = await fetch(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${place}.json?access_token=${accessToken}`
+      );
+      const res = await response.json();
+      return res?.features[0]?.center;
+    } catch (error) {
+      return null;
     }
-    const response = await fetch(
-      `https://api.mapbox.com/geocoding/v5/mapbox.places/${place}.json?access_token=${accessToken}`
-    );
-    const res = await response.json();
-    return res?.features[0]?.center;
   }
 
   getNextPageToken(res) {
@@ -40,7 +41,9 @@ class ctHelper {
             "MAP_TOKEN"
           );
 
-          cords.set(loc, latLong);
+          if (latLong) {
+            cords.set(loc, latLong);
+          }
         } else {
           latLong = cords.get(loc);
         }
@@ -133,6 +136,7 @@ class ctHelper {
   }
 
   getLocationFilter(filterJson) {
+    if (filterJson == "null" || !filterJson) return "";
     const lat = filterJson?.location?.lat;
     const lng = filterJson?.location?.lng;
     const zip = filterJson?.location?.zip;

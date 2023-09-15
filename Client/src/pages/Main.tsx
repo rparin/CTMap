@@ -1,9 +1,8 @@
-import "./Main.css";
-import Map from "@/components/Map/Map";
+import Map from "@/components/Map";
 
 export default function Main() {
   return (
-    <main className="main_container">
+    <main className="flex flex-col min-h-screen gap-2 text-white bg-gray-500">
       {/* Map */}
       <Map />
 
