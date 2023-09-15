@@ -10,6 +10,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import React, { useRef, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import Loader from "./Loader";
+import About from "./About";
 
 mapboxgl.accessToken =
   "MAP_TOKEN";
@@ -243,6 +244,8 @@ export default function Map() {
           itemList={itemList}
         />
       </div>
+
+      <About />
 
       <Loader loader={loader} />
     </>
