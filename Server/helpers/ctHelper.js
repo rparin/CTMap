@@ -136,6 +136,7 @@ class ctHelper {
   }
 
   getLocationFilter(filterJson) {
+    if (filterJson == "null" || !filterJson) return "";
     const lat = filterJson?.location?.lat;
     const lng = filterJson?.location?.lng;
     const zip = filterJson?.location?.zip;
