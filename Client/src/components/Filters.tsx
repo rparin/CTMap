@@ -474,7 +474,7 @@ export default function Filters({
         </p>
       </fieldset>
 
-      </div><div className="fixed bottom-[5.5rem] left-[7.4rem] z-50"><div id="filter-buttons" className="flex justify-end">
+      </div><div className="fixed bottom-[5.5rem] left-[8.4rem] z-50"><div id="filter-buttons" className="flex justify-end">
         <button
           className="bg-none hover:text-blue-700 text-blue-500 font-bold py-2 px-4 rounded"
           type="reset"
