@@ -73,7 +73,9 @@ export default function Map() {
       if (locMarker.current == null)
         locMarker.current = new mapboxgl.Marker({ draggable: false });
       if (map.current)
-        locMarker.current.setLngLat([pos.coords.longitude, pos.coords.latitude]).addTo(map.current);
+        locMarker.current
+          .setLngLat([pos.coords.longitude, pos.coords.latitude])
+          .addTo(map.current);
     });
 
     // TRIGGER #3: user double clicks on a point on the map
@@ -90,7 +92,9 @@ export default function Map() {
       if (locMarker.current == null)
         locMarker.current = new mapboxgl.Marker({ draggable: false });
       if (map.current)
-        locMarker.current.setLngLat([event.lngLat.lng, event.lngLat.lat]).addTo(map.current);
+        locMarker.current
+          .setLngLat([event.lngLat.lng, event.lngLat.lat])
+          .addTo(map.current);
     });
 
     // add zoom control
@@ -114,7 +118,7 @@ export default function Map() {
           curColor = getRandomColor();
         }
         const study: any = searchResult[key as keyof {}];
-        
+
         // first fill in studiesLoc (this will group together studies in similar facilities)
         for (let i = 0; i < study.geolocations.length; i++) {
           const num = findLocIndex(studiesLoc, study.geolocations[i]);
@@ -197,8 +201,7 @@ export default function Map() {
 
     // cleanup function to remove map on unmount
     return () => {
-      if (map.current)
-        map.current.remove();
+      if (map.current) map.current.remove();
       removeMarkerEvents();
     };
   }, [searchResult]); // update map whenever searchResult changes
@@ -307,9 +310,9 @@ async function reverseGeocode(
   longitude: number,
   latitude: number
 ): Promise<string> {
-  const ct_location_ep = "http://localhost:8080/api/ct/location";
+  const ct_location_ep = "http://localhost:8080/api/mb/location";
   let placeName = "";
-  await fetch(ct_location_ep + "/" + longitude + "," + latitude).then(
+  await fetch(`${ct_location_ep}/${longitude},${latitude}`).then(
     async (res) =>
       await res.json().then((data) => {
         // after the data is fetched then get the place name

@@ -16,3 +16,7 @@ app.get("/api/home", (req, res) => {
 //Import ct router
 const ctRouter = require("./routes/ctRouter");
 app.use("/api/ct", ctRouter);
+
+//Import mapbox router
+const mbRouter = require("./routes/mbRouter");
+app.use("/api/mb", mbRouter);

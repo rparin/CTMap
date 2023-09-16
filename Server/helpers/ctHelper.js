@@ -3,13 +3,11 @@ const CTRes = require("./ctRes");
 class ctHelper {
   constructor() {}
 
-  async getLatLong(place, accessToken) {
+  async getLatLong(place) {
     try {
-      const response = await fetch(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${place}.json?access_token=${accessToken}`
-      );
-      const res = await response.json();
-      return res?.features[0]?.center;
+      let response = await fetch(`http://localhost:8080/api/mb/cord/${place}`);
+      response = await response.json();
+      return response?.cord;
     } catch (error) {
       return null;
     }
@@ -36,10 +34,7 @@ class ctHelper {
       for (let j = 0; j < locations?.length; j++) {
         let loc = locations[j];
         if (!cords.has(loc)) {
-          latLong = await this.getLatLong(
-            loc,
-            "MAP_TOKEN"
-          );
+          latLong = await this.getLatLong(loc);
 
           if (latLong) {
             cords.set(loc, latLong);
