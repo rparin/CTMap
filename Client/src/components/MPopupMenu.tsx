@@ -58,7 +58,8 @@ export const MPopupMenu: React.FC<{ studies: pInfo[] }> = ({ studies }) => {
         <button
           key={i}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded my-1"
-          onClick={() => handleClick(i)}>
+          onClick={() => handleClick(i)}
+        >
           <p className="line-clamp-2 text-left">{getStudyTitle(i)}</p>
         </button>
       );
@@ -67,12 +68,15 @@ export const MPopupMenu: React.FC<{ studies: pInfo[] }> = ({ studies }) => {
   } else if (studies.length > 1) {
     return (
       <>
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mb-1
+        <div className="inline-flex w-[64.85%]">
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mb-1
           "
-          onClick={() => handleClick(-1)}>
-          back
-        </button>
+            onClick={() => handleClick(-1)}
+          >
+            back
+          </button>
+        </div>
         {getStudyPopup(index)}
       </>
     );

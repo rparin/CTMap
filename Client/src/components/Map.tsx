@@ -227,7 +227,7 @@ export default function Map() {
         />
       </div>
 
-      <div className="absolute m-5 bottom-10 text-black bg-slate-200 w-96 h-[40rem] overflow-y-auto ">
+      <div className="absolute m-5 bottom-10 text-black bg-slate-200 w-96 h-[40rem]">
         <Tabs
           searchResult={searchResult}
           setFilter={setFilter}

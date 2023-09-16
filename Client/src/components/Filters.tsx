@@ -178,7 +178,7 @@ export default function Filters({
 
 
   return (
-    <form id="filters">
+    <form id="filters"><div className="h-[30rem] overflow-y-auto">
       <fieldset
         name="select location"
         className="p-3 bg-blue-400/20 rounded-md mb-2">
@@ -474,7 +474,7 @@ export default function Filters({
         </p>
       </fieldset>
 
-      <div id="filter-buttons" className="flex justify-end">
+      </div><div className="fixed bottom-[5.5rem] left-[7.4rem] z-50"><div id="filter-buttons" className="flex justify-end">
         <button
           className="bg-none hover:text-blue-700 text-blue-500 font-bold py-2 px-4 rounded"
           type="reset"
@@ -488,7 +488,7 @@ export default function Filters({
           id="apply-button"
           onClick={handleApply}>
           Apply Filters
-        </button>
+        </button></div>
       </div>
     </form>
   );

@@ -25,7 +25,7 @@ export default function Lists({ itemList }: { itemList: {} }) {
   return (
     <>
       {item.length <= 0 && <section>No Clinical Trials Added</section>}
-      {item.length > 0 && <section>{item}</section>}
+      {item.length > 0 && <section className="h-[35.25rem] overflow-y-auto">{item}</section>}
     </>
   );
 }

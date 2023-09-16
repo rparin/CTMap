@@ -1,4 +1,5 @@
 import RHeader from "./RHeader";
+import { Element } from "react-scroll";
 
 type resultType = {
   id: string;
@@ -19,7 +20,8 @@ type resultType = {
 
 export default function Result(info: resultType) {
   return (
-    <section className="p-3 bg-blue-400/20 rounded-md mb-2">
+    <>
+    <section id={info.id} className="p-3 bg-blue-400/20 rounded-md mb-2">
       <p className="flex justify-end text-sky-500 text-xs gap-1 leading-3">
         ClinicalTrials.gov ID
         <span className="text-black font-bold">{info.id}</span>
@@ -40,6 +42,6 @@ export default function Result(info: resultType) {
       <RHeader hr={"Accepts Healthy Volunteers"} info={info.healthy} />
       <RHeader hr={"Ages Eligible For Study"} info={info.ageRange} />
       <RHeader hr={"Phase"} info={info.phase} />
-    </section>
+    </section></>
   );
 }

@@ -153,7 +153,7 @@ export default function Tabs({
         <div id="tabPanel-2" hidden role="tabpanel" aria-labelledby="tab-2">
           <Results searchResult={searchResult} />
           <div className=" mt-20"></div>
-          <div className="flex gap-1 fixed bottom-20">
+          <div className="flex gap-1 fixed bottom-[4.6rem]">
             <Dropdown
               items={[1, 2, 5, 10, 50]}
               label={"Page Size"}
@@ -162,7 +162,7 @@ export default function Tabs({
               innerStyle="bg-slate-200 border border-slate-200 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
-          <div className="flex gap-2 fixed bottom-16 left-56 z-50 mb-1">
+          <div className="flex gap-2 fixed bottom-[4.5rem] left-56 z-50 mb-1">
             <PageButton
               buttonName="Prev"
               pageTokens={pageTokens}
@@ -180,7 +180,7 @@ export default function Tabs({
               pageDiff={1}
             />
           </div>
-          <p className="flex fixed bottom-16 left-64 text-black z-50 bg-blue-400/20 rounded-md backdrop-blur-md px-3">
+          <p className="flex fixed bottom-[4.5rem] left-64 text-black z-50 bg-blue-400/20 rounded-md backdrop-blur-md px-3">
             {currentPageIndex.current > 0
               ? `Page ${currentPageIndex.current}`
               : ""}
