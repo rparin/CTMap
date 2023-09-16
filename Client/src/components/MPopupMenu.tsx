@@ -68,13 +68,13 @@ export const MPopupMenu: React.FC<{ studies: pInfo[] }> = ({ studies }) => {
   } else if (studies.length > 1) {
     return (
       <>
-        <div className="inline-flex w-[64.85%]">
+        <div className="inline-flex w-[63.3%]">
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mb-1
           "
             onClick={() => handleClick(-1)}
           >
-            back
+            Back
           </button>
         </div>
         {getStudyPopup(index)}

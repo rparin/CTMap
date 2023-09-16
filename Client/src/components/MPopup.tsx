@@ -44,7 +44,7 @@ export default function MPopup(info: pInfo) {
           offset={0}
           duration={500}
           containerId="resultsContainer">
-          learn more
+          Learn More
         </Link>
       </div>
       <section className="flex flex-col gap-1">
