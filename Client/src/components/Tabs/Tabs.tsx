@@ -137,13 +137,6 @@ export default function Tabs({
           aria-selected="false">
           List
         </button>
-        <button
-          id="tab-4"
-          role="tab"
-          aria-controls="tabPanel-4"
-          aria-selected="false">
-          About
-        </button>
       </div>
       <div className="px-3 pb-2">
         <div id="tabPanel-1" role="tabpanel" aria-labelledby="tab-1">
@@ -152,7 +145,7 @@ export default function Tabs({
 
         <div id="tabPanel-2" hidden role="tabpanel" aria-labelledby="tab-2">
           <Results searchResult={searchResult} />
-          <div className=" mt-20"></div>
+          <div className="mt-20"></div>
           <div className="flex gap-1 fixed bottom-[4.6rem]">
             <Dropdown
               items={[1, 2, 5, 10, 50]}
@@ -190,26 +183,7 @@ export default function Tabs({
         <div id="tabPanel-3" hidden role="tabpanel" aria-labelledby="tab-3">
           <Lists itemList={itemList} />
         </div>
-
-        <div id="tabPanel-4" hidden role="tabpanel" aria-labelledby="tab-4">
-          <p className="text-xs italic">
-            <a
-              className="font-bold text-sky-500"
-              href="https://clinicaltrials.gov"
-              title="Information on Clinical Trials and Human Research Studies">
-              ClinicalTrials.gov
-            </a>{" "}
-            provides patients, their family members, and the public with easy
-            and free access to information on clinical studies for a wide range
-            of diseases and conditions.
-          </p>
-          <br />
-          <p className="text-xs italic">
-            ClinicalTrials.gov was developed by the National Library of
-            Medicine. ClinicalTrials.gov is updated daily. You should check
-            ClinicalTrials.gov frequently for updated information.
-          </p>
-        </div>
+        
       </div>
     </section>
   );
