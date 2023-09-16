@@ -115,7 +115,7 @@ export default function Tabs({
   }, []);
   return (
     <section>
-      <div role="tablist" aria-labelledby="channel-name">
+      <div className="flex justify-evenly align-center" role="tablist" aria-labelledby="channel-name">
         <button
           id="tab-1"
           role="tab"
