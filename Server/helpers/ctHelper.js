@@ -36,14 +36,7 @@ class ctHelper {
       for (let j = 0; j < locations?.length; j++) {
         let loc = locations[j];
         if (!cords.has(loc)) {
-          latLong = await this.getLatLong(
-            loc,
-<<<<<<< HEAD
-            "MAP_TOKEN"
-=======
-            "MAP_TOKEN"
->>>>>>> daf0e47f993554b95c5986d80dab5c1378d3d9d5
-          );
+          latLong = await this.getLatLong(loc, "MAP_TOKEN");
 
           if (latLong) {
             cords.set(loc, latLong);
