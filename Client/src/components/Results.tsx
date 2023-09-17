@@ -32,8 +32,8 @@ export default function Results({ searchResult }: { searchResult: {} }) {
   }, [searchResult]);
   return (
     <>
-      {results.length <= 0 && <section>No Results Found</section>}
-      {results.length > 0 && <section>{results}</section>}
+      {results.length <= 0 && <section id="resultsContainer">No Results Found</section>}
+      {results.length > 0 && <section id="resultsContainer" className=" h-[30rem] overflow-y-auto">{results}</section>}
     </>
   );
 }
