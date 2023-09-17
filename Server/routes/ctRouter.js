@@ -42,20 +42,6 @@ router.get(
   }
 );
 
-router.get("/location/:coords", async (req, res) => {
-  const apiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${req.params.coords}.json?types=country,region,postcode,district,place&access_token=MAP_TOKEN`;
-  try {
-    let response = await fetch(apiUrl);
-    response = await response.json();
-    result = response.features[0].place_name;
-    res.json({ locationResult: result });
-    res.status(200);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ msg: `Internal Server Error.` });
-  }
-});
-
 router.get("/addct/:item", async (req, res) => {
   var apiUrl = `https://clinicaltrials.gov/api/v2/studies/${req.params.item}?fields=${pdfFields}`;
   try {
