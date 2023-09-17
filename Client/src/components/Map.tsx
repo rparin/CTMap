@@ -13,7 +13,11 @@ import Loader from "./Loader";
 import About from "./About";
 
 mapboxgl.accessToken =
+<<<<<<< HEAD
   "MAP_TOKEN";
+=======
+  "MAP_TOKEN";
+>>>>>>> daf0e47f993554b95c5986d80dab5c1378d3d9d5
 
 export default function Map() {
   const mapContainer = useRef(null);
@@ -45,7 +49,11 @@ export default function Map() {
   useEffect(() => {
     map.current = new mapboxgl.Map({
       container: mapContainer.current!,
+<<<<<<< HEAD
       style: "mapbox://styles/yenlei/cllepzpeh00ha01pwed4dhdh0", // map styling here; streets and other miscellaneous stuff were removed here
+=======
+      style: "MAP_STYLE", // map styling here; streets and other miscellaneous stuff were removed here
+>>>>>>> daf0e47f993554b95c5986d80dab5c1378d3d9d5
       center: [lng, lat],
       zoom: zoom,
     });

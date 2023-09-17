@@ -36,3 +36,7 @@ next-env.d.ts
 
 #Env file
 .env
+<<<<<<< HEAD
+=======
+replacements.txt
+>>>>>>> daf0e47f993554b95c5986d80dab5c1378d3d9d5

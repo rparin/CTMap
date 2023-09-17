@@ -10,7 +10,7 @@ const fields =
   "NCTId,LocationState,LocationCountry,LocationFacility,BriefTitle,Condition,LeadSponsorName,StudyType,Phase,EnrollmentInfo,PrimaryCompletionDate,StartDate,CompletionDate,MinimumAge,MaximumAge,Sex,StdAge,HealthyVolunteers";
 const ctPdfInfo = new CTPdfInfo();
 const pdfFields =
-  "NCTId,resultsSectionOfficialTitle,DescriptionModule,Condition,LeadSponsorName,StudyType,Phase,EnrollmentInfo,PrimaryCompletionDate,StartDate,CompletionDate,ReferencesModule,ParticipantFlowModule";
+  "NCTId,OfficialTitle,DescriptionModule,Condition,LeadSponsorName,StudyType,Phase,EnrollmentInfo,PrimaryCompletionDate,StartDate,CompletionDate,ReferencesModule,ParticipantFlowModule";
 
 router.get(
   "/studies/:search/:filter/:pageToken/:pageSize",
