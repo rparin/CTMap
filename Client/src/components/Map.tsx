@@ -12,8 +12,9 @@ import { createRoot } from "react-dom/client";
 import Loader from "./Loader";
 import About from "./About";
 
-mapboxgl.accessToken =
-  "MAP_TOKEN";
+declare var process: { env: { [key: string]: string } };
+
+mapboxgl.accessToken = `${process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}`;
 
 export default function Map() {
   const mapContainer = useRef(null);
@@ -45,7 +46,7 @@ export default function Map() {
   useEffect(() => {
     map.current = new mapboxgl.Map({
       container: mapContainer.current!,
-      style: "MAP_STYLE", // map styling here; streets and other miscellaneous stuff were removed here
+      style: `${process.env.REACT_APP_MAPBOX_STYLE}`, // map styling here; streets and other miscellaneous stuff were removed here
       center: [lng, lat],
       zoom: zoom,
     });
@@ -231,7 +232,7 @@ export default function Map() {
         />
       </div>
 
-      <div className="absolute m-5 bottom-10 text-black bg-slate-200 w-96 h-[40rem] overflow-y-auto ">
+      <div className="absolute m-5 bottom-10 text-black bg-slate-200 w-96 h-[40rem]">
         <Tabs
           searchResult={searchResult}
           setFilter={setFilter}

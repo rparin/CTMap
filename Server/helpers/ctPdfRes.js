@@ -10,7 +10,7 @@ class CTPdfRes {
     
     getLongTitle() {
         return this.ctPdf.protocolSection.identificationModule
-          ?.OfficialTitle;
+          ?.officialTitle;
     }
   
     getSponsor() {
@@ -50,20 +50,16 @@ class CTPdfRes {
     }
 
     getPublications() {
-        if (this.ctPdf.protocolSection?.referencesModule?.references) {
-
-            const jsonData = this.ctPdf.protocolSection?.referencesModule?.references
+        const references = this.ctPdf.protocolSection?.referencesModule?.references;
+    
+        if (references) {
             const publications = new Set();
-            console.log(jsonData)
-
-            for (let i = 0; i < jsonData.length; i++)
-                {
-                    if (jsonData.citation)
-                    {
-                        publications.add(jsonData.citation)
-                    }
+    
+            for (let i = 0; i < references.length; i++) {
+                if (references[i].citation) {
+                    publications.add(references[i].citation);
                 }
-            console.log(publications)
+            }
             return Array.from(publications);
         }
     }
@@ -77,38 +73,65 @@ class CTPdfRes {
     }
 
     getGroups() {
-        if (this.ctPdf.resultsSection?.participantFlowModule?.groups) {
-            
-          const jsonData = this.ctPdf.resultsSection?.participantFlowModule?.groups
-          const groups = new Set();
+        const groups = this.ctPdf.resultsSection?.participantFlowModule?.groups;
 
-            while (jsonData)
-                {
-                    groups[jsonData.title] = jsonData.description;
-                }
-            return groups;
+        if (groups) {
+            const allGroups = {};
+
+            for (let i = 0; i < groups.length; i++) {
+               allGroups[groups[i].title] = groups[i].description;
+            }
+    
+            console.log(allGroups);
+            return allGroups;
         }
     }
 
     getPeriods() {
-        if (
-            this.ctPdf.resultsSection?.participantFlowModule?.periods?.title
-        ) {
+        const periods = this.ctPdf.resultsSection?.participantFlowModule?.periods;
 
-            const jsonData = this.ctPdf.resultsSection?.participantFlowModule?.periods
-            const periods = new {};
-
-            for (let i = 0; i < jsonData?.length; i++)
-                {
-                    periods[jsonData.title] = {};
-                    if (jsonData.title.milestones === "STARTED" || jsonData.title.milestones === "COMPLETED")
-                    {
-                      periods[jsonData.title][jsonData.milestones.type] = jsonData.milestones.achievements.reduce((sum, achievement) => sum + parseInt(jsonData.milestones.achievements.numSubjects), 0);
+        if (periods) {
+            const summary = {};
+    
+            for (let period of periods) {
+                const periodTitle = period.title;
+                summary[periodTitle] = {};
+    
+                for (let milestone of period.milestones) {
+                    const milestoneType = milestone.type;
+                    summary[periodTitle][milestoneType] = {};
+    
+                    for (let achievement of milestone.achievements) {
+                        const groupId = achievement.groupId;
+                        const numSubjects = achievement.numSubjects;
+                        summary[periodTitle][milestoneType][groupId] = numSubjects;
                     }
                 }
-            return periods
             }
-          }
+            return summary;
+        }
+    }
+
+    getBaseline(){
+        return this.ctPdf.resultsSection?.baselineCharacteristicsModule?.populationDescription;
+    }
+
+    getBaselineGroups(){
+        const groups = this.ctPdf.resultsSection?.baselineCharacteristicsModule?.groups
+
+        if (groups) {
+            const allGroups = {};
+
+            for (let i = 0; i < groups.length; i++) {
+               allGroups[groups[i].title] = groups[i].description;
+            }
+    
+            console.log(allGroups);
+            return allGroups;
+        }
+
+    }
+
           
   }
   module.exports = CTPdfRes;
