@@ -4,11 +4,11 @@ const fetch = (...args) =>
 const router = express.Router();
 
 //Import Env Variables
-require("dotenv").config();
-const { MAPBOX_ACCESS_TOKEN, MAPBOX_STYLE } = process.env;
+require("dotenv").config({ path: "../.env" });
+const { REACT_APP_MAPBOX_ACCESS_TOKEN, REACT_APP_MAPBOX_STYLE } = process.env;
 
 router.get("/location/:coords", async (req, res) => {
-  const apiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${req.params.coords}.json?types=country,region,postcode,district,place&access_token=${MAPBOX_ACCESS_TOKEN}`;
+  const apiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${req.params.coords}.json?types=country,region,postcode,district,place&access_token=${REACT_APP_MAPBOX_ACCESS_TOKEN}`;
 
   try {
     let response = await fetch(apiUrl);
@@ -23,7 +23,7 @@ router.get("/location/:coords", async (req, res) => {
 });
 
 router.get("/cord/:place", async (req, res) => {
-  const apiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${req.params.place}.json?access_token=${MAPBOX_ACCESS_TOKEN}`;
+  const apiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${req.params.place}.json?access_token=${REACT_APP_MAPBOX_ACCESS_TOKEN}`;
   try {
     let response = await fetch(apiUrl);
     response = await response.json();
@@ -35,3 +35,5 @@ router.get("/cord/:place", async (req, res) => {
 });
 
 module.exports = router;
+
+console.log(REACT_APP_MAPBOX_ACCESS_TOKEN);
