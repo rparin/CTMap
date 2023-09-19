@@ -12,7 +12,7 @@ Clinical Trials Map aims to consolidate clinical trial from around the world int
 
 <div align="center">
 
-<img height=350 alt="demo of Clinical Trials Map" src="https://i.imgur.com/3RCOGVA.png">
+<img height=350 alt="demo of Clinical Trials Map" src="https://raw.githubusercontent.com/rparin/CTMap/main/_preview/Demo.gif">
 
 </div>
 
