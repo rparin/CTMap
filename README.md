@@ -20,7 +20,6 @@ Clinical Trials Map aims to consolidate clinical trial from around the world int
 
 - Browse through clinical trials available around the world pulled.
 - Use of Mapbox API to view clinical trial locations on the map.
-- Export 1-5 clinical trial information into a PDF.
 - Multiple filters to find a specific type of clinical trial within a specific location.
 
 ## Running the App
@@ -86,8 +85,6 @@ This project is licensed under the MIT License - see the [LICENSE][git-license-u
 
 [react-url]: https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB
 [nodejs-url]: https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white
-[openai.io]: https://img.shields.io/badge/OpenAi-000000?style=for-the-badge&logo=openai&logoColor=white
-[openai-url]: https://platform.openai.com/
 [tailwind-url]: https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white
 [tenzo-url]: https://github.com/Alfendi
 [maxine-url]: https://github.com/mgjypil
