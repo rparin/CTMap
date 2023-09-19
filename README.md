@@ -12,7 +12,7 @@ Clinical Trials Map aims to consolidate clinical trial from around the world int
 
 <div align="center">
 
-<img height=350 alt="demo of Clinical Trials Map" src="https://raw.githubusercontent.com/rparin/CTMap/main/_preview/Demo.gif">
+<img height=350 alt="demo of Clinical Trials Map" src="https://i.imgur.com/3RCOGVA.png">
 
 </div>
 
@@ -48,7 +48,7 @@ npm install
    MAPBOX_STYLE = <Your_Mapbox_Style_>
 ```
 
-3. (Client Only) In the _Client/components/Map.tsx_ file, replace **MAP_TOKEN** with your Mapbox token and
+4. (Client Only) In the _Client/components/Map.tsx_ file, replace **MAP_TOKEN** with your Mapbox token and
    **MAP_Style** with your Mapbox style
 
 ```
