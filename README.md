@@ -69,7 +69,7 @@ npm run dev
 
 <div align="center">
 
-![React][react-url] ![NodeJS][nodejs-url] [![OpenAi][openai.io]][openai-url] ![TailwindCSS][tailwind-url]
+![React][react-url] ![NodeJS][nodejs-url] ![TailwindCSS][tailwind-url]
 
 </div>
 
