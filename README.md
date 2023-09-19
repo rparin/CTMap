@@ -12,7 +12,7 @@ Clinical Trials Map aims to consolidate clinical trial from around the world int
 
 <div align="center">
 
-img here
+<img height=350 alt="demo of Clinical Trials Map" src="https://raw.githubusercontent.com/rparin/CTMap/main/_preview/Demo.gif">
 
 </div>
 
@@ -39,18 +39,32 @@ img here
 npm install
 ```
 
+### Setting up Env variables:
+
+3. (Server Only) Create a _.env_ file In the _Server_ folder. In the _.env_ file create two variables:
+
+```
+   MAPBOX_ACCESS_TOKEN = <Your_Mapbox_Token>
+   MAPBOX_STYLE = <Your_Mapbox_Style_>
+```
+
+3. (Client Only) In the _Client/components/Map.tsx_ file, replace **MAP_TOKEN** with your Mapbox token and
+   **MAP_Style** with your Mapbox style
+
+```
+mapboxgl.accessToken = "MAP_TOKEN" //line 15
+style: "MAP_Style" //line 48
+```
+
 ### Running the client or server:
 
-3. Open a terminal in the Client or Server directory and run the following command
+5. Open a terminal in the Client or Server directory and run the following command
 
 ```bash
 npm run dev
 ```
 
-4 (Client). Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-⚠️ **Note:**
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+6 (Client). Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Technologies
 
