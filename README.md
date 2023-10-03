@@ -2,7 +2,11 @@
 
 # Clinical Trials Map
 
+<div align="left">
+
 Clinical Trials Map aims to consolidate clinical trial from around the world into a user-friendly application to tackle the the theme of <b>data analysis and presentation in doctor portals</b>.
+
+</div>
 
 [About](#about) | [Running the App](#running-the-app) | [Technologies](#technologies) | [Credits](#credits) | [License](#license)
 
@@ -13,6 +17,8 @@ Clinical Trials Map aims to consolidate clinical trial from around the world int
 <div align="center">
 
 <img max-height=350 alt="demo of Clinical Trials Map" src="https://raw.githubusercontent.com/rparin/CTMap/main/_preview/Demo.gif">
+
+### [Figma Demo][figma-demo]
 
 </div>
 
@@ -90,3 +96,4 @@ This project is licensed under the MIT License - see the [LICENSE][git-license-u
 [maxine-url]: https://github.com/mgjypil
 [yen-url]: https://github.com/yen-lei
 [git-license-url]: https://github.com/rparin/CTMap/blob/main/LICENSE
+[figma-demo]: https://www.figma.com/proto/uxNRhxTRLEf52kiLrfeHsp/OTHealth?type=design&node-id=201-243&t=hMbWBFLFaFpbAXQ2-1&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=201%3A243&mode=design
